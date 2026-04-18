@@ -1,36 +1,151 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# PolyForge — 3D Baskı Figür E-Ticaret Platformu
 
-## Getting Started
+**PolyForge**, 3D yazıcı ile üretilen özel tasarım figürlerin satıldığı, modern ve profesyonel bir e-ticaret platformudur. Hem müşteriye yönelik alışveriş deneyimi hem de kapsamlı bir yönetim paneli içerir.
 
-First, run the development server:
+---
+
+## Özellikler
+
+### Müşteri Tarafı
+- Anasayfa — hero banner, öne çıkan ürünler, özellik bandı
+- Ürün listesi — arama, fiyat sıralama, stok durumu
+- Ürün detay — çoklu görsel, varyant seçimi (renk, boyut vb.)
+- Sepet drawer — sağdan açılan panel, sayfa değişmeden alışveriş
+- Sipariş formu — ad, adres, telefon, not
+- Sipariş takip — sipariş numarasıyla adım adım durum sorgulama
+- Favori listesi — localStorage tabanlı, kalp ikonu ile kaydetme
+- Türkçe / İngilizce dil desteği
+- Sayfa geçiş animasyonları (Framer Motion)
+- Tam responsive tasarım
+
+### Admin Paneli (`/admin`)
+- Güvenli giriş (Supabase Auth)
+- Dashboard — toplam ürün, sipariş, bekleyen sipariş, düşük stok uyarısı
+- Ürün yönetimi — ekle, düzenle, sil, yayına al/gizle
+- Görsel yönetimi — drag & drop yükleme, kapak görseli seçimi
+- Varyant yönetimi — renk, boyut gibi seçenekler + fiyat farkı
+- Sipariş yönetimi — durum güncelleme, detay görüntüleme
+
+---
+
+## Teknoloji Yığını
+
+| Katman | Teknoloji |
+|---|---|
+| Frontend | Next.js 15 (App Router) + TypeScript |
+| Stil | Tailwind CSS v4 + shadcn/ui |
+| Animasyon | Framer Motion |
+| Font | Space Grotesk (başlık) + Inter (metin) |
+| Backend | Next.js API Routes |
+| Veritabanı | Supabase (PostgreSQL) |
+| Auth | Supabase Auth |
+| Depolama | Supabase Storage |
+| i18n | next-intl (TR/EN) |
+| Deploy | Vercel |
+
+---
+
+## Kurulum
+
+### Gereksinimler
+- Node.js 18+
+- npm veya yarn
+- Supabase hesabı (ücretsiz)
+
+### 1. Repoyu klonla
+
+```bash
+git clone https://github.com/erenkiziltan/polyforge.git
+cd polyforge
+npm install
+```
+
+### 2. Ortam değişkenlerini ayarla
+
+`.env.local` dosyası oluştur:
+
+```env
+NEXT_PUBLIC_SUPABASE_URL=https://xxxx.supabase.co
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your_anon_key
+SUPABASE_SERVICE_ROLE_KEY=your_service_role_key
+```
+
+### 3. Veritabanı şemasını kur
+
+[Supabase Dashboard](https://supabase.com) → SQL Editor → `supabase/schema.sql` dosyasını yapıştır → Run
+
+### 4. Admin kullanıcısı oluştur
+
+Supabase Dashboard → Authentication → Users → Add User
+
+### 5. Geliştirme sunucusunu başlat
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Uygulama `http://localhost:3000` adresinde çalışır.
+Admin paneli: `http://localhost:3000/admin/login`
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Proje Yapısı
 
-## Learn More
+```
+src/
+├── app/
+│   ├── [locale]/           # Müşteri sitesi (tr/en)
+│   │   ├── page.tsx        # Anasayfa
+│   │   ├── products/       # Ürün listesi + detay
+│   │   ├── cart/           # Sepet
+│   │   ├── checkout/       # Sipariş formu
+│   │   ├── track/          # Sipariş takip
+│   │   └── favorites/      # Favoriler
+│   └── admin/              # Yönetim paneli
+│       ├── login/
+│       ├── dashboard/
+│       ├── products/
+│       └── orders/
+├── components/
+│   ├── shop/               # Müşteri UI bileşenleri
+│   ├── admin/              # Admin UI bileşenleri
+│   ├── shared/             # Ortak bileşenler
+│   └── ui/                 # shadcn/ui bileşenleri
+├── lib/
+│   ├── supabase/           # Client & server Supabase
+│   └── utils.ts
+├── messages/               # i18n çeviri dosyaları
+│   ├── tr.json
+│   └── en.json
+└── types/                  # TypeScript tipleri
+```
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Veritabanı Şeması
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- **products** — ürün bilgileri (TR/EN isim, açıklama, fiyat, stok)
+- **product_images** — ürün görselleri (Supabase Storage)
+- **product_variants** — varyant seçenekleri (renk, boyut vb.)
+- **orders** — sipariş kayıtları ve durum takibi
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Yol Haritası
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- [x] Temel e-ticaret altyapısı
+- [x] Admin paneli
+- [x] TR/EN dil desteği
+- [x] Sepet drawer & animasyonlar
+- [x] Favori listesi & sipariş takip
+- [ ] İyzico ödeme entegrasyonu
+- [ ] n8n otomasyon (sipariş bildirimi, fatura, mail)
+- [ ] Kargo API entegrasyonu (MNG, Yurtiçi)
+- [ ] SEO optimizasyonu
+- [ ] Google Analytics
+
+---
+
+## Lisans
+
+MIT © [PolyForge](https://github.com/erenkiziltan/polyforge)
