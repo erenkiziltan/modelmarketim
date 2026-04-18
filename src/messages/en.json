@@ -1,0 +1,54 @@
+{
+  "nav": {
+    "home": "Home",
+    "products": "Products",
+    "cart": "Cart",
+    "admin": "Admin"
+  },
+  "home": {
+    "hero_title": "3D Printed Figures",
+    "hero_subtitle": "Handcrafted, custom-designed 3D printed figures. Each one unique, each one special.",
+    "hero_cta": "Browse Products",
+    "featured_title": "Featured Products",
+    "view_all": "View All"
+  },
+  "products": {
+    "title": "All Products",
+    "out_of_stock": "Out of Stock",
+    "in_stock": "In Stock",
+    "add_to_cart": "Add to Cart",
+    "buy_now": "Buy Now",
+    "price": "Price",
+    "quantity": "Quantity",
+    "variants": "Options",
+    "description": "Description",
+    "no_products": "No products found."
+  },
+  "cart": {
+    "title": "My Cart",
+    "empty": "Your cart is empty",
+    "empty_cta": "Start Shopping",
+    "total": "Total",
+    "checkout": "Proceed to Checkout",
+    "remove": "Remove",
+    "quantity": "Quantity"
+  },
+  "checkout": {
+    "title": "Order Information",
+    "name": "Full Name",
+    "email": "Email",
+    "phone": "Phone",
+    "address": "Address",
+    "city": "City",
+    "district": "District",
+    "zip": "Zip Code",
+    "submit": "Confirm Order",
+    "success_title": "Order Received!",
+    "success_message": "Your order number: {orderNumber}. We will contact you shortly.",
+    "notes": "Order Note (Optional)"
+  },
+  "footer": {
+    "rights": "All rights reserved.",
+    "contact": "Contact"
+  }
+}

@@ -1,0 +1,54 @@
+{
+  "nav": {
+    "home": "Anasayfa",
+    "products": "Ürünler",
+    "cart": "Sepet",
+    "admin": "Yönetim"
+  },
+  "home": {
+    "hero_title": "3D Baskı Figürler",
+    "hero_subtitle": "El yapımı, özel tasarım 3D baskı figürler. Her biri benzersiz, her biri özel.",
+    "hero_cta": "Ürünleri İncele",
+    "featured_title": "Öne Çıkan Ürünler",
+    "view_all": "Tümünü Gör"
+  },
+  "products": {
+    "title": "Tüm Ürünler",
+    "out_of_stock": "Stok Yok",
+    "in_stock": "Stokta Var",
+    "add_to_cart": "Sepete Ekle",
+    "buy_now": "Hemen Al",
+    "price": "Fiyat",
+    "quantity": "Adet",
+    "variants": "Seçenekler",
+    "description": "Açıklama",
+    "no_products": "Ürün bulunamadı."
+  },
+  "cart": {
+    "title": "Sepetim",
+    "empty": "Sepetiniz boş",
+    "empty_cta": "Alışverişe Başla",
+    "total": "Toplam",
+    "checkout": "Siparişi Tamamla",
+    "remove": "Kaldır",
+    "quantity": "Adet"
+  },
+  "checkout": {
+    "title": "Sipariş Bilgileri",
+    "name": "Ad Soyad",
+    "email": "E-posta",
+    "phone": "Telefon",
+    "address": "Adres",
+    "city": "Şehir",
+    "district": "İlçe",
+    "zip": "Posta Kodu",
+    "submit": "Siparişi Onayla",
+    "success_title": "Siparişiniz Alındı!",
+    "success_message": "Sipariş numaranız: {orderNumber}. En kısa sürede sizinle iletişime geçeceğiz.",
+    "notes": "Sipariş Notu (İsteğe Bağlı)"
+  },
+  "footer": {
+    "rights": "Tüm hakları saklıdır.",
+    "contact": "İletişim"
+  }
+}
