@@ -14,12 +14,12 @@ export function FavoritesProvider({ children }: { children: ReactNode }) {
   const [favorites, setFavorites] = useState<string[]>([])
 
   useEffect(() => {
-    const stored = localStorage.getItem('polyforge-favorites')
+    const stored = localStorage.getItem('modelmarketim-favorites')
     if (stored) try { setFavorites(JSON.parse(stored)) } catch {}
   }, [])
 
   useEffect(() => {
-    localStorage.setItem('polyforge-favorites', JSON.stringify(favorites))
+    localStorage.setItem('modelmarketim-favorites', JSON.stringify(favorites))
   }, [favorites])
 
   const toggleFavorite = (productId: string) => {

@@ -12,10 +12,10 @@ export default function Footer() {
           <div>
             <div className="flex items-center gap-2 mb-3">
               <div className="w-8 h-8 rounded-lg bg-orange-500 flex items-center justify-center">
-                <span className="text-white font-bold text-sm">P</span>
+                <span className="text-white font-bold text-sm">M</span>
               </div>
               <span className="text-lg font-bold text-white" style={{ fontFamily: 'var(--font-space-grotesk)' }}>
-                Poly<span className="text-orange-500">Forge</span>
+                Model<span className="text-orange-500">marketim</span>
               </span>
             </div>
             <p className="text-sm text-zinc-500 max-w-xs leading-relaxed">
@@ -33,7 +33,7 @@ export default function Footer() {
         </div>
 
         <div className="border-t border-zinc-800 mt-10 pt-6 flex flex-col sm:flex-row items-center justify-between gap-2">
-          <p className="text-xs text-zinc-600">© {year} PolyForge. {t('rights')}</p>
+          <p className="text-xs text-zinc-600">© {year} Modelmarketim. {t('rights')}</p>
           <p className="text-xs text-zinc-700">3D Figür E-Ticaret</p>
         </div>
       </div>

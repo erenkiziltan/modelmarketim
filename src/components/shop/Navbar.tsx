@@ -36,10 +36,10 @@ export default function Navbar({ locale }: { locale: Locale }) {
           {/* Logo */}
           <Link href={`/${locale}`} className="flex items-center gap-2 group">
             <div className="w-8 h-8 rounded-lg bg-orange-500 flex items-center justify-center shadow-sm group-hover:bg-orange-600 transition-colors">
-              <span className="text-white font-bold text-sm">P</span>
+              <span className="text-white font-bold text-sm">M</span>
             </div>
             <span className="text-lg font-bold text-zinc-900" style={{ fontFamily: 'var(--font-space-grotesk)' }}>
-              Poly<span className="text-orange-500">Forge</span>
+              Model<span className="text-orange-500">marketim</span>
             </span>
           </Link>
 

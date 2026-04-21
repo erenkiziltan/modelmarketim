@@ -23,14 +23,14 @@ export function CartProvider({ children }: { children: ReactNode }) {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false)
 
   useEffect(() => {
-    const stored = localStorage.getItem('polyforge-cart')
+    const stored = localStorage.getItem('modelmarketim-cart')
     if (stored) {
       try { setItems(JSON.parse(stored)) } catch {}
     }
   }, [])
 
   useEffect(() => {
-    localStorage.setItem('polyforge-cart', JSON.stringify(items))
+    localStorage.setItem('modelmarketim-cart', JSON.stringify(items))
   }, [items])
 
   // Body scroll lock when drawer open

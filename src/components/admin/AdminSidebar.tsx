@@ -29,7 +29,7 @@ export default function AdminSidebar() {
       {/* Logo */}
       <div className="px-6 py-5 border-b border-zinc-700">
         <span className="text-lg font-bold text-white">
-          Poly<span className="text-orange-500">Forge</span>
+          Model<span className="text-orange-500">marketim</span>
         </span>
         <p className="text-xs text-zinc-400 mt-0.5">Yönetim Paneli</p>
       </div>

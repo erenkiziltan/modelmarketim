@@ -16,7 +16,7 @@ const spaceGrotesk = Space_Grotesk({
 });
 
 export const metadata: Metadata = {
-  title: "PolyForge — 3D Baskı Figürler",
+  title: "Modelmarketim — 3D Baskı Figürler",
   description: "El yapımı, özel tasarım 3D baskı figürler. Her biri benzersiz, her biri özel.",
 };
 

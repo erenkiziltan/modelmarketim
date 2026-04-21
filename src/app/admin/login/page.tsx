@@ -42,10 +42,10 @@ export default function AdminLogin() {
           {/* Logo */}
           <div className="text-center mb-8">
             <div className="w-12 h-12 rounded-xl bg-orange-500 flex items-center justify-center mx-auto mb-4 shadow-lg shadow-orange-500/30">
-              <span className="text-white font-bold text-xl">P</span>
+              <span className="text-white font-bold text-xl">M</span>
             </div>
             <h1 className="text-xl font-bold text-white" style={{ fontFamily: 'var(--font-space-grotesk)' }}>
-              Poly<span className="text-orange-500">Forge</span>
+              Model<span className="text-orange-500">marketim</span>
             </h1>
             <p className="text-sm text-zinc-500 mt-1">Yönetim Paneli</p>
           </div>
@@ -62,7 +62,7 @@ export default function AdminLogin() {
                   type="email"
                   value={email}
                   onChange={e => setEmail(e.target.value)}
-                  placeholder="admin@polyforge.com"
+                  placeholder="admin@modelmarketim.com"
                   className="pl-10 bg-zinc-800 border-zinc-700 text-white placeholder:text-zinc-600 focus:border-orange-500 focus:ring-orange-500/20 rounded-xl"
                   required
                 />
@@ -103,7 +103,7 @@ export default function AdminLogin() {
           </form>
         </div>
 
-        <p className="text-center text-xs text-zinc-700 mt-6">PolyForge Admin · Yetkisiz erişim yasaktır</p>
+        <p className="text-center text-xs text-zinc-700 mt-6">Modelmarketim Admin · Yetkisiz erişim yasaktır</p>
       </div>
     </div>
   )
