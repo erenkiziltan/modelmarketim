@@ -3,7 +3,7 @@
 import { MessageCircle } from 'lucide-react'
 
 // WhatsApp Business numaran hazır olunca buraya yaz (başında 90 ile, boşluksuz)
-const WP_NUMBER = '905000000000'
+const WP_NUMBER = '905374826673'
 const WP_MESSAGE = 'Merhaba! Ürünleriniz hakkında bilgi almak istiyorum.'
 
 export default function WhatsAppButton() {
