@@ -2,121 +2,163 @@
 
 import { motion } from 'framer-motion'
 
+const innerFaces = [
+  { t: 'translateZ(40px)', c: 'from-indigo-400 to-indigo-600' },
+  { t: 'rotateY(180deg) translateZ(40px)', c: 'from-indigo-700 to-violet-900' },
+  { t: 'rotateY(90deg) translateZ(40px)', c: 'from-violet-500 to-violet-700' },
+  { t: 'rotateY(-90deg) translateZ(40px)', c: 'from-indigo-500 to-violet-600' },
+  { t: 'rotateX(90deg) translateZ(40px)', c: 'from-indigo-300 to-indigo-500' },
+  { t: 'rotateX(-90deg) translateZ(40px)', c: 'from-indigo-800 to-violet-950' },
+]
+
+const outerTransforms = [
+  'translateZ(100px)',
+  'rotateY(180deg) translateZ(100px)',
+  'rotateY(90deg) translateZ(100px)',
+  'rotateY(-90deg) translateZ(100px)',
+  'rotateX(90deg) translateZ(100px)',
+  'rotateX(-90deg) translateZ(100px)',
+]
+
+const middleTransforms = [
+  'translateZ(70px)',
+  'rotateY(180deg) translateZ(70px)',
+  'rotateY(90deg) translateZ(70px)',
+  'rotateY(-90deg) translateZ(70px)',
+  'rotateX(90deg) translateZ(70px)',
+  'rotateX(-90deg) translateZ(70px)',
+]
+
+const particles = [
+  { x: -130, y: -70,  delay: 0,   size: 'w-2 h-2',     color: 'bg-indigo-400' },
+  { x:  120, y: -90,  delay: 1.2, size: 'w-1.5 h-1.5', color: 'bg-violet-400' },
+  { x:  140, y:  70,  delay: 0.6, size: 'w-2 h-2',     color: 'bg-indigo-300' },
+  { x: -110, y:  90,  delay: 1.8, size: 'w-1 h-1',     color: 'bg-violet-500' },
+  { x:   70, y:  125, delay: 0.9, size: 'w-1.5 h-1.5', color: 'bg-indigo-500' },
+  { x:  -70, y: -110, delay: 2.1, size: 'w-1 h-1',     color: 'bg-violet-300' },
+  { x:  155, y:  -35, delay: 0.3, size: 'w-1 h-1',     color: 'bg-indigo-300' },
+  { x:  -10, y: -145, delay: 1.5, size: 'w-2 h-2',     color: 'bg-violet-400' },
+]
+
 export default function HeroModel() {
   return (
     <div className="relative flex items-center justify-center w-full h-full min-h-[480px]">
 
       {/* Ambient glow */}
-      <div className="absolute w-72 h-72 bg-indigo-400/25 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute w-48 h-48 bg-violet-400/20 rounded-full blur-2xl pointer-events-none translate-x-12 translate-y-8" />
+      <div className="absolute w-96 h-96 bg-indigo-400/20 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute w-64 h-64 bg-violet-400/15 rounded-full blur-2xl pointer-events-none translate-x-16 translate-y-8" />
 
       {/* Outer orbit ring */}
       <motion.div
         animate={{ rotateZ: 360 }}
-        transition={{ duration: 18, repeat: Infinity, ease: 'linear' }}
-        className="absolute w-72 h-72 rounded-full border border-indigo-200/40"
+        transition={{ duration: 22, repeat: Infinity, ease: 'linear' }}
+        className="absolute w-80 h-80 rounded-full border border-indigo-200/30"
         style={{ borderStyle: 'dashed' }}
       />
 
-      {/* Middle orbit ring */}
+      {/* Inner orbit ring with dots */}
       <motion.div
         animate={{ rotateZ: -360 }}
-        transition={{ duration: 12, repeat: Infinity, ease: 'linear' }}
-        className="absolute w-52 h-52 rounded-full border border-violet-300/30"
+        transition={{ duration: 15, repeat: Infinity, ease: 'linear' }}
+        className="absolute w-60 h-60 rounded-full border border-violet-300/25"
       >
-        {/* Orbit dot */}
-        <motion.div className="absolute -top-1.5 left-1/2 -translate-x-1/2 w-3 h-3 bg-indigo-500 rounded-full shadow-lg shadow-indigo-400/60" />
+        <div className="absolute -top-1.5 left-1/2 -translate-x-1/2 w-3 h-3 bg-indigo-500 rounded-full shadow-lg shadow-indigo-400/60" />
+        <div className="absolute -bottom-1.5 left-1/2 -translate-x-1/2 w-2 h-2 bg-violet-500 rounded-full shadow-md shadow-violet-400/60" />
       </motion.div>
 
-      {/* Small orbit ring */}
+      {/* Float wrapper */}
       <motion.div
-        animate={{ rotateZ: 360 }}
-        transition={{ duration: 8, repeat: Infinity, ease: 'linear' }}
-        className="absolute w-36 h-36 rounded-full border border-indigo-300/25"
+        animate={{ y: [0, -14, 0] }}
+        transition={{ duration: 3.5, repeat: Infinity, ease: 'easeInOut' }}
+        className="relative z-10"
       >
-        <motion.div className="absolute -top-1 left-1/2 -translate-x-1/2 w-2 h-2 bg-violet-500 rounded-full shadow-md shadow-violet-400/60" />
+        <div style={{ perspective: '900px' }}>
+          <div className="relative" style={{ width: 200, height: 200 }}>
+
+            {/* ── Outer wireframe cube (200 px) ── */}
+            <motion.div
+              className="absolute"
+              style={{
+                top: '50%', left: '50%',
+                width: 200, height: 200,
+                marginTop: -100, marginLeft: -100,
+                transformStyle: 'preserve-3d',
+                rotateX: 18,
+              }}
+              animate={{ rotateY: [0, 360] }}
+              transition={{ duration: 20, repeat: Infinity, ease: 'linear' }}
+            >
+              {outerTransforms.map((t, i) => (
+                <div
+                  key={i}
+                  style={{ transform: t }}
+                  className="absolute inset-0 border border-indigo-300/35 rounded-2xl"
+                />
+              ))}
+            </motion.div>
+
+            {/* ── Middle glass cube (140 px) ── */}
+            <motion.div
+              className="absolute"
+              style={{
+                top: '50%', left: '50%',
+                width: 140, height: 140,
+                marginTop: -70, marginLeft: -70,
+                transformStyle: 'preserve-3d',
+                rotateX: -22,
+              }}
+              animate={{ rotateY: [0, -360] }}
+              transition={{ duration: 13, repeat: Infinity, ease: 'linear' }}
+            >
+              {middleTransforms.map((t, i) => (
+                <div
+                  key={i}
+                  style={{ transform: t }}
+                  className="absolute inset-0 border border-violet-400/30 bg-gradient-to-br from-indigo-500/10 to-violet-600/10 rounded-xl"
+                />
+              ))}
+            </motion.div>
+
+            {/* ── Inner solid cube (80 px) ── */}
+            <motion.div
+              className="absolute"
+              style={{
+                top: '50%', left: '50%',
+                width: 80, height: 80,
+                marginTop: -40, marginLeft: -40,
+                transformStyle: 'preserve-3d',
+                rotateZ: 30,
+              }}
+              animate={{ rotateY: [0, 360] }}
+              transition={{ duration: 7, repeat: Infinity, ease: 'linear' }}
+            >
+              {innerFaces.map((face, i) => (
+                <div
+                  key={i}
+                  style={{ transform: face.t }}
+                  className={`absolute inset-0 bg-gradient-to-br ${face.c} rounded-xl border border-white/20 opacity-90`}
+                />
+              ))}
+            </motion.div>
+
+          </div>
+        </div>
       </motion.div>
 
-      {/* 3D Scene */}
-      <div style={{ perspective: '700px' }} className="relative z-10">
-        <motion.div
-          animate={{ rotateY: 360 }}
-          transition={{ duration: 10, repeat: Infinity, ease: 'linear' }}
-          style={{ transformStyle: 'preserve-3d' }}
-          className="relative w-36 h-36"
-        >
-          {/* Floating bob */}
-          <motion.div
-            animate={{ y: [0, -12, 0] }}
-            transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
-            style={{ transformStyle: 'preserve-3d' }}
-            className="relative w-36 h-36"
-          >
-            {/* Front face */}
-            <div
-              style={{ transform: 'translateZ(72px)' }}
-              className="absolute inset-0 bg-gradient-to-br from-indigo-400 to-indigo-600 opacity-90 rounded-2xl border border-white/20"
-            >
-              <div className="absolute inset-2 border border-white/10 rounded-xl" />
-              <div className="absolute inset-4 border border-white/5 rounded-lg" />
-            </div>
-
-            {/* Back face */}
-            <div
-              style={{ transform: 'rotateY(180deg) translateZ(72px)' }}
-              className="absolute inset-0 bg-gradient-to-br from-indigo-700 to-indigo-900 opacity-90 rounded-2xl border border-white/10"
-            />
-
-            {/* Right face */}
-            <div
-              style={{ transform: 'rotateY(90deg) translateZ(72px)' }}
-              className="absolute inset-0 bg-gradient-to-br from-violet-500 to-violet-700 opacity-90 rounded-2xl border border-white/15"
-            >
-              <div className="absolute inset-3 border border-white/10 rounded-xl" />
-            </div>
-
-            {/* Left face */}
-            <div
-              style={{ transform: 'rotateY(-90deg) translateZ(72px)' }}
-              className="absolute inset-0 bg-gradient-to-br from-indigo-500 to-violet-600 opacity-90 rounded-2xl border border-white/10"
-            />
-
-            {/* Top face */}
-            <div
-              style={{ transform: 'rotateX(90deg) translateZ(72px)' }}
-              className="absolute inset-0 bg-gradient-to-br from-indigo-300 to-indigo-500 opacity-90 rounded-2xl border border-white/20"
-            />
-
-            {/* Bottom face */}
-            <div
-              style={{ transform: 'rotateX(-90deg) translateZ(72px)' }}
-              className="absolute inset-0 bg-gradient-to-br from-indigo-800 to-indigo-950 opacity-90 rounded-2xl border border-white/5"
-            />
-          </motion.div>
-        </motion.div>
-      </div>
-
-      {/* Shadow below */}
+      {/* Shadow */}
       <motion.div
-        animate={{ scaleX: [1, 0.85, 1], opacity: [0.25, 0.15, 0.25] }}
-        transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
-        className="absolute bottom-12 w-28 h-4 bg-indigo-900/30 rounded-full blur-md"
+        animate={{ scaleX: [1, 0.82, 1], opacity: [0.22, 0.12, 0.22] }}
+        transition={{ duration: 3.5, repeat: Infinity, ease: 'easeInOut' }}
+        className="absolute bottom-10 w-36 h-5 bg-indigo-900/25 rounded-full blur-md"
       />
 
       {/* Floating particles */}
-      {[
-        { x: -110, y: -60, delay: 0, size: 'w-2 h-2', color: 'bg-indigo-400' },
-        { x: 100, y: -80, delay: 1.2, size: 'w-1.5 h-1.5', color: 'bg-violet-400' },
-        { x: 120, y: 60, delay: 0.6, size: 'w-2 h-2', color: 'bg-indigo-300' },
-        { x: -90, y: 80, delay: 1.8, size: 'w-1 h-1', color: 'bg-violet-500' },
-        { x: 60, y: 110, delay: 0.9, size: 'w-1.5 h-1.5', color: 'bg-indigo-500' },
-        { x: -60, y: -100, delay: 2.1, size: 'w-1 h-1', color: 'bg-violet-300' },
-      ].map((p, i) => (
+      {particles.map((p, i) => (
         <motion.div
           key={i}
-          className={`absolute ${p.size} ${p.color} rounded-full opacity-70`}
+          className={`absolute ${p.size} ${p.color} rounded-full`}
           style={{ left: `calc(50% + ${p.x}px)`, top: `calc(50% + ${p.y}px)` }}
-          animate={{ y: [0, -10, 0], opacity: [0.5, 1, 0.5] }}
+          animate={{ y: [0, -12, 0], opacity: [0.4, 0.9, 0.4] }}
           transition={{ duration: 2.5 + i * 0.3, repeat: Infinity, ease: 'easeInOut', delay: p.delay }}
         />
       ))}

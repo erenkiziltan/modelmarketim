@@ -55,7 +55,7 @@ export default function ProductFilters({
           value={search}
           onChange={e => setSearch(e.target.value)}
           placeholder="Ürün ara..."
-          className="w-full pl-9 pr-9 py-2.5 text-sm bg-white border border-zinc-200 rounded-xl focus:outline-none focus:border-orange-400 focus:ring-2 focus:ring-orange-100 transition-all"
+          className="w-full pl-9 pr-9 py-2.5 text-sm bg-white border border-slate-200 rounded-xl focus:outline-none focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100 transition-all"
         />
         {search && (
           <button
@@ -78,8 +78,8 @@ export default function ProductFilters({
               onClick={() => handleSort(opt.value)}
               className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
                 (currentSort ?? '') === opt.value
-                  ? 'bg-orange-500 text-white shadow-sm'
-                  : 'bg-white border border-zinc-200 text-zinc-600 hover:border-zinc-300'
+                  ? 'bg-indigo-600 text-white shadow-sm'
+                  : 'bg-white border border-slate-200 text-slate-600 hover:border-slate-300'
               }`}
             >
               {opt.label}

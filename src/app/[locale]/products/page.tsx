@@ -38,8 +38,8 @@ export default async function ProductsPage({
       {/* Page header */}
       <div className="bg-white border-b border-zinc-100">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-10">
-          <p className="text-xs font-semibold uppercase tracking-widest text-orange-500 mb-1">Koleksiyon</p>
-          <h1 className="text-3xl font-bold text-zinc-900">{t('title')}</h1>
+          <p className="text-xs font-semibold uppercase tracking-widest text-indigo-500 mb-1">Koleksiyon</p>
+          <h1 className="text-3xl font-bold text-slate-900">{t('title')}</h1>
           <p className="text-zinc-500 text-sm mt-1">{products.length} ürün</p>
         </div>
       </div>
