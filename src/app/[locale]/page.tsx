@@ -6,6 +6,7 @@ import { formatPrice, getLocalizedField } from '@/lib/utils'
 import { Locale, Product, ProductImage } from '@/types'
 import { ArrowRight, Sparkles, Shield, Truck, Star } from 'lucide-react'
 import ProductCard from '@/components/shop/ProductCard'
+import HeroModel from '@/components/shop/HeroModel'
 
 type ProductWithImages = Product & { product_images: ProductImage[] }
 
@@ -37,49 +38,59 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
           style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg width=\'40\' height=\'40\' viewBox=\'0 0 40 40\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\'%3E%3Cpath d=\'M0 0h40v40H0z\'/%3E%3Cpath d=\'M0 0v40M40 0v40M0 0h40M0 40h40\' stroke=\'%234f46e5\' stroke-width=\'1\'/%3E%3C/g%3E%3C/svg%3E")' }}
         />
 
-        <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-24 sm:py-32">
-          <div className="max-w-2xl">
-            <div className="inline-flex items-center gap-2 bg-indigo-50 border border-indigo-100 rounded-full px-4 py-1.5 mb-6">
-              <Sparkles className="h-3.5 w-3.5 text-indigo-500" />
-              <span className="text-indigo-600 text-xs font-semibold tracking-wide uppercase">El Yapımı 3D Baskı Figürler</span>
-            </div>
-            <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold leading-[1.08] mb-6 text-slate-900">
-              Her Figür
-              <span className="block text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-violet-600">
-                Bir Hikaye
-              </span>
-            </h1>
-            <p className="text-lg text-slate-500 mb-10 leading-relaxed max-w-lg">
-              {t('hero_subtitle')}
-            </p>
-            <div className="flex flex-wrap gap-3">
-              <Link href={`/${locale}/products`}>
-                <Button size="lg" className="bg-indigo-600 hover:bg-indigo-700 text-white gap-2 px-8 h-12 text-base rounded-xl shadow-lg shadow-indigo-200 transition-all hover:-translate-y-0.5">
-                  {t('hero_cta')}
-                  <ArrowRight className="h-5 w-5" />
-                </Button>
-              </Link>
-              <Link href={`/${locale}/track`}>
-                <Button size="lg" variant="outline" className="gap-2 px-8 h-12 text-base rounded-xl border-slate-200 text-slate-600 hover:border-indigo-200 hover:text-indigo-600 hover:bg-indigo-50 transition-all">
-                  Sipariş Takip
-                </Button>
-              </Link>
+        <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16 sm:py-24">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+
+            {/* Left: Text */}
+            <div>
+              <div className="inline-flex items-center gap-2 bg-indigo-50 border border-indigo-100 rounded-full px-4 py-1.5 mb-6">
+                <Sparkles className="h-3.5 w-3.5 text-indigo-500" />
+                <span className="text-indigo-600 text-xs font-semibold tracking-wide uppercase">El Yapımı 3D Baskı Figürler</span>
+              </div>
+              <h1 className="text-5xl sm:text-6xl lg:text-6xl font-bold leading-[1.08] mb-6 text-slate-900">
+                Her Figür
+                <span className="block text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-violet-600">
+                  Bir Hikaye
+                </span>
+              </h1>
+              <p className="text-lg text-slate-500 mb-10 leading-relaxed max-w-lg">
+                {t('hero_subtitle')}
+              </p>
+              <div className="flex flex-wrap gap-3">
+                <Link href={`/${locale}/products`}>
+                  <Button size="lg" className="bg-indigo-600 hover:bg-indigo-700 text-white gap-2 px-8 h-12 text-base rounded-xl shadow-lg shadow-indigo-200 transition-all hover:-translate-y-0.5">
+                    {t('hero_cta')}
+                    <ArrowRight className="h-5 w-5" />
+                  </Button>
+                </Link>
+                <Link href={`/${locale}/track`}>
+                  <Button size="lg" variant="outline" className="gap-2 px-8 h-12 text-base rounded-xl border-slate-200 text-slate-600 hover:border-indigo-200 hover:text-indigo-600 hover:bg-indigo-50 transition-all">
+                    Sipariş Takip
+                  </Button>
+                </Link>
+              </div>
+
+              {/* Social proof */}
+              <div className="flex items-center gap-3 mt-10">
+                <div className="flex -space-x-2">
+                  {['bg-indigo-300', 'bg-violet-300', 'bg-purple-300', 'bg-indigo-400'].map((c, i) => (
+                    <div key={i} className={`w-8 h-8 rounded-full ${c} border-2 border-white`} />
+                  ))}
+                </div>
+                <div className="flex items-center gap-1">
+                  {[...Array(5)].map((_, i) => (
+                    <Star key={i} className="h-3.5 w-3.5 fill-amber-400 text-amber-400" />
+                  ))}
+                </div>
+                <p className="text-sm text-slate-500"><span className="font-semibold text-slate-700">200+</span> mutlu müşteri</p>
+              </div>
             </div>
 
-            {/* Social proof */}
-            <div className="flex items-center gap-3 mt-10">
-              <div className="flex -space-x-2">
-                {['bg-indigo-300', 'bg-violet-300', 'bg-purple-300', 'bg-indigo-400'].map((c, i) => (
-                  <div key={i} className={`w-8 h-8 rounded-full ${c} border-2 border-white`} />
-                ))}
-              </div>
-              <div className="flex items-center gap-1">
-                {[...Array(5)].map((_, i) => (
-                  <Star key={i} className="h-3.5 w-3.5 fill-amber-400 text-amber-400" />
-                ))}
-              </div>
-              <p className="text-sm text-slate-500"><span className="font-semibold text-slate-700">200+</span> mutlu müşteri</p>
+            {/* Right: 3D Model */}
+            <div className="hidden lg:flex items-center justify-center">
+              <HeroModel />
             </div>
+
           </div>
         </div>
       </section>
