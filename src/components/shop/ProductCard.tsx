@@ -18,7 +18,7 @@ function isNew(createdAt: string): boolean {
 }
 
 export default function ProductCard({ product, locale }: { product: ProductWithImages; locale: Locale }) {
-  const { addItem, openDrawer } = useCart()
+  const { addItem } = useCart()
   const { toggleFavorite, isFavorite } = useFavorites()
 
   const cover = product.product_images?.find(i => i.is_cover) ?? product.product_images?.[0]
@@ -47,10 +47,10 @@ export default function ProductCard({ product, locale }: { product: ProductWithI
       <motion.div
         whileHover={{ y: -4 }}
         transition={{ type: 'spring', stiffness: 400, damping: 25 }}
-        className="bg-white rounded-2xl border border-zinc-100 overflow-hidden shadow-sm hover:shadow-xl hover:shadow-zinc-200/60 transition-shadow duration-300"
+        className="bg-white rounded-2xl border border-slate-100 overflow-hidden shadow-sm hover:shadow-xl hover:shadow-indigo-100/60 transition-shadow duration-300"
       >
         {/* Image */}
-        <div className="relative aspect-square bg-zinc-50 overflow-hidden">
+        <div className="relative aspect-square bg-slate-50 overflow-hidden">
           {cover ? (
             <Image
               src={cover.url}
@@ -60,14 +60,14 @@ export default function ProductCard({ product, locale }: { product: ProductWithI
             />
           ) : (
             <div className="flex items-center justify-center h-full">
-              <Package className="h-14 w-14 text-zinc-200" />
+              <Package className="h-14 w-14 text-slate-200" />
             </div>
           )}
 
           {/* Out of stock overlay */}
           {product.stock === 0 && (
             <div className="absolute inset-0 bg-white/70 backdrop-blur-sm flex items-center justify-center">
-              <span className="bg-zinc-900 text-white text-xs font-semibold px-3 py-1.5 rounded-full">
+              <span className="bg-slate-900 text-white text-xs font-semibold px-3 py-1.5 rounded-full">
                 Stok Yok
               </span>
             </div>
@@ -76,7 +76,7 @@ export default function ProductCard({ product, locale }: { product: ProductWithI
           {/* Badges */}
           <div className="absolute top-3 left-3 flex flex-col gap-1.5">
             {newProduct && (
-              <span className="bg-orange-500 text-white text-xs font-bold px-2.5 py-1 rounded-full shadow-sm">
+              <span className="bg-indigo-600 text-white text-xs font-bold px-2.5 py-1 rounded-full shadow-sm">
                 Yeni
               </span>
             )}
@@ -97,7 +97,7 @@ export default function ProductCard({ product, locale }: { product: ProductWithI
             className={`absolute top-3 right-3 w-8 h-8 rounded-full flex items-center justify-center shadow-sm transition-all
               ${favorited
                 ? 'bg-red-500 text-white scale-110'
-                : 'bg-white/80 text-zinc-400 opacity-0 group-hover:opacity-100 hover:text-red-400'
+                : 'bg-white/80 text-slate-400 opacity-0 group-hover:opacity-100 hover:text-red-400'
               }`}
           >
             <Heart className={`h-4 w-4 ${favorited ? 'fill-white' : ''}`} />
@@ -107,9 +107,9 @@ export default function ProductCard({ product, locale }: { product: ProductWithI
           {product.stock > 0 && (
             <button
               onClick={handleQuickAdd}
-              className="absolute bottom-3 left-3 right-3 bg-zinc-900/90 backdrop-blur-sm text-white text-xs font-semibold py-2.5 rounded-xl
+              className="absolute bottom-3 left-3 right-3 bg-indigo-600/95 backdrop-blur-sm text-white text-xs font-semibold py-2.5 rounded-xl
                 opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0
-                transition-all duration-200 flex items-center justify-center gap-1.5"
+                transition-all duration-200 flex items-center justify-center gap-1.5 hover:bg-indigo-700"
             >
               <ShoppingCart className="h-3.5 w-3.5" />
               Sepete Ekle
@@ -119,13 +119,13 @@ export default function ProductCard({ product, locale }: { product: ProductWithI
 
         {/* Info */}
         <div className="p-4">
-          <h3 className="font-semibold text-zinc-900 group-hover:text-orange-600 transition-colors leading-snug line-clamp-2 mb-2">
+          <h3 className="font-semibold text-slate-900 group-hover:text-indigo-600 transition-colors leading-snug line-clamp-2 mb-2">
             {name}
           </h3>
           <div className="flex items-center justify-between">
-            <p className="text-xl font-bold text-orange-500">{formatPrice(product.price)}</p>
+            <p className="text-xl font-bold text-indigo-600">{formatPrice(product.price)}</p>
             <span className={`text-xs font-medium px-2 py-0.5 rounded-full ${
-              product.stock > 0 ? 'bg-green-50 text-green-600' : 'bg-zinc-100 text-zinc-400'
+              product.stock > 0 ? 'bg-emerald-50 text-emerald-600' : 'bg-slate-100 text-slate-400'
             }`}>
               {product.stock > 0 ? 'Stokta' : 'Tükendi'}
             </span>

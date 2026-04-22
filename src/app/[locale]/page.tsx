@@ -1,11 +1,10 @@
 import { createClient } from '@/lib/supabase/server'
 import { getTranslations } from 'next-intl/server'
 import Link from 'next/link'
-import Image from 'next/image'
 import { Button } from '@/components/ui/button'
 import { formatPrice, getLocalizedField } from '@/lib/utils'
 import { Locale, Product, ProductImage } from '@/types'
-import { ArrowRight, Sparkles, Shield, Truck, Package } from 'lucide-react'
+import { ArrowRight, Sparkles, Shield, Truck, Star } from 'lucide-react'
 import ProductCard from '@/components/shop/ProductCard'
 
 type ProductWithImages = Product & { product_images: ProductImage[] }
@@ -28,61 +27,79 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
     <div className="flex flex-col">
 
       {/* Hero */}
-      <section className="relative overflow-hidden bg-zinc-900 text-white">
-        {/* Background texture */}
-        <div className="absolute inset-0 opacity-10"
-          style={{ backgroundImage: 'radial-gradient(circle at 25% 25%, #ea580c 0%, transparent 50%), radial-gradient(circle at 75% 75%, #f97316 0%, transparent 50%)' }}
-        />
-        <div className="absolute inset-0"
-          style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\' fill-rule=\'evenodd\'%3E%3Cg fill=\'%23ffffff\' fill-opacity=\'0.02\'%3E%3Cpath d=\'M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")', }}
+      <section className="relative overflow-hidden bg-white">
+        {/* Background blobs */}
+        <div className="absolute -top-40 -right-40 w-[600px] h-[600px] bg-indigo-100 rounded-full opacity-40 blur-3xl pointer-events-none" />
+        <div className="absolute -bottom-20 -left-20 w-[400px] h-[400px] bg-violet-100 rounded-full opacity-30 blur-3xl pointer-events-none" />
+
+        {/* Subtle grid */}
+        <div className="absolute inset-0 opacity-[0.03]"
+          style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg width=\'40\' height=\'40\' viewBox=\'0 0 40 40\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\'%3E%3Cpath d=\'M0 0h40v40H0z\'/%3E%3Cpath d=\'M0 0v40M40 0v40M0 0h40M0 40h40\' stroke=\'%234f46e5\' stroke-width=\'1\'/%3E%3C/g%3E%3C/svg%3E")' }}
         />
 
         <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-24 sm:py-32">
           <div className="max-w-2xl">
-            <div className="inline-flex items-center gap-2 bg-orange-500/10 border border-orange-500/20 rounded-full px-4 py-1.5 mb-6">
-              <Sparkles className="h-3.5 w-3.5 text-orange-400" />
-              <span className="text-orange-300 text-xs font-semibold tracking-wide uppercase">El Yapımı 3D Baskı</span>
+            <div className="inline-flex items-center gap-2 bg-indigo-50 border border-indigo-100 rounded-full px-4 py-1.5 mb-6">
+              <Sparkles className="h-3.5 w-3.5 text-indigo-500" />
+              <span className="text-indigo-600 text-xs font-semibold tracking-wide uppercase">El Yapımı 3D Baskı Figürler</span>
             </div>
-            <h1 className="text-5xl sm:text-6xl font-bold leading-[1.1] mb-6">
+            <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold leading-[1.08] mb-6 text-slate-900">
               Her Figür
-              <span className="block text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-orange-600">
+              <span className="block text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-violet-600">
                 Bir Hikaye
               </span>
             </h1>
-            <p className="text-lg text-zinc-400 mb-10 leading-relaxed max-w-lg">
+            <p className="text-lg text-slate-500 mb-10 leading-relaxed max-w-lg">
               {t('hero_subtitle')}
             </p>
-            <div className="flex flex-wrap gap-4">
+            <div className="flex flex-wrap gap-3">
               <Link href={`/${locale}/products`}>
-                <Button size="lg" className="bg-orange-500 hover:bg-orange-600 text-white gap-2 px-8 h-12 text-base rounded-xl shadow-lg shadow-orange-500/25 transition-all hover:shadow-orange-500/40 hover:-translate-y-0.5">
+                <Button size="lg" className="bg-indigo-600 hover:bg-indigo-700 text-white gap-2 px-8 h-12 text-base rounded-xl shadow-lg shadow-indigo-200 transition-all hover:-translate-y-0.5">
                   {t('hero_cta')}
                   <ArrowRight className="h-5 w-5" />
                 </Button>
               </Link>
+              <Link href={`/${locale}/track`}>
+                <Button size="lg" variant="outline" className="gap-2 px-8 h-12 text-base rounded-xl border-slate-200 text-slate-600 hover:border-indigo-200 hover:text-indigo-600 hover:bg-indigo-50 transition-all">
+                  Sipariş Takip
+                </Button>
+              </Link>
+            </div>
+
+            {/* Social proof */}
+            <div className="flex items-center gap-3 mt-10">
+              <div className="flex -space-x-2">
+                {['bg-indigo-300', 'bg-violet-300', 'bg-purple-300', 'bg-indigo-400'].map((c, i) => (
+                  <div key={i} className={`w-8 h-8 rounded-full ${c} border-2 border-white`} />
+                ))}
+              </div>
+              <div className="flex items-center gap-1">
+                {[...Array(5)].map((_, i) => (
+                  <Star key={i} className="h-3.5 w-3.5 fill-amber-400 text-amber-400" />
+                ))}
+              </div>
+              <p className="text-sm text-slate-500"><span className="font-semibold text-slate-700">200+</span> mutlu müşteri</p>
             </div>
           </div>
         </div>
-
-        {/* Bottom fade */}
-        <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-[#fafaf9] to-transparent" />
       </section>
 
       {/* Features strip */}
-      <section className="border-b border-zinc-100 bg-white">
+      <section className="border-y border-slate-100 bg-white">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 sm:grid-cols-3 divide-y sm:divide-y-0 sm:divide-x divide-zinc-100">
+          <div className="grid grid-cols-1 sm:grid-cols-3 divide-y sm:divide-y-0 sm:divide-x divide-slate-100">
             {[
               { icon: Sparkles, title: 'Özel Tasarım', desc: 'Her ürün elle üretilir' },
               { icon: Shield, title: 'Yüksek Kalite', desc: 'PLA+ ve PETG malzeme' },
               { icon: Truck, title: 'Hızlı Teslimat', desc: 'Türkiye geneli kargo' },
             ].map(f => (
               <div key={f.title} className="flex items-center gap-4 px-8 py-5">
-                <div className="w-10 h-10 rounded-xl bg-orange-50 flex items-center justify-center flex-shrink-0">
-                  <f.icon className="h-5 w-5 text-orange-500" />
+                <div className="w-10 h-10 rounded-xl bg-indigo-50 flex items-center justify-center flex-shrink-0">
+                  <f.icon className="h-5 w-5 text-indigo-600" />
                 </div>
                 <div>
-                  <p className="text-sm font-semibold text-zinc-900">{f.title}</p>
-                  <p className="text-xs text-zinc-500">{f.desc}</p>
+                  <p className="text-sm font-semibold text-slate-900">{f.title}</p>
+                  <p className="text-xs text-slate-500">{f.desc}</p>
                 </div>
               </div>
             ))}
@@ -91,16 +108,16 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
       </section>
 
       {/* Featured Products */}
-      <section className="py-20 px-4">
+      <section className="py-20 px-4 bg-slate-50/50">
         <div className="mx-auto max-w-7xl">
           <div className="flex items-end justify-between mb-10">
             <div>
-              <p className="text-xs font-semibold uppercase tracking-widest text-orange-500 mb-2">Koleksiyon</p>
-              <h2 className="text-3xl font-bold text-zinc-900">{t('featured_title')}</h2>
+              <p className="text-xs font-semibold uppercase tracking-widest text-indigo-500 mb-2">Koleksiyon</p>
+              <h2 className="text-3xl font-bold text-slate-900">{t('featured_title')}</h2>
             </div>
             <Link
               href={`/${locale}/products`}
-              className="hidden sm:flex items-center gap-1.5 text-sm font-medium text-zinc-500 hover:text-orange-500 transition-colors group"
+              className="hidden sm:flex items-center gap-1.5 text-sm font-medium text-slate-400 hover:text-indigo-600 transition-colors group"
             >
               {t('view_all')}
               <ArrowRight className="h-4 w-4 group-hover:translate-x-0.5 transition-transform" />
@@ -108,9 +125,11 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
           </div>
 
           {featured.length === 0 ? (
-            <div className="text-center py-24 text-zinc-300">
-              <Package className="h-16 w-16 mx-auto mb-4" />
-              <p className="text-zinc-400 text-sm">Yakında ürünler eklenecek.</p>
+            <div className="text-center py-24">
+              <div className="w-20 h-20 rounded-3xl bg-indigo-50 flex items-center justify-center mx-auto mb-4">
+                <Sparkles className="h-8 w-8 text-indigo-300" />
+              </div>
+              <p className="text-slate-400 text-sm">Yakında ürünler eklenecek.</p>
             </div>
           ) : (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -118,12 +137,11 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
                 <ProductCard key={product.id} product={product} locale={locale as Locale} />
               ))}
             </div>
-
           )}
 
           <div className="sm:hidden text-center mt-8">
             <Link href={`/${locale}/products`}>
-              <Button variant="outline" className="gap-2">
+              <Button variant="outline" className="gap-2 border-indigo-200 text-indigo-600 hover:bg-indigo-50">
                 {t('view_all')} <ArrowRight className="h-4 w-4" />
               </Button>
             </Link>
@@ -132,18 +150,25 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
       </section>
 
       {/* CTA */}
-      <section className="mx-4 sm:mx-8 lg:mx-auto lg:max-w-7xl mb-16">
-        <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-zinc-900 to-zinc-800 px-8 py-14 text-center text-white">
-          <div className="absolute inset-0 opacity-20"
-            style={{ backgroundImage: 'radial-gradient(circle at 50% 0%, #ea580c 0%, transparent 60%)' }}
-          />
+      <section className="mx-4 sm:mx-8 lg:mx-auto lg:max-w-7xl my-16">
+        <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-indigo-600 via-indigo-600 to-violet-700 px-8 py-16 text-center text-white">
+          {/* Decorative circles */}
+          <div className="absolute -top-16 -right-16 w-64 h-64 bg-white/5 rounded-full" />
+          <div className="absolute -bottom-12 -left-12 w-48 h-48 bg-white/5 rounded-full" />
+          <div className="absolute top-8 left-1/4 w-2 h-2 bg-white/30 rounded-full" />
+          <div className="absolute bottom-8 right-1/3 w-3 h-3 bg-white/20 rounded-full" />
+
           <div className="relative">
+            <div className="inline-flex items-center gap-2 bg-white/10 border border-white/20 rounded-full px-4 py-1.5 mb-6">
+              <Sparkles className="h-3.5 w-3.5 text-indigo-200" />
+              <span className="text-indigo-100 text-xs font-semibold tracking-wide uppercase">Tüm Koleksiyon</span>
+            </div>
             <h3 className="text-2xl sm:text-3xl font-bold mb-3">Koleksiyonu Keşfet</h3>
-            <p className="text-zinc-400 mb-8 text-sm max-w-md mx-auto">
+            <p className="text-indigo-200 mb-8 text-sm max-w-md mx-auto">
               Tüm 3D baskı figürlerimizi incele, dilediğini sepetine ekle.
             </p>
             <Link href={`/${locale}/products`}>
-              <Button className="bg-orange-500 hover:bg-orange-600 shadow-lg shadow-orange-500/30 gap-2 px-8 h-11 rounded-xl">
+              <Button className="bg-white text-indigo-700 hover:bg-indigo-50 shadow-lg gap-2 px-8 h-11 rounded-xl font-semibold transition-all hover:-translate-y-0.5">
                 Tüm Ürünlere Git <ArrowRight className="h-4 w-4" />
               </Button>
             </Link>
@@ -153,4 +178,3 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
     </div>
   )
 }
-

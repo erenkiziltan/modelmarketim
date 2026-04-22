@@ -25,13 +25,13 @@ export default function AdminSidebar() {
   }
 
   return (
-    <aside className="w-56 min-h-screen bg-zinc-900 flex flex-col">
+    <aside className="w-56 min-h-screen bg-slate-900 flex flex-col">
       {/* Logo */}
-      <div className="px-6 py-5 border-b border-zinc-700">
+      <div className="px-6 py-5 border-b border-slate-800">
         <span className="text-lg font-bold text-white">
-          Model<span className="text-orange-500">marketim</span>
+          Model<span className="text-indigo-400">marketim</span>
         </span>
-        <p className="text-xs text-zinc-400 mt-0.5">Yönetim Paneli</p>
+        <p className="text-xs text-slate-500 mt-0.5">Yönetim Paneli</p>
       </div>
 
       {/* Nav */}
@@ -46,8 +46,8 @@ export default function AdminSidebar() {
               className={cn(
                 'flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors',
                 active
-                  ? 'bg-orange-500 text-white'
-                  : 'text-zinc-400 hover:text-white hover:bg-zinc-800'
+                  ? 'bg-indigo-600 text-white'
+                  : 'text-slate-400 hover:text-white hover:bg-slate-800'
               )}
             >
               <Icon className="h-4 w-4" />
@@ -58,10 +58,10 @@ export default function AdminSidebar() {
       </nav>
 
       {/* Logout */}
-      <div className="px-3 py-4 border-t border-zinc-700">
+      <div className="px-3 py-4 border-t border-slate-800">
         <button
           onClick={handleLogout}
-          className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-zinc-400 hover:text-white hover:bg-zinc-800 transition-colors w-full"
+          className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-slate-400 hover:text-white hover:bg-slate-800 transition-colors w-full"
         >
           <LogOut className="h-4 w-4" />
           Çıkış Yap

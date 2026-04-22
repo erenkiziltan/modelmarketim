@@ -36,24 +36,24 @@
 }
 
 :root {
-  --background: #fafaf9;
-  --foreground: #18181b;
+  --background: #fafafa;
+  --foreground: #0f0a1e;
   --card: #ffffff;
-  --card-foreground: #18181b;
+  --card-foreground: #0f0a1e;
   --popover: #ffffff;
-  --popover-foreground: #18181b;
-  --primary: #ea580c;
+  --popover-foreground: #0f0a1e;
+  --primary: #4f46e5;
   --primary-foreground: #ffffff;
-  --secondary: #f4f4f5;
-  --secondary-foreground: #18181b;
-  --muted: #f4f4f5;
-  --muted-foreground: #71717a;
-  --accent: #fff7ed;
-  --accent-foreground: #ea580c;
+  --secondary: #f5f3ff;
+  --secondary-foreground: #4f46e5;
+  --muted: #f5f3ff;
+  --muted-foreground: #6b7280;
+  --accent: #ede9fe;
+  --accent-foreground: #4f46e5;
   --destructive: #dc2626;
-  --border: #e4e4e7;
-  --input: #e4e4e7;
-  --ring: #ea580c;
+  --border: #e5e2f8;
+  --input: #e5e2f8;
+  --ring: #4f46e5;
   --radius: 0.75rem;
 }
 
@@ -73,12 +73,10 @@
   }
 }
 
-/* Smooth scrolling */
 html {
   scroll-behavior: smooth;
 }
 
-/* Custom scrollbar */
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
@@ -87,22 +85,20 @@ html {
   background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: #d4d4d8;
+  background: #c4c2e8;
   border-radius: 99px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #a1a1aa;
+  background: #a5a2d4;
 }
 
-/* Focus visible */
 :focus-visible {
   outline: 2px solid var(--ring);
   outline-offset: 2px;
   border-radius: 4px;
 }
 
-/* Selection */
 ::selection {
-  background: #fed7aa;
-  color: #18181b;
+  background: #c7d2fe;
+  color: #1e1b4b;
 }

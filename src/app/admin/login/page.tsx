@@ -30,57 +30,58 @@ export default function AdminLogin() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-zinc-950 px-4">
+    <div className="min-h-screen flex items-center justify-center bg-slate-950 px-4">
       {/* Background */}
       <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-96 h-96 bg-orange-500/10 rounded-full blur-3xl" />
+        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[500px] h-[500px] bg-indigo-600/10 rounded-full blur-3xl" />
+        <div className="absolute bottom-1/4 left-1/4 w-64 h-64 bg-violet-600/10 rounded-full blur-3xl" />
       </div>
 
       <div className="relative w-full max-w-sm">
         {/* Card */}
-        <div className="bg-zinc-900 border border-zinc-800 rounded-2xl p-8 shadow-2xl">
+        <div className="bg-slate-900 border border-slate-800 rounded-2xl p-8 shadow-2xl">
           {/* Logo */}
           <div className="text-center mb-8">
-            <div className="w-12 h-12 rounded-xl bg-orange-500 flex items-center justify-center mx-auto mb-4 shadow-lg shadow-orange-500/30">
+            <div className="w-12 h-12 rounded-xl bg-indigo-600 flex items-center justify-center mx-auto mb-4 shadow-lg shadow-indigo-600/30">
               <span className="text-white font-bold text-xl">M</span>
             </div>
             <h1 className="text-xl font-bold text-white" style={{ fontFamily: 'var(--font-space-grotesk)' }}>
-              Model<span className="text-orange-500">marketim</span>
+              Model<span className="text-indigo-400">marketim</span>
             </h1>
-            <p className="text-sm text-zinc-500 mt-1">Yönetim Paneli</p>
+            <p className="text-sm text-slate-500 mt-1">Yönetim Paneli</p>
           </div>
 
           <form onSubmit={handleLogin} className="flex flex-col gap-4">
             <div className="flex flex-col gap-1.5">
-              <Label htmlFor="email" className="text-zinc-400 text-xs font-medium uppercase tracking-wide">
+              <Label htmlFor="email" className="text-slate-400 text-xs font-medium uppercase tracking-wide">
                 E-posta
               </Label>
               <div className="relative">
-                <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-zinc-500" />
+                <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-500" />
                 <Input
                   id="email"
                   type="email"
                   value={email}
                   onChange={e => setEmail(e.target.value)}
                   placeholder="admin@modelmarketim.com"
-                  className="pl-10 bg-zinc-800 border-zinc-700 text-white placeholder:text-zinc-600 focus:border-orange-500 focus:ring-orange-500/20 rounded-xl"
+                  className="pl-10 bg-slate-800 border-slate-700 text-white placeholder:text-slate-600 focus:border-indigo-500 focus:ring-indigo-500/20 rounded-xl"
                   required
                 />
               </div>
             </div>
 
             <div className="flex flex-col gap-1.5">
-              <Label htmlFor="password" className="text-zinc-400 text-xs font-medium uppercase tracking-wide">
+              <Label htmlFor="password" className="text-slate-400 text-xs font-medium uppercase tracking-wide">
                 Şifre
               </Label>
               <div className="relative">
-                <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-zinc-500" />
+                <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-500" />
                 <Input
                   id="password"
                   type="password"
                   value={password}
                   onChange={e => setPassword(e.target.value)}
-                  className="pl-10 bg-zinc-800 border-zinc-700 text-white placeholder:text-zinc-600 focus:border-orange-500 focus:ring-orange-500/20 rounded-xl"
+                  className="pl-10 bg-slate-800 border-slate-700 text-white placeholder:text-slate-600 focus:border-indigo-500 focus:ring-indigo-500/20 rounded-xl"
                   required
                 />
               </div>
@@ -89,7 +90,7 @@ export default function AdminLogin() {
             <Button
               type="submit"
               disabled={loading}
-              className="mt-2 bg-orange-500 hover:bg-orange-600 text-white h-11 rounded-xl shadow-lg shadow-orange-500/25 font-semibold transition-all hover:-translate-y-0.5"
+              className="mt-2 bg-indigo-600 hover:bg-indigo-700 text-white h-11 rounded-xl shadow-lg shadow-indigo-600/25 font-semibold transition-all hover:-translate-y-0.5"
             >
               {loading ? (
                 <span className="flex items-center gap-2">
@@ -103,7 +104,7 @@ export default function AdminLogin() {
           </form>
         </div>
 
-        <p className="text-center text-xs text-zinc-700 mt-6">Modelmarketim Admin · Yetkisiz erişim yasaktır</p>
+        <p className="text-center text-xs text-slate-700 mt-6">Modelmarketim Admin · Yetkisiz erişim yasaktır</p>
       </div>
     </div>
   )

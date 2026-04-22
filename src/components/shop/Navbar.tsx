@@ -27,19 +27,19 @@ export default function Navbar({ locale }: { locale: Locale }) {
     <header className={cn(
       'sticky top-0 z-50 w-full transition-all duration-300',
       scrolled
-        ? 'bg-white/90 backdrop-blur-md shadow-sm border-b border-zinc-100'
-        : 'bg-white border-b border-zinc-100'
+        ? 'bg-white/95 backdrop-blur-md shadow-sm shadow-indigo-100/50 border-b border-indigo-50'
+        : 'bg-white border-b border-slate-100'
     )}>
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 items-center justify-between">
 
           {/* Logo */}
-          <Link href={`/${locale}`} className="flex items-center gap-2 group">
-            <div className="w-8 h-8 rounded-lg bg-orange-500 flex items-center justify-center shadow-sm group-hover:bg-orange-600 transition-colors">
+          <Link href={`/${locale}`} className="flex items-center gap-2.5 group">
+            <div className="w-8 h-8 rounded-lg bg-indigo-600 flex items-center justify-center shadow-sm shadow-indigo-200 group-hover:bg-indigo-700 transition-colors">
               <span className="text-white font-bold text-sm">M</span>
             </div>
-            <span className="text-lg font-bold text-zinc-900" style={{ fontFamily: 'var(--font-space-grotesk)' }}>
-              Model<span className="text-orange-500">marketim</span>
+            <span className="text-lg font-bold text-slate-900" style={{ fontFamily: 'var(--font-space-grotesk)' }}>
+              Model<span className="text-indigo-600">marketim</span>
             </span>
           </Link>
 
@@ -47,42 +47,42 @@ export default function Navbar({ locale }: { locale: Locale }) {
           <nav className="hidden md:flex items-center gap-1">
             <Link
               href={`/${locale}`}
-              className="px-4 py-2 text-sm font-medium text-zinc-600 hover:text-zinc-900 hover:bg-zinc-50 rounded-lg transition-all"
+              className="px-4 py-2 text-sm font-medium text-slate-600 hover:text-slate-900 hover:bg-indigo-50 rounded-lg transition-all"
             >
               {t('home')}
             </Link>
             <Link
               href={`/${locale}/products`}
-              className="px-4 py-2 text-sm font-medium text-zinc-600 hover:text-zinc-900 hover:bg-zinc-50 rounded-lg transition-all"
+              className="px-4 py-2 text-sm font-medium text-slate-600 hover:text-slate-900 hover:bg-indigo-50 rounded-lg transition-all"
             >
               {t('products')}
             </Link>
             <Link
               href={`/${locale}/track`}
-              className="px-4 py-2 text-sm font-medium text-zinc-600 hover:text-zinc-900 hover:bg-zinc-50 rounded-lg transition-all"
+              className="px-4 py-2 text-sm font-medium text-slate-600 hover:text-slate-900 hover:bg-indigo-50 rounded-lg transition-all"
             >
-              Sipariş Takip
+              {t('track')}
             </Link>
           </nav>
 
           {/* Right side */}
-          <div className="flex items-center gap-2">
-            {/* Locale switcher */}
+          <div className="flex items-center gap-1">
+            {/* Language toggle */}
             <Link
               href={`/${otherLocale}`}
-              className="hidden md:flex items-center text-xs font-semibold uppercase tracking-wide text-zinc-400 hover:text-zinc-700 transition-colors px-2 py-1 rounded-md hover:bg-zinc-100"
+              className="hidden sm:flex px-3 py-1.5 text-xs font-semibold text-slate-500 hover:text-indigo-600 hover:bg-indigo-50 rounded-lg transition-all uppercase tracking-wide"
             >
-              {otherLocale === 'tr' ? '🇹🇷 TR' : '🇬🇧 EN'}
+              {otherLocale}
             </Link>
 
             {/* Favorites */}
             <Link
               href={`/${locale}/favorites`}
-              className="relative hidden md:flex items-center justify-center w-10 h-10 rounded-xl text-zinc-600 hover:text-zinc-900 hover:bg-zinc-100 transition-all"
+              className="relative w-9 h-9 flex items-center justify-center rounded-lg text-slate-500 hover:text-indigo-600 hover:bg-indigo-50 transition-all"
             >
               <Heart className="h-5 w-5" />
               {favorites.length > 0 && (
-                <span className="absolute -top-0.5 -right-0.5 h-4 w-4 rounded-full bg-red-500 text-xs text-white flex items-center justify-center font-bold shadow-sm">
+                <span className="absolute -top-0.5 -right-0.5 w-4 h-4 bg-indigo-600 text-white text-[10px] font-bold rounded-full flex items-center justify-center">
                   {favorites.length}
                 </span>
               )}
@@ -91,19 +91,19 @@ export default function Navbar({ locale }: { locale: Locale }) {
             {/* Cart */}
             <button
               onClick={openDrawer}
-              className="relative flex items-center justify-center w-10 h-10 rounded-xl text-zinc-600 hover:text-zinc-900 hover:bg-zinc-100 transition-all"
+              className="relative w-9 h-9 flex items-center justify-center rounded-lg text-slate-500 hover:text-indigo-600 hover:bg-indigo-50 transition-all"
             >
               <ShoppingCart className="h-5 w-5" />
               {itemCount > 0 && (
-                <span className="absolute -top-0.5 -right-0.5 h-5 w-5 rounded-full bg-orange-500 text-xs text-white flex items-center justify-center font-bold shadow-sm">
-                  {itemCount > 9 ? '9+' : itemCount}
+                <span className="absolute -top-0.5 -right-0.5 w-4 h-4 bg-indigo-600 text-white text-[10px] font-bold rounded-full flex items-center justify-center">
+                  {itemCount}
                 </span>
               )}
             </button>
 
-            {/* Mobile toggle */}
+            {/* Mobile menu toggle */}
             <button
-              className="md:hidden flex items-center justify-center w-10 h-10 rounded-xl text-zinc-600 hover:bg-zinc-100 transition-all"
+              className="md:hidden w-9 h-9 flex items-center justify-center rounded-lg text-slate-500 hover:bg-indigo-50 transition-all ml-1"
               onClick={() => setMobileOpen(!mobileOpen)}
             >
               {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
@@ -114,30 +114,22 @@ export default function Navbar({ locale }: { locale: Locale }) {
 
       {/* Mobile menu */}
       {mobileOpen && (
-        <div className="md:hidden border-t border-zinc-100 bg-white px-4 py-3 flex flex-col gap-1">
-          <Link
-            href={`/${locale}`}
-            className="px-3 py-2.5 text-sm font-medium text-zinc-700 hover:bg-zinc-50 rounded-lg"
-            onClick={() => setMobileOpen(false)}
-          >
-            {t('home')}
-          </Link>
-          <Link
-            href={`/${locale}/products`}
-            className="px-3 py-2.5 text-sm font-medium text-zinc-700 hover:bg-zinc-50 rounded-lg"
-            onClick={() => setMobileOpen(false)}
-          >
-            {t('products')}
-          </Link>
-          <div className="border-t border-zinc-100 mt-1 pt-2">
+        <div className="md:hidden border-t border-slate-100 bg-white px-4 py-3 flex flex-col gap-1">
+          {[
+            { href: `/${locale}`, label: t('home') },
+            { href: `/${locale}/products`, label: t('products') },
+            { href: `/${locale}/track`, label: t('track') },
+            { href: `/${otherLocale}`, label: otherLocale.toUpperCase() },
+          ].map(item => (
             <Link
-              href={`/${otherLocale}`}
-              className="px-3 py-2 text-xs font-semibold uppercase tracking-wide text-zinc-400"
+              key={item.href}
+              href={item.href}
               onClick={() => setMobileOpen(false)}
+              className="px-4 py-2.5 text-sm font-medium text-slate-700 hover:text-indigo-600 hover:bg-indigo-50 rounded-xl transition-all"
             >
-              {otherLocale === 'tr' ? '🇹🇷 Türkçe' : '🇬🇧 English'}
+              {item.label}
             </Link>
-          </div>
+          ))}
         </div>
       )}
     </header>
