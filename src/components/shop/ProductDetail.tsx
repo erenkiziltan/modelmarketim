@@ -47,7 +47,7 @@ export default function ProductDetail({ product, locale }: { product: FullProduc
       {/* Breadcrumb */}
       <Link
         href={`/${locale}/products`}
-        className="inline-flex items-center gap-1.5 text-sm text-zinc-400 hover:text-zinc-700 mb-8 transition-colors group"
+        className="inline-flex items-center gap-1.5 text-sm text-slate-400 hover:text-indigo-600 mb-8 transition-colors group"
       >
         <ChevronLeft className="h-4 w-4 group-hover:-translate-x-0.5 transition-transform" />
         Ürünlere Dön
@@ -57,7 +57,7 @@ export default function ProductDetail({ product, locale }: { product: FullProduc
 
         {/* Images */}
         <div className="flex flex-col gap-3">
-          <div className="relative aspect-square rounded-2xl overflow-hidden bg-zinc-50 border border-zinc-100">
+          <div className="relative aspect-square rounded-2xl overflow-hidden bg-slate-50 border border-slate-100">
             {selectedImage ? (
               <Image
                 src={selectedImage.url}
@@ -88,8 +88,8 @@ export default function ProductDetail({ product, locale }: { product: FullProduc
                   onClick={() => setSelectedImage(img)}
                   className={`relative w-16 h-16 rounded-xl overflow-hidden border-2 transition-all ${
                     selectedImage?.id === img.id
-                      ? 'border-orange-500 shadow-sm shadow-orange-200'
-                      : 'border-zinc-100 hover:border-zinc-300'
+                      ? 'border-indigo-500 shadow-sm shadow-indigo-100'
+                      : 'border-slate-100 hover:border-slate-300'
                   }`}
                 >
                   <Image src={img.url} alt="" fill className="object-cover" />
@@ -103,9 +103,9 @@ export default function ProductDetail({ product, locale }: { product: FullProduc
         <div className="flex flex-col gap-6">
           {/* Name & Price */}
           <div>
-            <h1 className="text-3xl font-bold text-zinc-900 mb-3 leading-tight">{name}</h1>
+            <h1 className="text-3xl font-bold text-slate-900 mb-3 leading-tight">{name}</h1>
             <div className="flex items-baseline gap-3">
-              <span className="text-4xl font-bold text-orange-500">{formatPrice(product.price)}</span>
+              <span className="text-4xl font-bold text-indigo-600">{formatPrice(product.price)}</span>
             </div>
           </div>
 
@@ -127,7 +127,7 @@ export default function ProductDetail({ product, locale }: { product: FullProduc
             const varName = getLocalizedField(variant as unknown as Record<string, unknown>, 'name', locale)
             return (
               <div key={variant.id}>
-                <p className="text-sm font-semibold text-zinc-700 mb-3">
+                <p className="text-sm font-semibold text-slate-700 mb-3">
                   {varName}
                   {selectedVariants[varName] && (
                     <span className="font-normal text-zinc-400 ml-2">— {selectedVariants[varName]}</span>
@@ -140,8 +140,8 @@ export default function ProductDetail({ product, locale }: { product: FullProduc
                       onClick={() => setSelectedVariants(prev => ({ ...prev, [varName]: opt }))}
                       className={`px-4 py-2 rounded-xl border text-sm font-medium transition-all ${
                         selectedVariants[varName] === opt
-                          ? 'border-orange-500 bg-orange-50 text-orange-700 shadow-sm'
-                          : 'border-zinc-200 text-zinc-700 hover:border-zinc-300 hover:bg-zinc-50'
+                          ? 'border-indigo-500 bg-indigo-50 text-indigo-700 shadow-sm'
+                          : 'border-slate-200 text-slate-700 hover:border-slate-300 hover:bg-slate-50'
                       }`}
                     >
                       {opt}
@@ -154,7 +154,7 @@ export default function ProductDetail({ product, locale }: { product: FullProduc
 
           {/* Quantity */}
           <div>
-            <p className="text-sm font-semibold text-zinc-700 mb-3">{t('quantity')}</p>
+            <p className="text-sm font-semibold text-slate-700 mb-3">{t('quantity')}</p>
             <div className="inline-flex items-center gap-0 border border-zinc-200 rounded-xl overflow-hidden">
               <button
                 onClick={() => setQuantity(q => Math.max(1, q - 1))}
@@ -181,7 +181,7 @@ export default function ProductDetail({ product, locale }: { product: FullProduc
             className={`gap-2 h-13 text-base rounded-xl transition-all w-full sm:w-auto shadow-lg ${
               added
                 ? 'bg-green-500 hover:bg-green-500 shadow-green-200'
-                : 'bg-orange-500 hover:bg-orange-600 shadow-orange-200 hover:shadow-orange-300 hover:-translate-y-0.5'
+                : 'bg-indigo-600 hover:bg-indigo-700 shadow-indigo-200 hover:shadow-indigo-300 hover:-translate-y-0.5'
             }`}
           >
             <ShoppingCart className="h-5 w-5" />
@@ -195,7 +195,7 @@ export default function ProductDetail({ product, locale }: { product: FullProduc
               { icon: Truck, text: 'Hızlı Kargo' },
               { icon: RotateCcw, text: 'Kolay İade' },
             ].map(b => (
-              <div key={b.text} className="flex flex-col items-center gap-1.5 p-3 bg-zinc-50 rounded-xl">
+              <div key={b.text} className="flex flex-col items-center gap-1.5 p-3 bg-slate-50 rounded-xl">
                 <b.icon className="h-4 w-4 text-zinc-400" />
                 <span className="text-xs text-zinc-500 text-center leading-tight">{b.text}</span>
               </div>
@@ -204,9 +204,9 @@ export default function ProductDetail({ product, locale }: { product: FullProduc
 
           {/* Description */}
           {description && (
-            <div className="border-t border-zinc-100 pt-6">
-              <h2 className="font-semibold text-zinc-900 mb-3">{t('description')}</h2>
-              <p className="text-zinc-600 text-sm leading-relaxed whitespace-pre-wrap">{description}</p>
+            <div className="border-t border-slate-100 pt-6">
+              <h2 className="font-semibold text-slate-900 mb-3">{t('description')}</h2>
+              <p className="text-slate-600 text-sm leading-relaxed whitespace-pre-wrap">{description}</p>
             </div>
           )}
         </div>

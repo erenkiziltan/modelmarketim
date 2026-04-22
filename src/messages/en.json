@@ -3,7 +3,8 @@
     "home": "Home",
     "products": "Products",
     "cart": "Cart",
-    "admin": "Admin"
+    "admin": "Admin",
+    "track": "Order Tracking"
   },
   "home": {
     "hero_title": "3D Printed Figures",

@@ -3,7 +3,8 @@
     "home": "Anasayfa",
     "products": "Ürünler",
     "cart": "Sepet",
-    "admin": "Yönetim"
+    "admin": "Yönetim",
+    "track": "Sipariş Takip"
   },
   "home": {
     "hero_title": "3D Baskı Figürler",
