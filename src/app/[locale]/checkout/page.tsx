@@ -71,6 +71,38 @@ export default function CheckoutPage() {
       return
     }
 
+    // n8n webhook — yeni sipariş bildirimi + müşteri onay maili
+    try {
+      await fetch('https://modelmarketim.app.n8n.cloud/webhook/yeni-siparis', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          body: {
+            record: {
+              id: number,
+              order_number: number,
+              customer_name: form.name,
+              email: form.email,
+              phone: form.phone,
+              address: form.street,
+              city: form.city,
+              district: form.district,
+              total_price: total,
+              status: 'pending',
+              notes: form.notes,
+              items: items.map(i => ({
+                product_name: i.product.name_tr,
+                quantity: i.quantity,
+                unit_price: i.product.price,
+              })),
+            }
+          }
+        }),
+      })
+    } catch {
+      // Webhook hatası siparişi etkilemesin
+    }
+
     clearCart()
     setOrderNumber(number)
     setLoading(false)
@@ -84,9 +116,9 @@ export default function CheckoutPage() {
         <p className="text-zinc-600 mb-2">
           {t('success_message', { orderNumber })}
         </p>
-        <p className="text-2xl font-mono font-bold text-orange-500 mb-8">{orderNumber}</p>
+        <p className="text-2xl font-mono font-bold text-indigo-600 mb-8">{orderNumber}</p>
         <Link href={`/${locale}/products`}>
-          <Button className="bg-orange-500 hover:bg-orange-600">Alışverişe Devam Et</Button>
+          <Button className="bg-indigo-600 hover:bg-indigo-700">Alışverişe Devam Et</Button>
         </Link>
       </div>
     )
@@ -160,9 +192,9 @@ export default function CheckoutPage() {
               ))}
               <div className="border-t pt-3 flex justify-between font-bold">
                 <span>Toplam</span>
-                <span className="text-orange-500">{formatPrice(total)}</span>
+                <span className="text-indigo-600">{formatPrice(total)}</span>
               </div>
-              <Button type="submit" disabled={loading} className="w-full bg-orange-500 hover:bg-orange-600 mt-2">
+              <Button type="submit" disabled={loading} className="w-full bg-indigo-600 hover:bg-indigo-700 mt-2">
                 {loading ? 'İşleniyor...' : t('submit')}
               </Button>
               <p className="text-xs text-zinc-400 text-center">

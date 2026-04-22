@@ -9,6 +9,7 @@ import { CartProvider } from '@/components/shop/CartProvider'
 import { FavoritesProvider } from '@/components/shop/FavoritesProvider'
 import PageTransition from '@/components/shared/PageTransition'
 import CartDrawer from '@/components/shop/CartDrawer'
+import WhatsAppButton from '@/components/shop/WhatsAppButton'
 
 export default async function LocaleLayout({
   children,
@@ -37,6 +38,7 @@ export default async function LocaleLayout({
             </PageTransition>
           </main>
           <Footer />
+          <WhatsAppButton />
           <Toaster richColors position="bottom-right" />
         </FavoritesProvider>
       </CartProvider>
