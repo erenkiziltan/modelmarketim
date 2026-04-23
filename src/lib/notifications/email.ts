@@ -41,7 +41,7 @@ export async function sendCustomerConfirmationEmail(order: OrderEmailData) {
     .join('')
 
   await getResend().emails.send({
-    from: 'PolyForge <onboarding@resend.dev>',
+    from: 'Modelmarketim <onboarding@resend.dev>',
     to: order.customer_email,
     subject: `Siparişiniz Alındı – ${order.order_number}`,
     html: `
@@ -51,7 +51,7 @@ export async function sendCustomerConfirmationEmail(order: OrderEmailData) {
         <div style="max-width:560px;margin:40px auto;background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 4px 24px rgba(0,0,0,.06);">
           <!-- Header -->
           <div style="background:linear-gradient(135deg,#4f46e5,#7c3aed);padding:32px 40px;text-align:center;">
-            <h1 style="color:#fff;margin:0;font-size:24px;font-weight:700;letter-spacing:-0.5px;">PolyForge</h1>
+            <h1 style="color:#fff;margin:0;font-size:24px;font-weight:700;letter-spacing:-0.5px;">Modelmarketim</h1>
             <p style="color:#c7d2fe;margin:8px 0 0;font-size:13px;">3D Baskı Figürler</p>
           </div>
           <!-- Body -->
@@ -91,11 +91,11 @@ export async function sendCustomerConfirmationEmail(order: OrderEmailData) {
 
             ${order.notes ? `<div style="background:#fffbeb;border:1px solid #fde68a;border-radius:10px;padding:14px 18px;margin-bottom:24px;"><p style="margin:0;font-size:12px;font-weight:600;color:#92400e;margin-bottom:4px;">Sipariş Notunuz</p><p style="margin:0;font-size:13px;color:#78350f;">${order.notes}</p></div>` : ''}
 
-            <p style="color:#64748b;font-size:13px;margin:0;">Sipariş durumunuzu <a href="https://polyforge.com/tr/track" style="color:#4f46e5;text-decoration:none;font-weight:600;">${order.order_number}</a> numarasıyla takip edebilirsiniz.</p>
+            <p style="color:#64748b;font-size:13px;margin:0;">Sipariş durumunuzu <a href="https://modelmarketim.com/tr/track" style="color:#4f46e5;text-decoration:none;font-weight:600;">${order.order_number}</a> numarasıyla takip edebilirsiniz.</p>
           </div>
           <!-- Footer -->
           <div style="background:#f8fafc;padding:20px 40px;text-align:center;border-top:1px solid #f1f5f9;">
-            <p style="margin:0;font-size:12px;color:#94a3b8;">© 2025 PolyForge · Tüm hakları saklıdır.</p>
+            <p style="margin:0;font-size:12px;color:#94a3b8;">© 2026 Modelmarketim · Tüm hakları saklıdır.</p>
           </div>
         </div>
       </body>
@@ -114,7 +114,7 @@ export async function sendOwnerNewOrderEmail(order: OrderEmailData) {
     .join('\n')
 
   await getResend().emails.send({
-    from: 'PolyForge Bildirim <onboarding@resend.dev>',
+    from: 'Modelmarketim Bildirim <onboarding@resend.dev>',
     to: ownerEmail,
     subject: `🛍️ Yeni Sipariş: ${order.order_number} — ${formatPrice(order.total_price)}`,
     html: `
@@ -159,13 +159,13 @@ export async function sendStatusUpdateEmail(params: {
   const isShipped = params.new_status === 'shipped'
 
   await getResend().emails.send({
-    from: 'PolyForge <onboarding@resend.dev>',
+    from: 'Modelmarketim <onboarding@resend.dev>',
     to: params.customer_email,
     subject: `Sipariş Durumu Güncellendi – ${params.order_number}`,
     html: `
       <div style="font-family:'Segoe UI',sans-serif;max-width:480px;margin:0 auto;">
         <div style="background:linear-gradient(135deg,#4f46e5,#7c3aed);padding:24px 32px;border-radius:12px 12px 0 0;">
-          <h1 style="color:#fff;margin:0;font-size:20px;">PolyForge</h1>
+          <h1 style="color:#fff;margin:0;font-size:20px;">Modelmarketim</h1>
         </div>
         <div style="background:#fff;padding:28px 32px;border:1px solid #e2e8f0;border-top:none;border-radius:0 0 12px 12px;">
           <h2 style="color:#1e293b;font-size:17px;margin:0 0 16px;">Sipariş Durumu: <span style="color:#4f46e5;">${statusLabel}</span></h2>

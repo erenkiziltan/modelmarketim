@@ -64,7 +64,7 @@ export async function GET(req: NextRequest) {
   await Promise.allSettled([
     sendOwnerWhatsApp(wpMessage),
     ownerEmail ? getResend().emails.send({
-      from: 'PolyForge Stok <onboarding@resend.dev>',
+      from: 'Modelmarketim Stok <onboarding@resend.dev>',
       to: ownerEmail,
       subject: `📦 Stok Uyarısı — ${lowStock.length} ürün düşük stokta`,
       html: `
