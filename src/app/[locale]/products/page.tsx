@@ -4,8 +4,37 @@ import { Product, ProductImage, Locale } from '@/types'
 import { Package } from 'lucide-react'
 import ProductCard from '@/components/shop/ProductCard'
 import ProductFilters from '@/components/shop/ProductFilters'
+import type { Metadata } from 'next'
 
 type ProductWithImages = Product & { product_images: ProductImage[] }
+
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+  const { locale } = await params
+  const isTr = locale === 'tr'
+  return {
+    title: isTr ? 'Tüm Ürünler — 3D Baskı Figür & Model' : 'All Products — 3D Printed Figures',
+    description: isTr
+      ? '3D baskı figürler, modeller, araç gereçler ve koleksiyon ürünleri. Ejderha, karakter, araç figürleri ve daha fazlası. Hızlı kargo, güvenli ödeme.'
+      : 'Browse all 3D printed figures, models and collectibles. Fast shipping across Turkey.',
+    keywords: [
+      '3d baskı figür',
+      '3d model satın al',
+      'figür mağazası',
+      'koleksiyon figür',
+      '3d yazıcı ürünleri',
+      'ejderha figür',
+      'karakter figür',
+      '3d baskı türkiye',
+    ],
+    alternates: {
+      canonical: `https://modelmarketim.com/${locale}/products`,
+      languages: {
+        tr: 'https://modelmarketim.com/tr/products',
+        en: 'https://modelmarketim.com/en/products',
+      },
+    },
+  }
+}
 
 export default async function ProductsPage({
   params,

@@ -7,8 +7,29 @@ import { Locale, Product, ProductImage } from '@/types'
 import { ArrowRight, Sparkles, Shield, Truck, Star } from 'lucide-react'
 import ProductCard from '@/components/shop/ProductCard'
 import HeroModel from '@/components/shop/HeroModel'
+import type { Metadata } from 'next'
 
 type ProductWithImages = Product & { product_images: ProductImage[] }
+
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+  const { locale } = await params
+  const isTr = locale === 'tr'
+  return {
+    title: isTr
+      ? 'Modelmarketim | 3D Baskı Figür & Model Mağazası'
+      : 'Modelmarketim | 3D Printed Figures & Models',
+    description: isTr
+      ? 'Türkiye\'nin 3D baskı figür mağazası. Ejderha, karakter, araç, özel tasarım figürler. PLA+ ve PETG malzeme, hızlı kargo, güvenli alışveriş.'
+      : 'Turkey\'s 3D printed figures store. Dragons, characters, vehicles and custom designs. Premium PLA+ and PETG materials, fast shipping.',
+    alternates: {
+      canonical: `https://modelmarketim.com/${locale}`,
+      languages: {
+        tr: 'https://modelmarketim.com/tr',
+        en: 'https://modelmarketim.com/en',
+      },
+    },
+  }
+}
 
 export default async function HomePage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params
