@@ -6,3 +6,8 @@ main = ".open-next/worker.js"
 [assets]
 directory = ".open-next/assets"
 binding = "ASSETS"
+
+[vars]
+OWNER_EMAIL = "ekzltn111@gmail.com"
+CALLMEBOT_PHONE = "905374826673"
+# RESEND_API_KEY ve CALLMEBOT_APIKEY Cloudflare dashboard'dan Secret olarak eklenmeli
