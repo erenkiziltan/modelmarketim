@@ -71,36 +71,30 @@ export default function CheckoutPage() {
       return
     }
 
-    // n8n webhook — yeni sipariş bildirimi + müşteri onay maili
+    // Bildirim API'si — müşteri onay maili + sahip bildirimi (e-posta + WP)
     try {
-      await fetch('https://modelmarketim.app.n8n.cloud/webhook/yeni-siparis', {
+      await fetch('/api/notifications/new-order', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          body: {
-            record: {
-              id: number,
-              order_number: number,
-              customer_name: form.name,
-              email: form.email,
-              phone: form.phone,
-              address: form.street,
-              city: form.city,
-              district: form.district,
-              total_price: total,
-              status: 'pending',
-              notes: form.notes,
-              items: items.map(i => ({
-                product_name: i.product.name_tr,
-                quantity: i.quantity,
-                unit_price: i.product.price,
-              })),
-            }
-          }
+          order_number: number,
+          customer_name: form.name,
+          customer_email: form.email,
+          customer_phone: form.phone,
+          address: form.street,
+          city: form.city,
+          district: form.district,
+          total_price: total,
+          notes: form.notes,
+          items: items.map(i => ({
+            product_name: i.product.name_tr,
+            quantity: i.quantity,
+            unit_price: i.product.price,
+          })),
         }),
       })
     } catch {
-      // Webhook hatası siparişi etkilemesin
+      // Bildirim hatası siparişi etkilemesin
     }
 
     clearCart()
