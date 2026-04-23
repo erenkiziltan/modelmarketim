@@ -1,6 +1,9 @@
 import { Resend } from 'resend'
 
-const resend = new Resend(process.env.RESEND_API_KEY)
+// Lazy init — build sırasında env var olmadığında hata vermez
+function getResend() {
+  return new Resend(process.env.RESEND_API_KEY ?? 'placeholder')
+}
 
 export interface OrderItem {
   product_name: string
@@ -37,7 +40,7 @@ export async function sendCustomerConfirmationEmail(order: OrderEmailData) {
     )
     .join('')
 
-  await resend.emails.send({
+  await getResend().emails.send({
     from: 'PolyForge <onboarding@resend.dev>',
     to: order.customer_email,
     subject: `Siparişiniz Alındı – ${order.order_number}`,
@@ -110,7 +113,7 @@ export async function sendOwnerNewOrderEmail(order: OrderEmailData) {
     .map(i => `• ${i.product_name} × ${i.quantity} — ${formatPrice(i.unit_price * i.quantity)}`)
     .join('\n')
 
-  await resend.emails.send({
+  await getResend().emails.send({
     from: 'PolyForge Bildirim <onboarding@resend.dev>',
     to: ownerEmail,
     subject: `🛍️ Yeni Sipariş: ${order.order_number} — ${formatPrice(order.total_price)}`,
@@ -155,7 +158,7 @@ export async function sendStatusUpdateEmail(params: {
   const statusLabel = statusLabels[params.new_status] ?? params.new_status
   const isShipped = params.new_status === 'shipped'
 
-  await resend.emails.send({
+  await getResend().emails.send({
     from: 'PolyForge <onboarding@resend.dev>',
     to: params.customer_email,
     subject: `Sipariş Durumu Güncellendi – ${params.order_number}`,
