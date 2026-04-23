@@ -41,7 +41,7 @@ export async function sendCustomerConfirmationEmail(order: OrderEmailData) {
     .join('')
 
   await getResend().emails.send({
-    from: 'Modelmarketim <onboarding@resend.dev>',
+    from: 'Modelmarketim <noreply@modelmarketim.com>',
     to: order.customer_email,
     subject: `Siparişiniz Alındı – ${order.order_number}`,
     html: `
@@ -114,7 +114,7 @@ export async function sendOwnerNewOrderEmail(order: OrderEmailData) {
     .join('\n')
 
   await getResend().emails.send({
-    from: 'Modelmarketim Bildirim <onboarding@resend.dev>',
+    from: 'Modelmarketim Bildirim <noreply@modelmarketim.com>',
     to: ownerEmail,
     subject: `🛍️ Yeni Sipariş: ${order.order_number} — ${formatPrice(order.total_price)}`,
     html: `
@@ -159,7 +159,7 @@ export async function sendStatusUpdateEmail(params: {
   const isShipped = params.new_status === 'shipped'
 
   await getResend().emails.send({
-    from: 'Modelmarketim <onboarding@resend.dev>',
+    from: 'Modelmarketim <noreply@modelmarketim.com>',
     to: params.customer_email,
     subject: `Sipariş Durumu Güncellendi – ${params.order_number}`,
     html: `
