@@ -37,7 +37,7 @@ export default async function LocaleLayout({
               {children}
             </PageTransition>
           </main>
-          <Footer locale={locale} />
+          <Footer />
           <WhatsAppButton />
           <Toaster richColors position="bottom-right" />
         </FavoritesProvider>

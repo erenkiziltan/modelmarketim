@@ -50,6 +50,10 @@
   },
   "footer": {
     "rights": "All rights reserved.",
-    "contact": "Contact"
+    "contact": "Contact",
+    "tagline": "Handcrafted, custom-designed 3D printed figures. Each one unique.",
+    "links": "Links",
+    "products": "Products",
+    "track": "Order Tracking"
   }
 }

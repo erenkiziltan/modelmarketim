@@ -1,6 +1,5 @@
 'use client'
 
-import Link from 'next/link'
 import { useTranslations } from 'next-intl'
 import { ShoppingCart, Menu, X, Heart } from 'lucide-react'
 import { useState, useEffect } from 'react'
@@ -8,7 +7,7 @@ import { useCart } from '@/components/shop/CartProvider'
 import { Locale } from '@/types'
 import { cn } from '@/lib/utils'
 import { useFavorites } from '@/components/shop/FavoritesProvider'
-import { usePathname } from 'next/navigation'
+import { Link, usePathname } from '@/i18n/navigation'
 
 export default function Navbar({ locale }: { locale: Locale }) {
   const t = useTranslations('nav')
@@ -16,10 +15,8 @@ export default function Navbar({ locale }: { locale: Locale }) {
   const { favorites } = useFavorites()
   const [mobileOpen, setMobileOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
-  const pathname = usePathname()
+  const pathname = usePathname() // locale prefix olmadan: "/" veya "/products" vb.
   const otherLocale = locale === 'tr' ? 'en' : 'tr'
-  // Mevcut sayfayı diğer dilde aç (örn: /tr/products → /en/products)
-  const otherLocalePath = pathname.replace(`/${locale}`, `/${otherLocale}`)
 
   useEffect(() => {
     const handler = () => setScrolled(window.scrollY > 10)
@@ -38,7 +35,7 @@ export default function Navbar({ locale }: { locale: Locale }) {
         <div className="flex h-16 items-center justify-between">
 
           {/* Logo */}
-          <Link href={`/${locale}`} className="flex items-center gap-2.5 group">
+          <Link href="/" className="flex items-center gap-2.5 group">
             <div className="w-8 h-8 rounded-lg bg-indigo-600 flex items-center justify-center shadow-sm shadow-indigo-200 group-hover:bg-indigo-700 transition-colors">
               <span className="text-white font-bold text-sm">M</span>
             </div>
@@ -50,19 +47,19 @@ export default function Navbar({ locale }: { locale: Locale }) {
           {/* Desktop Nav */}
           <nav className="hidden md:flex items-center gap-1">
             <Link
-              href={`/${locale}`}
+              href="/"
               className="px-4 py-2 text-sm font-medium text-slate-600 hover:text-slate-900 hover:bg-indigo-50 rounded-lg transition-all"
             >
               {t('home')}
             </Link>
             <Link
-              href={`/${locale}/products`}
+              href="/products"
               className="px-4 py-2 text-sm font-medium text-slate-600 hover:text-slate-900 hover:bg-indigo-50 rounded-lg transition-all"
             >
               {t('products')}
             </Link>
             <Link
-              href={`/${locale}/track`}
+              href="/track"
               className="px-4 py-2 text-sm font-medium text-slate-600 hover:text-slate-900 hover:bg-indigo-50 rounded-lg transition-all"
             >
               {t('track')}
@@ -71,9 +68,10 @@ export default function Navbar({ locale }: { locale: Locale }) {
 
           {/* Right side */}
           <div className="flex items-center gap-1">
-            {/* Language toggle */}
+            {/* Language toggle — mevcut sayfada dil değiştirir */}
             <Link
-              href={otherLocalePath}
+              href={pathname}
+              locale={otherLocale}
               className="hidden sm:flex px-3 py-1.5 text-xs font-semibold text-slate-500 hover:text-indigo-600 hover:bg-indigo-50 rounded-lg transition-all uppercase tracking-wide"
             >
               {otherLocale}
@@ -81,7 +79,7 @@ export default function Navbar({ locale }: { locale: Locale }) {
 
             {/* Favorites */}
             <Link
-              href={`/${locale}/favorites`}
+              href="/favorites"
               className="relative w-9 h-9 flex items-center justify-center rounded-lg text-slate-500 hover:text-indigo-600 hover:bg-indigo-50 transition-all"
             >
               <Heart className="h-5 w-5" />
@@ -119,21 +117,18 @@ export default function Navbar({ locale }: { locale: Locale }) {
       {/* Mobile menu */}
       {mobileOpen && (
         <div className="md:hidden border-t border-slate-100 bg-white px-4 py-3 flex flex-col gap-1">
-          {[
-            { href: `/${locale}`, label: t('home') },
-            { href: `/${locale}/products`, label: t('products') },
-            { href: `/${locale}/track`, label: t('track') },
-            { href: otherLocalePath, label: otherLocale.toUpperCase() },
-          ].map(item => (
-            <Link
-              key={item.href}
-              href={item.href}
-              onClick={() => setMobileOpen(false)}
-              className="px-4 py-2.5 text-sm font-medium text-slate-700 hover:text-indigo-600 hover:bg-indigo-50 rounded-xl transition-all"
-            >
-              {item.label}
-            </Link>
-          ))}
+          <Link href="/" onClick={() => setMobileOpen(false)} className="px-4 py-2.5 text-sm font-medium text-slate-700 hover:text-indigo-600 hover:bg-indigo-50 rounded-xl transition-all">
+            {t('home')}
+          </Link>
+          <Link href="/products" onClick={() => setMobileOpen(false)} className="px-4 py-2.5 text-sm font-medium text-slate-700 hover:text-indigo-600 hover:bg-indigo-50 rounded-xl transition-all">
+            {t('products')}
+          </Link>
+          <Link href="/track" onClick={() => setMobileOpen(false)} className="px-4 py-2.5 text-sm font-medium text-slate-700 hover:text-indigo-600 hover:bg-indigo-50 rounded-xl transition-all">
+            {t('track')}
+          </Link>
+          <Link href={pathname} locale={otherLocale} onClick={() => setMobileOpen(false)} className="px-4 py-2.5 text-sm font-medium text-slate-700 hover:text-indigo-600 hover:bg-indigo-50 rounded-xl transition-all">
+            {otherLocale.toUpperCase()}
+          </Link>
         </div>
       )}
     </header>

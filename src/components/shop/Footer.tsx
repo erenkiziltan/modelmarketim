@@ -1,7 +1,7 @@
 import { useTranslations } from 'next-intl'
-import Link from 'next/link'
+import { Link } from '@/i18n/navigation'
 
-export default function Footer({ locale }: { locale: string }) {
+export default function Footer() {
   const t = useTranslations('footer')
   const year = new Date().getFullYear()
 
@@ -20,18 +20,18 @@ export default function Footer({ locale }: { locale: string }) {
               </span>
             </div>
             <p className="text-sm text-slate-500 max-w-xs leading-relaxed">
-              El yapımı, özel tasarım 3D baskı figürler. Her biri benzersiz.
+              {t('tagline')}
             </p>
           </div>
 
           {/* Links */}
           <div className="flex flex-col gap-2">
-            <p className="text-xs font-semibold uppercase tracking-widest text-slate-600 mb-1">Bağlantılar</p>
-            <Link href={`/${locale}/products`} className="text-sm text-slate-400 hover:text-indigo-400 transition-colors">
-              Ürünler
+            <p className="text-xs font-semibold uppercase tracking-widest text-slate-600 mb-1">{t('links')}</p>
+            <Link href="/products" className="text-sm text-slate-400 hover:text-indigo-400 transition-colors">
+              {t('products')}
             </Link>
-            <Link href={`/${locale}/track`} className="text-sm text-slate-400 hover:text-indigo-400 transition-colors">
-              Sipariş Takip
+            <Link href="/track" className="text-sm text-slate-400 hover:text-indigo-400 transition-colors">
+              {t('track')}
             </Link>
             <a
               href="https://wa.me/905374826673"
