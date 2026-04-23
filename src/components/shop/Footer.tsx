@@ -1,6 +1,7 @@
 import { useTranslations } from 'next-intl'
+import Link from 'next/link'
 
-export default function Footer() {
+export default function Footer({ locale }: { locale: string }) {
   const t = useTranslations('footer')
   const year = new Date().getFullYear()
 
@@ -26,9 +27,20 @@ export default function Footer() {
           {/* Links */}
           <div className="flex flex-col gap-2">
             <p className="text-xs font-semibold uppercase tracking-widest text-slate-600 mb-1">Bağlantılar</p>
-            <a href="#" className="text-sm text-slate-400 hover:text-indigo-400 transition-colors">Ürünler</a>
-            <a href="#" className="text-sm text-slate-400 hover:text-indigo-400 transition-colors">Hakkımızda</a>
-            <a href="#" className="text-sm text-slate-400 hover:text-indigo-400 transition-colors">{t('contact')}</a>
+            <Link href={`/${locale}/products`} className="text-sm text-slate-400 hover:text-indigo-400 transition-colors">
+              Ürünler
+            </Link>
+            <Link href={`/${locale}/track`} className="text-sm text-slate-400 hover:text-indigo-400 transition-colors">
+              Sipariş Takip
+            </Link>
+            <a
+              href="https://wa.me/905374826673"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-sm text-slate-400 hover:text-indigo-400 transition-colors"
+            >
+              {t('contact')}
+            </a>
           </div>
         </div>
 

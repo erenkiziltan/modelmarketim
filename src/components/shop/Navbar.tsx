@@ -8,6 +8,7 @@ import { useCart } from '@/components/shop/CartProvider'
 import { Locale } from '@/types'
 import { cn } from '@/lib/utils'
 import { useFavorites } from '@/components/shop/FavoritesProvider'
+import { usePathname } from 'next/navigation'
 
 export default function Navbar({ locale }: { locale: Locale }) {
   const t = useTranslations('nav')
@@ -15,7 +16,10 @@ export default function Navbar({ locale }: { locale: Locale }) {
   const { favorites } = useFavorites()
   const [mobileOpen, setMobileOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
+  const pathname = usePathname()
   const otherLocale = locale === 'tr' ? 'en' : 'tr'
+  // Mevcut sayfayı diğer dilde aç (örn: /tr/products → /en/products)
+  const otherLocalePath = pathname.replace(`/${locale}`, `/${otherLocale}`)
 
   useEffect(() => {
     const handler = () => setScrolled(window.scrollY > 10)
@@ -69,7 +73,7 @@ export default function Navbar({ locale }: { locale: Locale }) {
           <div className="flex items-center gap-1">
             {/* Language toggle */}
             <Link
-              href={`/${otherLocale}`}
+              href={otherLocalePath}
               className="hidden sm:flex px-3 py-1.5 text-xs font-semibold text-slate-500 hover:text-indigo-600 hover:bg-indigo-50 rounded-lg transition-all uppercase tracking-wide"
             >
               {otherLocale}
@@ -119,7 +123,7 @@ export default function Navbar({ locale }: { locale: Locale }) {
             { href: `/${locale}`, label: t('home') },
             { href: `/${locale}/products`, label: t('products') },
             { href: `/${locale}/track`, label: t('track') },
-            { href: `/${otherLocale}`, label: otherLocale.toUpperCase() },
+            { href: otherLocalePath, label: otherLocale.toUpperCase() },
           ].map(item => (
             <Link
               key={item.href}
