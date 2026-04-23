@@ -26,7 +26,7 @@ export default async function RelatedProducts({
   return (
     <div className="mt-20 border-t border-zinc-100 pt-16">
       <div className="mb-8">
-        <p className="text-xs font-semibold uppercase tracking-widest text-orange-500 mb-1">Keşfet</p>
+        <p className="text-xs font-semibold uppercase tracking-widest text-indigo-500 mb-1">Keşfet</p>
         <h2 className="text-2xl font-bold text-zinc-900">Diğer Ürünler</h2>
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">

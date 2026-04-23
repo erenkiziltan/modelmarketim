@@ -21,7 +21,7 @@ export default function CartPage() {
         <h1 className="text-2xl font-bold text-zinc-900 mb-2">{t('title')}</h1>
         <p className="text-zinc-500 mb-6">{t('empty')}</p>
         <Link href={`/${locale}/products`}>
-          <Button className="bg-orange-500 hover:bg-orange-600">{t('empty_cta')}</Button>
+          <Button className="bg-indigo-600 hover:bg-indigo-700">{t('empty_cta')}</Button>
         </Link>
       </div>
     )
@@ -51,7 +51,7 @@ export default function CartPage() {
                 <div className="flex-1 min-w-0">
                   <h3 className="font-semibold text-zinc-900 truncate">{item.product.name_tr}</h3>
                   {variantLabel && <p className="text-xs text-zinc-500 mt-0.5">{variantLabel}</p>}
-                  <p className="text-orange-500 font-bold mt-1">{formatPrice(item.product.price)}</p>
+                  <p className="text-indigo-600 font-bold mt-1">{formatPrice(item.product.price)}</p>
                   <div className="flex items-center gap-3 mt-2">
                     <button
                       onClick={() => updateQuantity(item.product.id, item.selectedVariants, item.quantity - 1)}
@@ -95,7 +95,7 @@ export default function CartPage() {
               <span>{formatPrice(total)}</span>
             </div>
             <Link href={`/${locale}/checkout`}>
-              <Button className="w-full bg-orange-500 hover:bg-orange-600">{t('checkout')}</Button>
+              <Button className="w-full bg-indigo-600 hover:bg-indigo-700">{t('checkout')}</Button>
             </Link>
           </div>
         </div>

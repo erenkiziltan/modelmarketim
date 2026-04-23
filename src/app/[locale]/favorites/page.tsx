@@ -64,7 +64,7 @@ export default function FavoritesPage() {
             <h3 className="font-bold text-zinc-900 mb-1 text-lg">Henüz favori yok</h3>
             <p className="text-sm text-zinc-400 mb-6">Ürünlerde kalp ikonuna tıklayarak favorilere ekleyebilirsin.</p>
             <Link href={`/${locale}/products`}>
-              <Button className="bg-orange-500 hover:bg-orange-600 rounded-xl gap-2">
+              <Button className="bg-indigo-600 hover:bg-indigo-700 rounded-xl gap-2">
                 Ürünlere Git <ArrowRight className="h-4 w-4" />
               </Button>
             </Link>
