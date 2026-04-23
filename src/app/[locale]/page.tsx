@@ -45,12 +45,12 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
             <div>
               <div className="inline-flex items-center gap-2 bg-indigo-50 border border-indigo-100 rounded-full px-4 py-1.5 mb-6">
                 <Sparkles className="h-3.5 w-3.5 text-indigo-500" />
-                <span className="text-indigo-600 text-xs font-semibold tracking-wide uppercase">El Yapımı 3D Baskı Figürler</span>
+                <span className="text-indigo-600 text-xs font-semibold tracking-wide uppercase">Türkiye'nin 3D Figür Markası</span>
               </div>
               <h1 className="text-5xl sm:text-6xl lg:text-6xl font-bold leading-[1.08] mb-6 text-slate-900">
                 Her Figür
                 <span className="block text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-violet-600">
-                  Bir Hikaye
+                  Bir Anlam Taşır
                 </span>
               </h1>
               <p className="text-lg text-slate-500 mb-10 leading-relaxed max-w-lg">
@@ -82,7 +82,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
                     <Star key={i} className="h-3.5 w-3.5 fill-amber-400 text-amber-400" />
                   ))}
                 </div>
-                <p className="text-sm text-slate-500"><span className="font-semibold text-slate-700">200+</span> mutlu müşteri</p>
+                <p className="text-sm text-slate-500"><span className="font-semibold text-slate-700">100+</span> memnun müşteri</p>
               </div>
             </div>
 
@@ -100,9 +100,9 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 sm:grid-cols-3 divide-y sm:divide-y-0 sm:divide-x divide-slate-100">
             {[
-              { icon: Sparkles, title: 'Özel Tasarım', desc: 'Her ürün elle üretilir' },
-              { icon: Shield, title: 'Yüksek Kalite', desc: 'PLA+ ve PETG malzeme' },
-              { icon: Truck, title: 'Hızlı Teslimat', desc: 'Türkiye geneli kargo' },
+              { icon: Sparkles, title: 'El Yapımı Üretim', desc: 'Her ürün özenle tasarlanır ve üretilir' },
+              { icon: Shield, title: 'Dayanıklı Malzeme', desc: 'PLA+ ve PETG filament kullanılır' },
+              { icon: Truck, title: 'Hızlı & Güvenli Teslimat', desc: 'Türkiye geneline kargo desteği' },
             ].map(f => (
               <div key={f.title} className="flex items-center gap-4 px-8 py-5">
                 <div className="w-10 h-10 rounded-xl bg-indigo-50 flex items-center justify-center flex-shrink-0">
@@ -123,7 +123,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
         <div className="mx-auto max-w-7xl">
           <div className="flex items-end justify-between mb-10">
             <div>
-              <p className="text-xs font-semibold uppercase tracking-widest text-indigo-500 mb-2">Koleksiyon</p>
+              <p className="text-xs font-semibold uppercase tracking-widest text-indigo-500 mb-2">Öne Çıkanlar</p>
               <h2 className="text-3xl font-bold text-slate-900">{t('featured_title')}</h2>
             </div>
             <Link
@@ -140,7 +140,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
               <div className="w-20 h-20 rounded-3xl bg-indigo-50 flex items-center justify-center mx-auto mb-4">
                 <Sparkles className="h-8 w-8 text-indigo-300" />
               </div>
-              <p className="text-slate-400 text-sm">Yakında ürünler eklenecek.</p>
+              <p className="text-slate-400 text-sm">Yeni ürünler çok yakında eklenecek. Takipte kalın!</p>
             </div>
           ) : (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -174,13 +174,13 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
               <Sparkles className="h-3.5 w-3.5 text-indigo-200" />
               <span className="text-indigo-100 text-xs font-semibold tracking-wide uppercase">Tüm Koleksiyon</span>
             </div>
-            <h3 className="text-2xl sm:text-3xl font-bold mb-3">Koleksiyonu Keşfet</h3>
+            <h3 className="text-2xl sm:text-3xl font-bold mb-3">Tüm Figürleri Keşfet</h3>
             <p className="text-indigo-200 mb-8 text-sm max-w-md mx-auto">
-              Tüm 3D baskı figürlerimizi incele, dilediğini sepetine ekle.
+              Birbirinden özgün 3D baskı figürlerimizi inceleyin. Her bütçeye uygun seçenekler, hızlı kargo ve güvenli alışveriş.
             </p>
             <Link href={`/${locale}/products`}>
               <Button className="bg-white text-indigo-700 hover:bg-indigo-50 shadow-lg gap-2 px-8 h-11 rounded-xl font-semibold transition-all hover:-translate-y-0.5">
-                Tüm Ürünlere Git <ArrowRight className="h-4 w-4" />
+                Tüm Ürünleri Gör <ArrowRight className="h-4 w-4" />
               </Button>
             </Link>
           </div>

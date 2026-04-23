@@ -8,8 +8,8 @@
   },
   "home": {
     "hero_title": "3D Printed Figures",
-    "hero_subtitle": "Handcrafted, custom-designed 3D printed figures. Each one unique, each one special.",
-    "hero_cta": "Browse Products",
+    "hero_subtitle": "Unique, handcrafted 3D printed figures made just for you or your loved ones. Premium materials, meticulous craftsmanship, and fast delivery — your dream figure is closer than you think.",
+    "hero_cta": "Explore Collection",
     "featured_title": "Featured Products",
     "view_all": "View All"
   },
@@ -22,30 +22,30 @@
     "price": "Price",
     "quantity": "Quantity",
     "variants": "Options",
-    "description": "Description",
-    "no_products": "No products found."
+    "description": "Product Description",
+    "no_products": "No products found matching your criteria."
   },
   "cart": {
     "title": "My Cart",
-    "empty": "Your cart is empty",
+    "empty": "Your cart is currently empty",
     "empty_cta": "Start Shopping",
-    "total": "Total",
+    "total": "Total Amount",
     "checkout": "Proceed to Checkout",
     "remove": "Remove",
     "quantity": "Quantity"
   },
   "checkout": {
-    "title": "Order Information",
+    "title": "Delivery & Order Details",
     "name": "Full Name",
-    "email": "Email",
-    "phone": "Phone",
-    "address": "Address",
+    "email": "Email Address",
+    "phone": "Phone Number",
+    "address": "Full Address",
     "city": "City",
     "district": "District",
     "zip": "Zip Code",
     "submit": "Confirm Order",
-    "success_title": "Order Received!",
-    "success_message": "Your order number: {orderNumber}. We will contact you shortly.",
+    "success_title": "Your Order Has Been Received!",
+    "success_message": "Your order number: {orderNumber}. Your order will be prepared and shipped as soon as possible. Please check your registered email for updates.",
     "notes": "Order Note (Optional)"
   },
   "footer": {
