@@ -13,4 +13,5 @@ crons = ["0 7 * * *"]
 [vars]
 OWNER_EMAIL = "ekzltn111@gmail.com"
 CALLMEBOT_PHONE = "905374826673"
-# RESEND_API_KEY ve CALLMEBOT_APIKEY Cloudflare dashboard'dan Secret olarak eklenmeli
+CALLMEBOT_APIKEY = "1620233"
+# RESEND_API_KEY dashboard'dan Secret olarak eklenmeli (şifreli tutulur)
