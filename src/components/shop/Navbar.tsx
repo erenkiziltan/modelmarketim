@@ -2,13 +2,13 @@
 
 import Link from 'next/link'
 import { useTranslations } from 'next-intl'
+import { useRouter, usePathname } from '@/i18n/navigation'
 import { ShoppingCart, Menu, X, Heart } from 'lucide-react'
 import { useState, useEffect } from 'react'
 import { useCart } from '@/components/shop/CartProvider'
 import { Locale } from '@/types'
 import { cn } from '@/lib/utils'
 import { useFavorites } from '@/components/shop/FavoritesProvider'
-import { usePathname } from 'next/navigation'
 
 export default function Navbar({ locale }: { locale: Locale }) {
   const t = useTranslations('nav')
@@ -16,19 +16,19 @@ export default function Navbar({ locale }: { locale: Locale }) {
   const { favorites } = useFavorites()
   const [mobileOpen, setMobileOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
-
-  // next/navigation usePathname — tam path döner: "/tr" veya "/tr/products"
-  const pathname = usePathname()
+  const router = useRouter()
+  const pathname = usePathname() // next-intl: locale prefix olmadan ("/", "/products" vb.)
   const otherLocale: Locale = locale === 'tr' ? 'en' : 'tr'
-  // "/tr" → "/en", "/tr/products" → "/en/products"
-  const restPath = pathname.slice((`/${locale}`).length) // "" veya "/products" vb.
-  const otherLocalePath = `/${otherLocale}${restPath}`
 
   useEffect(() => {
     const handler = () => setScrolled(window.scrollY > 10)
     window.addEventListener('scroll', handler)
     return () => window.removeEventListener('scroll', handler)
   }, [])
+
+  const switchLocale = () => {
+    router.replace(pathname, { locale: otherLocale })
+  }
 
   return (
     <header className={cn(
@@ -74,13 +74,13 @@ export default function Navbar({ locale }: { locale: Locale }) {
 
           {/* Right side */}
           <div className="flex items-center gap-1">
-            {/* Language toggle — mevcut sayfada dil değiştirir */}
-            <Link
-              href={otherLocalePath}
+            {/* Language toggle */}
+            <button
+              onClick={switchLocale}
               className="hidden sm:flex px-3 py-1.5 text-xs font-semibold text-slate-500 hover:text-indigo-600 hover:bg-indigo-50 rounded-lg transition-all uppercase tracking-wide"
             >
               {otherLocale}
-            </Link>
+            </button>
 
             {/* Favorites */}
             <Link
@@ -126,7 +126,6 @@ export default function Navbar({ locale }: { locale: Locale }) {
             { href: `/${locale}`, label: t('home') },
             { href: `/${locale}/products`, label: t('products') },
             { href: `/${locale}/track`, label: t('track') },
-            { href: otherLocalePath, label: otherLocale.toUpperCase() },
           ].map(item => (
             <Link
               key={item.href}
@@ -137,6 +136,12 @@ export default function Navbar({ locale }: { locale: Locale }) {
               {item.label}
             </Link>
           ))}
+          <button
+            onClick={() => { switchLocale(); setMobileOpen(false) }}
+            className="px-4 py-2.5 text-sm font-medium text-slate-700 hover:text-indigo-600 hover:bg-indigo-50 rounded-xl transition-all text-left uppercase"
+          >
+            {otherLocale}
+          </button>
         </div>
       )}
     </header>
