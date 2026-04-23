@@ -16,10 +16,10 @@ export default async function EditProduct({ params }: { params: Promise<{ id: st
   if (!product) notFound()
 
   return (
-    <div className="flex min-h-screen bg-zinc-50">
+    <div className="flex min-h-screen bg-slate-50">
       <AdminSidebar />
       <div className="flex-1 p-8 max-w-3xl">
-        <h1 className="text-2xl font-bold text-zinc-900 mb-8">Ürünü Düzenle</h1>
+        <h1 className="text-2xl font-bold text-slate-900 mb-8">Ürünü Düzenle</h1>
         <AdminProductForm product={product} />
       </div>
     </div>

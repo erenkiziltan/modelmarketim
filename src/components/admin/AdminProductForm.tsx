@@ -240,9 +240,9 @@ export default function AdminProductForm({ product }: Props) {
                   id="isActive"
                   checked={isActive}
                   onChange={e => setIsActive(e.target.checked)}
-                  className="h-4 w-4 accent-orange-500"
+                  className="h-4 w-4 accent-indigo-600"
                 />
-                <label htmlFor="isActive" className="text-sm text-zinc-700">Yayında</label>
+                <label htmlFor="isActive" className="text-sm text-slate-700">Yayında</label>
               </div>
             </div>
           </div>
@@ -257,9 +257,9 @@ export default function AdminProductForm({ product }: Props) {
             className="border-2 border-dashed border-zinc-200 rounded-lg p-8 text-center cursor-pointer hover:border-orange-400 transition-colors"
             onClick={() => fileInputRef.current?.click()}
           >
-            <Upload className="h-8 w-8 text-zinc-400 mx-auto mb-2" />
-            <p className="text-sm text-zinc-500">Görsel yüklemek için tıklayın</p>
-            <p className="text-xs text-zinc-400 mt-1">JPG, PNG, WEBP — max 5MB</p>
+            <Upload className="h-8 w-8 text-slate-400 mx-auto mb-2" />
+            <p className="text-sm text-slate-500">Görsel yüklemek için tıklayın</p>
+            <p className="text-xs text-slate-400 mt-1">JPG, PNG, WEBP — max 5MB</p>
             <input
               ref={fileInputRef}
               type="file"
@@ -270,7 +270,7 @@ export default function AdminProductForm({ product }: Props) {
             />
           </div>
 
-          {uploadingImages && <p className="text-sm text-orange-500">Görseller yükleniyor...</p>}
+          {uploadingImages && <p className="text-sm text-indigo-600">Görseller yükleniyor...</p>}
 
           {images.length > 0 && (
             <div className="grid grid-cols-3 sm:grid-cols-4 gap-3">
@@ -281,7 +281,7 @@ export default function AdminProductForm({ product }: Props) {
                     <button
                       type="button"
                       onClick={() => setCover(img.id)}
-                      className={`p-1.5 rounded-full ${img.is_cover ? 'bg-orange-500 text-white' : 'bg-white text-zinc-700'}`}
+                      className={`p-1.5 rounded-full ${img.is_cover ? 'bg-indigo-600 text-white' : 'bg-white text-slate-700'}`}
                       title="Kapak yap"
                     >
                       <Star className="h-3.5 w-3.5" />
@@ -296,7 +296,7 @@ export default function AdminProductForm({ product }: Props) {
                     </button>
                   </div>
                   {img.is_cover && (
-                    <span className="absolute top-1 left-1 bg-orange-500 text-white text-xs px-1.5 py-0.5 rounded">
+                    <span className="absolute top-1 left-1 bg-indigo-600 text-white text-xs px-1.5 py-0.5 rounded">
                       Kapak
                     </span>
                   )}
@@ -317,12 +317,12 @@ export default function AdminProductForm({ product }: Props) {
         </CardHeader>
         <CardContent className="flex flex-col gap-4">
           {variants.length === 0 && (
-            <p className="text-sm text-zinc-400 text-center py-4">Varyant yok. Renk, boyut gibi seçenekler için ekle.</p>
+            <p className="text-sm text-slate-400 text-center py-4">Varyant yok. Renk, boyut gibi seçenekler için ekle.</p>
           )}
           {variants.map((v, idx) => (
             <div key={idx} className="border rounded-lg p-4 flex flex-col gap-3">
               <div className="flex items-center justify-between">
-                <span className="text-sm font-medium text-zinc-700">Varyant {idx + 1}</span>
+                <span className="text-sm font-medium text-slate-700">Varyant {idx + 1}</span>
                 <button type="button" onClick={() => removeVariant(idx)} className="text-red-400 hover:text-red-600">
                   <Trash2 className="h-4 w-4" />
                 </button>
@@ -361,7 +361,7 @@ export default function AdminProductForm({ product }: Props) {
       </Card>
 
       <div className="flex gap-3">
-        <Button type="submit" disabled={loading} className="bg-orange-500 hover:bg-orange-600">
+        <Button type="submit" disabled={loading} className="bg-indigo-600 hover:bg-indigo-700">
           {loading ? 'Kaydediliyor...' : isEdit ? 'Güncelle' : 'Ürünü Kaydet'}
         </Button>
         <Button type="button" variant="outline" onClick={() => router.back()}>

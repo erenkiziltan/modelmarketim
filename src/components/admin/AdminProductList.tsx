@@ -10,7 +10,7 @@ import { formatPrice } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
-import { Plus, Pencil, Trash2, Eye, EyeOff } from 'lucide-react'
+import { Plus, Pencil, Trash2, Eye, EyeOff, Package } from 'lucide-react'
 import { toast } from 'sonner'
 
 export default function AdminProductList({ products }: { products: (Product & { product_images?: { url: string; is_cover: boolean }[] })[] }) {
@@ -45,9 +45,12 @@ export default function AdminProductList({ products }: { products: (Product & { 
   return (
     <div>
       <div className="flex items-center justify-between mb-6">
-        <h1 className="text-2xl font-bold text-zinc-900">Ürünler</h1>
+        <div>
+          <h1 className="text-2xl font-bold text-slate-900">Ürünler</h1>
+          <p className="text-sm text-slate-500 mt-1">{products.length} ürün</p>
+        </div>
         <Link href="/admin/products/new">
-          <Button className="bg-orange-500 hover:bg-orange-600 gap-2">
+          <Button className="bg-indigo-600 hover:bg-indigo-700 gap-2 rounded-xl shadow-sm shadow-indigo-200">
             <Plus className="h-4 w-4" />
             Yeni Ürün
           </Button>
@@ -55,30 +58,31 @@ export default function AdminProductList({ products }: { products: (Product & { 
       </div>
 
       {products.length === 0 ? (
-        <div className="text-center py-16 text-zinc-400">
+        <div className="text-center py-20 text-slate-400">
+          <Package className="h-12 w-12 mx-auto mb-3 opacity-30" />
           <p className="mb-4">Henüz ürün yok.</p>
           <Link href="/admin/products/new">
-            <Button className="bg-orange-500 hover:bg-orange-600">İlk Ürünü Ekle</Button>
+            <Button className="bg-indigo-600 hover:bg-indigo-700">İlk Ürünü Ekle</Button>
           </Link>
         </div>
       ) : (
-        <div className="bg-white rounded-lg border overflow-hidden">
+        <div className="bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden">
           <Table>
             <TableHeader>
-              <TableRow>
-                <TableHead className="w-16">Görsel</TableHead>
-                <TableHead>Ürün Adı</TableHead>
-                <TableHead>Fiyat</TableHead>
-                <TableHead>Stok</TableHead>
-                <TableHead>Durum</TableHead>
-                <TableHead className="text-right">İşlemler</TableHead>
+              <TableRow className="bg-slate-50">
+                <TableHead className="w-16 font-semibold text-slate-600">Görsel</TableHead>
+                <TableHead className="font-semibold text-slate-600">Ürün Adı</TableHead>
+                <TableHead className="font-semibold text-slate-600">Fiyat</TableHead>
+                <TableHead className="font-semibold text-slate-600">Stok</TableHead>
+                <TableHead className="font-semibold text-slate-600">Durum</TableHead>
+                <TableHead className="text-right font-semibold text-slate-600">İşlemler</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
               {products.map(product => {
                 const cover = product.product_images?.find(i => i.is_cover) ?? product.product_images?.[0]
                 return (
-                  <TableRow key={product.id}>
+                  <TableRow key={product.id} className="hover:bg-slate-50 transition-colors">
                     <TableCell>
                       {cover ? (
                         <Image
@@ -86,47 +90,59 @@ export default function AdminProductList({ products }: { products: (Product & { 
                           alt={product.name_tr}
                           width={48}
                           height={48}
-                          className="rounded object-cover h-12 w-12"
+                          className="rounded-lg object-cover h-12 w-12"
                         />
                       ) : (
-                        <div className="h-12 w-12 rounded bg-zinc-100 flex items-center justify-center text-zinc-400 text-xs">
+                        <div className="h-12 w-12 rounded-lg bg-slate-100 flex items-center justify-center text-slate-400 text-xs">
                           Yok
                         </div>
                       )}
                     </TableCell>
                     <TableCell>
-                      <div className="font-medium text-zinc-900">{product.name_tr}</div>
-                      <div className="text-xs text-zinc-400">{product.name_en}</div>
+                      <div className="font-medium text-slate-900">{product.name_tr}</div>
+                      <div className="text-xs text-slate-400">{product.name_en}</div>
                     </TableCell>
-                    <TableCell className="font-medium">{formatPrice(product.price)}</TableCell>
+                    <TableCell className="font-semibold text-slate-900">{formatPrice(product.price)}</TableCell>
                     <TableCell>
-                      <span className={product.stock <= 3 ? 'text-red-500 font-medium' : ''}>
+                      <span className={`font-medium text-sm ${
+                        product.stock === 0
+                          ? 'text-red-600'
+                          : product.stock <= 3
+                            ? 'text-amber-600'
+                            : 'text-slate-700'
+                      }`}>
                         {product.stock}
                       </span>
                     </TableCell>
                     <TableCell>
-                      <Badge variant={product.is_active ? 'default' : 'secondary'} className={product.is_active ? 'bg-green-500' : ''}>
+                      <Badge
+                        variant={product.is_active ? 'default' : 'secondary'}
+                        className={product.is_active
+                          ? 'bg-green-100 text-green-700 hover:bg-green-100'
+                          : 'bg-slate-100 text-slate-600'
+                        }
+                      >
                         {product.is_active ? 'Yayında' : 'Gizli'}
                       </Badge>
                     </TableCell>
                     <TableCell className="text-right">
-                      <div className="flex items-center justify-end gap-2">
+                      <div className="flex items-center justify-end gap-1">
                         <button
                           onClick={() => toggleActive(product.id, product.is_active)}
-                          className="p-1.5 text-zinc-400 hover:text-zinc-700 transition-colors"
+                          className="p-2 text-slate-400 hover:text-slate-700 hover:bg-slate-100 rounded-lg transition-colors"
                           title={product.is_active ? 'Gizle' : 'Yayına Al'}
                         >
                           {product.is_active ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                         </button>
                         <Link href={`/admin/products/${product.id}/edit`}>
-                          <button className="p-1.5 text-zinc-400 hover:text-blue-600 transition-colors">
+                          <button className="p-2 text-slate-400 hover:text-indigo-600 hover:bg-indigo-50 rounded-lg transition-colors">
                             <Pencil className="h-4 w-4" />
                           </button>
                         </Link>
                         <button
                           onClick={() => handleDelete(product.id, product.name_tr)}
                           disabled={deleting === product.id}
-                          className="p-1.5 text-zinc-400 hover:text-red-600 transition-colors disabled:opacity-40"
+                          className="p-2 text-slate-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors disabled:opacity-40"
                         >
                           <Trash2 className="h-4 w-4" />
                         </button>

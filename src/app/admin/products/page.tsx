@@ -10,7 +10,7 @@ export default async function AdminProducts() {
     .order('created_at', { ascending: false })
 
   return (
-    <div className="flex min-h-screen bg-zinc-50">
+    <div className="flex min-h-screen bg-slate-50">
       <AdminSidebar />
       <div className="flex-1 p-8">
         <AdminProductList products={products ?? []} />
