@@ -8,7 +8,7 @@ import { useCart } from '@/components/shop/CartProvider'
 import { Locale } from '@/types'
 import { cn } from '@/lib/utils'
 import { useFavorites } from '@/components/shop/FavoritesProvider'
-import { usePathname } from '@/i18n/navigation'
+import { usePathname } from 'next/navigation'
 
 export default function Navbar({ locale }: { locale: Locale }) {
   const t = useTranslations('nav')
@@ -17,11 +17,12 @@ export default function Navbar({ locale }: { locale: Locale }) {
   const [mobileOpen, setMobileOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
 
-  // usePathname from next-intl/navigation — locale prefix YOK: "/" veya "/products"
+  // next/navigation usePathname — tam path döner: "/tr" veya "/tr/products"
   const pathname = usePathname()
   const otherLocale: Locale = locale === 'tr' ? 'en' : 'tr'
-  // Tam URL'i kendimiz oluşturuyoruz: /en/products
-  const otherLocalePath = `/${otherLocale}${pathname === '/' ? '' : pathname}`
+  // "/tr" → "/en", "/tr/products" → "/en/products"
+  const restPath = pathname.slice((`/${locale}`).length) // "" veya "/products" vb.
+  const otherLocalePath = `/${otherLocale}${restPath}`
 
   useEffect(() => {
     const handler = () => setScrolled(window.scrollY > 10)
