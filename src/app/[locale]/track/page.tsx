@@ -54,26 +54,26 @@ export default function TrackPage() {
     <div className="mx-auto max-w-2xl px-4 py-16">
       {/* Header */}
       <div className="text-center mb-10">
-        <p className="text-xs font-semibold uppercase tracking-widest text-orange-500 mb-2">Sipariş Takip</p>
-        <h1 className="text-3xl font-bold text-zinc-900 mb-3">Siparişini Takip Et</h1>
-        <p className="text-zinc-500 text-sm">Sipariş numaranı girerek durumunu öğren.</p>
+        <p className="text-xs font-semibold uppercase tracking-widest text-indigo-600 mb-2">Sipariş Takip</p>
+        <h1 className="text-3xl font-bold text-slate-900 mb-3">Siparişini Takip Et</h1>
+        <p className="text-slate-500 text-sm">Sipariş numaranı girerek durumunu öğren.</p>
       </div>
 
       {/* Search form */}
       <form onSubmit={handleSearch} className="flex gap-2 mb-8">
         <div className="relative flex-1">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-zinc-400" />
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
           <Input
             value={orderNumber}
             onChange={e => setOrderNumber(e.target.value)}
             placeholder="PF260418XXXX"
-            className="pl-10 h-12 rounded-xl border-zinc-200 font-mono text-sm"
+            className="pl-10 h-12 rounded-xl border-slate-200 font-mono text-sm"
           />
         </div>
         <Button
           type="submit"
           disabled={loading}
-          className="h-12 px-6 bg-orange-500 hover:bg-orange-600 rounded-xl"
+          className="h-12 px-6 bg-indigo-600 hover:bg-indigo-700 rounded-xl"
         >
           {loading ? 'Aranıyor...' : 'Sorgula'}
         </Button>
@@ -89,16 +89,16 @@ export default function TrackPage() {
 
       {/* Order result */}
       {order && (
-        <div className="bg-white border border-zinc-100 rounded-2xl overflow-hidden shadow-sm">
+        <div className="bg-white border border-slate-100 rounded-2xl overflow-hidden shadow-sm">
           {/* Order header */}
-          <div className="bg-zinc-50 px-6 py-4 border-b border-zinc-100 flex items-center justify-between">
+          <div className="bg-slate-50 px-6 py-4 border-b border-slate-100 flex items-center justify-between">
             <div>
-              <p className="text-xs text-zinc-500 mb-0.5">Sipariş Numarası</p>
-              <p className="font-mono font-bold text-zinc-900">{order.order_number}</p>
+              <p className="text-xs text-slate-500 mb-0.5">Sipariş Numarası</p>
+              <p className="font-mono font-bold text-slate-900">{order.order_number}</p>
             </div>
             <div className="text-right">
-              <p className="text-xs text-zinc-500 mb-0.5">Tarih</p>
-              <p className="text-sm font-medium text-zinc-700">
+              <p className="text-xs text-slate-500 mb-0.5">Tarih</p>
+              <p className="text-sm font-medium text-slate-700">
                 {new Date(order.created_at).toLocaleDateString('tr-TR')}
               </p>
             </div>
@@ -114,9 +114,9 @@ export default function TrackPage() {
             ) : (
               <div className="relative">
                 {/* Progress line */}
-                <div className="absolute top-5 left-0 right-0 h-0.5 bg-zinc-100 mx-10" />
+                <div className="absolute top-5 left-0 right-0 h-0.5 bg-slate-100 mx-10" />
                 <div
-                  className="absolute top-5 left-0 h-0.5 bg-orange-500 mx-10 transition-all duration-700"
+                  className="absolute top-5 left-0 h-0.5 bg-indigo-600 mx-10 transition-all duration-700"
                   style={{ width: `${(currentStep / 3) * 100}%` }}
                 />
 
@@ -130,13 +130,13 @@ export default function TrackPage() {
                         <div className={`w-10 h-10 rounded-full flex items-center justify-center z-10 transition-all ${
                           done
                             ? active
-                              ? 'bg-orange-500 text-white shadow-lg shadow-orange-200'
-                              : 'bg-orange-100 text-orange-500'
-                            : 'bg-zinc-100 text-zinc-300'
+                              ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-200'
+                              : 'bg-indigo-100 text-indigo-600'
+                            : 'bg-slate-100 text-slate-300'
                         }`}>
                           <Icon className="h-4 w-4" />
                         </div>
-                        <p className={`text-xs font-medium text-center leading-tight ${done ? 'text-zinc-700' : 'text-zinc-300'}`}>
+                        <p className={`text-xs font-medium text-center leading-tight ${done ? 'text-slate-700' : 'text-slate-300'}`}>
                           {step.label}
                         </p>
                       </div>
@@ -148,18 +148,18 @@ export default function TrackPage() {
           </div>
 
           {/* Customer info */}
-          <div className="px-6 pb-6 grid grid-cols-2 gap-4 border-t border-zinc-100 pt-4">
+          <div className="px-6 pb-6 grid grid-cols-2 gap-4 border-t border-slate-100 pt-4">
             <div>
-              <p className="text-xs text-zinc-400 mb-0.5">Müşteri</p>
-              <p className="text-sm font-medium text-zinc-900">{order.customer_name}</p>
+              <p className="text-xs text-slate-400 mb-0.5">Müşteri</p>
+              <p className="text-sm font-medium text-slate-900">{order.customer_name}</p>
             </div>
             <div>
-              <p className="text-xs text-zinc-400 mb-0.5">Toplam</p>
-              <p className="text-sm font-bold text-orange-500">{formatPrice(order.total_price)}</p>
+              <p className="text-xs text-slate-400 mb-0.5">Toplam</p>
+              <p className="text-sm font-bold text-indigo-600">{formatPrice(order.total_price)}</p>
             </div>
             <div className="col-span-2">
-              <p className="text-xs text-zinc-400 mb-0.5">Teslimat Adresi</p>
-              <p className="text-sm text-zinc-700">
+              <p className="text-xs text-slate-400 mb-0.5">Teslimat Adresi</p>
+              <p className="text-sm text-slate-700">
                 {order.shipping_address.district} / {order.shipping_address.city}
               </p>
             </div>
