@@ -103,7 +103,8 @@
     "order_summary": "Order Summary",
     "total": "Total",
     "processing": "Processing...",
-    "payment_info": "Payment on delivery or bank transfer."
+    "payment_info": "Payment on delivery or bank transfer.",
+    "trust_ssl": "Your information is protected with SSL encryption. Safe checkout."
   },
   "favorites": {
     "title": "My Favorites",

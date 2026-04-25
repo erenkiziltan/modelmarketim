@@ -103,7 +103,8 @@
     "order_summary": "Sipariş Özeti",
     "total": "Toplam",
     "processing": "İşleniyor...",
-    "payment_info": "Ödeme kapıda / havale ile alınacaktır."
+    "payment_info": "Ödeme kapıda / havale ile alınacaktır.",
+    "trust_ssl": "Bilgileriniz SSL şifreleme ile korunmaktadır. Güvenli alışveriş."
   },
   "favorites": {
     "title": "Favorilerim",

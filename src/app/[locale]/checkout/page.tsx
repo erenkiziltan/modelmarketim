@@ -13,7 +13,7 @@ import { Textarea } from '@/components/ui/textarea'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { formatPrice } from '@/lib/utils'
 import { toast } from 'sonner'
-import { CheckCircle } from 'lucide-react'
+import { CheckCircle, Shield } from 'lucide-react'
 import Link from 'next/link'
 
 export default function CheckoutPage() {
@@ -116,8 +116,16 @@ export default function CheckoutPage() {
   }
 
   return (
-    <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 py-12">
-      <h1 className="text-2xl font-bold text-slate-900 mb-8">{t('title')}</h1>
+    <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 py-10">
+      <h1 className="text-xl font-bold text-slate-900 mb-3">{t('title')}</h1>
+
+      {/* Trust banner */}
+      <div className="flex items-center gap-3 bg-green-50 border border-green-100 rounded-xl px-4 py-2.5 mb-6">
+        <div className="w-7 h-7 rounded-full bg-green-100 flex items-center justify-center flex-shrink-0">
+          <Shield className="h-3.5 w-3.5 text-green-600" />
+        </div>
+        <p className="text-sm text-green-700 font-medium">{t('trust_ssl')}</p>
+      </div>
 
       <form onSubmit={handleSubmit} className="flex flex-col lg:flex-row gap-8">
         {/* Form */}
@@ -185,7 +193,7 @@ export default function CheckoutPage() {
                 <span>{t('total')}</span>
                 <span className="text-indigo-600">{formatPrice(total)}</span>
               </div>
-              <Button type="submit" disabled={loading} className="w-full bg-indigo-600 hover:bg-indigo-700 mt-2">
+              <Button type="submit" disabled={loading} className="w-full bg-indigo-600 hover:bg-indigo-700 active:scale-[0.98] mt-2">
                 {loading ? t('processing') : t('submit')}
               </Button>
               <p className="text-xs text-slate-400 text-center">{t('payment_info')}</p>

@@ -47,13 +47,13 @@ export default function ProductDetail({ product, locale }: { product: FullProduc
       {/* Breadcrumb */}
       <Link
         href={`/${locale}/products`}
-        className="inline-flex items-center gap-1.5 text-sm text-slate-400 hover:text-indigo-600 mb-8 transition-colors group"
+        className="inline-flex items-center gap-1.5 text-sm text-slate-400 hover:text-indigo-600 mb-6 transition-colors group"
       >
         <ChevronLeft className="h-4 w-4 group-hover:-translate-x-0.5 transition-transform" />
         {t('back_to_products')}
       </Link>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
+      <div className="grid grid-cols-1 lg:grid-cols-[3fr_2fr] gap-8 lg:gap-12 items-start">
 
         {/* Images */}
         <div className="flex flex-col gap-3">
@@ -100,12 +100,12 @@ export default function ProductDetail({ product, locale }: { product: FullProduc
         </div>
 
         {/* Info */}
-        <div className="flex flex-col gap-6">
+        <div className="flex flex-col gap-5 lg:sticky lg:top-8 lg:self-start">
           {/* Name & Price */}
           <div>
-            <h1 className="text-3xl font-bold text-slate-900 mb-3 leading-tight">{name}</h1>
+            <h1 className="text-2xl font-bold text-slate-900 mb-2 leading-tight">{name}</h1>
             <div className="flex items-baseline gap-3">
-              <span className="text-4xl font-bold text-indigo-600">{formatPrice(product.price)}</span>
+              <span className="text-3xl font-bold text-indigo-600">{formatPrice(product.price)}</span>
             </div>
           </div>
 
@@ -178,7 +178,7 @@ export default function ProductDetail({ product, locale }: { product: FullProduc
             size="lg"
             onClick={handleAddToCart}
             disabled={!inStock}
-            className={`gap-2 h-12 text-base rounded-xl transition-all w-full sm:w-auto shadow-lg ${
+            className={`gap-2 h-11 text-sm rounded-xl transition-all w-full shadow-lg active:scale-[0.98] ${
               added
                 ? 'bg-green-500 hover:bg-green-500 shadow-green-200'
                 : 'bg-indigo-600 hover:bg-indigo-700 shadow-indigo-200 hover:shadow-indigo-300 hover:-translate-y-0.5'
@@ -189,14 +189,14 @@ export default function ProductDetail({ product, locale }: { product: FullProduc
           </Button>
 
           {/* Trust badges */}
-          <div className="grid grid-cols-3 gap-3 pt-2">
+          <div className="grid grid-cols-3 gap-2">
             {[
               { icon: Shield, key: 'trust_secure' as const },
               { icon: Truck, key: 'trust_shipping' as const },
               { icon: RotateCcw, key: 'trust_returns' as const },
             ].map(b => (
-              <div key={b.key} className="flex flex-col items-center gap-1.5 p-3 bg-slate-50 rounded-xl">
-                <b.icon className="h-4 w-4 text-slate-400" />
+              <div key={b.key} className="flex flex-col items-center gap-1 p-2.5 bg-slate-50 rounded-xl border border-slate-100">
+                <b.icon className="h-3.5 w-3.5 text-indigo-400" />
                 <span className="text-xs text-slate-500 text-center leading-tight">{t(b.key)}</span>
               </div>
             ))}

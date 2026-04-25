@@ -28,8 +28,8 @@ export default function CartPage() {
   }
 
   return (
-    <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 py-12">
-      <h1 className="text-2xl font-bold text-slate-900 mb-8">{t('title')}</h1>
+    <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 py-8">
+      <h1 className="text-xl font-bold text-slate-900 mb-6">{t('title')}</h1>
 
       <div className="flex flex-col lg:flex-row gap-8">
         {/* Items */}
@@ -95,7 +95,7 @@ export default function CartPage() {
               <span>{formatPrice(total)}</span>
             </div>
             <Link href={`/${locale}/checkout`}>
-              <Button className="w-full bg-indigo-600 hover:bg-indigo-700">{t('checkout')}</Button>
+              <Button className="w-full bg-indigo-600 hover:bg-indigo-700 active:scale-[0.98]">{t('checkout')}</Button>
             </Link>
           </div>
         </div>

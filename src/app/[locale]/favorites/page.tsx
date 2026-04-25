@@ -44,20 +44,20 @@ export default function FavoritesPage() {
   return (
     <div>
       <div className="bg-white border-b border-slate-100">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-10">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-7">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-indigo-50 flex items-center justify-center">
-              <Heart className="h-5 w-5 text-indigo-600 fill-indigo-600" />
+            <div className="w-9 h-9 rounded-xl bg-indigo-50 flex items-center justify-center">
+              <Heart className="h-4 w-4 text-indigo-600 fill-indigo-600" />
             </div>
             <div>
-              <h1 className="text-3xl font-bold text-slate-900">{t('title')}</h1>
+              <h1 className="text-2xl font-bold text-slate-900">{t('title')}</h1>
               <p className="text-slate-500 text-sm mt-0.5">{t('count', { count: products.length })}</p>
             </div>
           </div>
         </div>
       </div>
 
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-10">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-6">
         {products.length === 0 ? (
           <div className="text-center py-24">
             <div className="w-24 h-24 rounded-3xl bg-slate-50 flex items-center justify-center mx-auto mb-4">

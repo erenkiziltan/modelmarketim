@@ -108,9 +108,9 @@ export default function ProductCard({ product, locale }: { product: ProductWithI
           {product.stock > 0 && (
             <button
               onClick={handleQuickAdd}
-              className="absolute bottom-3 left-3 right-3 bg-indigo-600/95 backdrop-blur-sm text-white text-xs font-semibold py-2.5 rounded-xl
+              className="absolute bottom-3 left-3 right-3 bg-indigo-600/95 backdrop-blur-sm text-white text-xs font-semibold py-2 rounded-xl
                 opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0
-                transition-all duration-200 flex items-center justify-center gap-1.5 hover:bg-indigo-700"
+                transition-all duration-200 flex items-center justify-center gap-1.5 hover:bg-indigo-700 active:scale-[0.98]"
             >
               <ShoppingCart className="h-3.5 w-3.5" />
               {t('add_to_cart')}
@@ -119,12 +119,12 @@ export default function ProductCard({ product, locale }: { product: ProductWithI
         </div>
 
         {/* Info */}
-        <div className="p-4">
-          <h3 className="font-semibold text-slate-900 group-hover:text-indigo-600 transition-colors leading-snug line-clamp-2 mb-2">
+        <div className="p-3">
+          <h3 className="font-semibold text-slate-900 group-hover:text-indigo-600 transition-colors leading-snug line-clamp-2 mb-1.5 text-sm">
             {name}
           </h3>
           <div className="flex items-center justify-between">
-            <p className="text-xl font-bold text-indigo-600">{formatPrice(product.price)}</p>
+            <p className="text-lg font-bold text-indigo-600">{formatPrice(product.price)}</p>
             <span className={`text-xs font-medium px-2 py-0.5 rounded-full ${
               product.stock > 0 ? 'bg-emerald-50 text-emerald-600' : 'bg-slate-100 text-slate-400'
             }`}>

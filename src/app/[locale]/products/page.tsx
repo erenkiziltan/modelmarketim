@@ -52,14 +52,14 @@ export default async function ProductsPage({
   return (
     <div>
       <div className="bg-white border-b border-slate-100">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-10">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-7">
           <p className="text-xs font-semibold uppercase tracking-widest text-indigo-500 mb-1">{t('collection')}</p>
-          <h1 className="text-3xl font-bold text-slate-900">{t('title')}</h1>
-          <p className="text-slate-500 text-sm mt-1">{t('product_count', { count: products.length })}</p>
+          <h1 className="text-2xl font-bold text-slate-900">{t('title')}</h1>
+          <p className="text-slate-500 text-sm mt-0.5">{t('product_count', { count: products.length })}</p>
         </div>
       </div>
 
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-6">
         <ProductFilters currentSort={sort} currentQ={q} />
 
         {products.length === 0 ? (

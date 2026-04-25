@@ -7,7 +7,7 @@ export default function Footer({ locale }: { locale: string }) {
 
   return (
     <footer className="bg-slate-900 text-slate-400 mt-auto">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-10">
         <div className="flex flex-col md:flex-row items-start justify-between gap-8">
           {/* Brand */}
           <div>
