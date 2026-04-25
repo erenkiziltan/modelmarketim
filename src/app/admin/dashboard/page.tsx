@@ -2,6 +2,7 @@ import { createClient } from '@/lib/supabase/server'
 import AdminSidebar from '@/components/admin/AdminSidebar'
 import { Package, ShoppingBag, AlertTriangle, TrendingUp, Clock } from 'lucide-react'
 import { formatPrice } from '@/lib/utils'
+import { ORDER_STATUS } from '@/lib/order-status'
 import Link from 'next/link'
 
 export default async function AdminDashboard() {
@@ -56,14 +57,6 @@ export default async function AdminDashboard() {
     },
   ]
 
-  const statusLabels: Record<string, { label: string; cls: string }> = {
-    pending:    { label: 'Bekliyor',       cls: 'bg-amber-100 text-amber-700' },
-    confirmed:  { label: 'Onaylandı',      cls: 'bg-blue-100 text-blue-700' },
-    shipped:    { label: 'Kargoda',        cls: 'bg-purple-100 text-purple-700' },
-    delivered:  { label: 'Teslim Edildi',  cls: 'bg-green-100 text-green-700' },
-    cancelled:  { label: 'İptal',          cls: 'bg-red-100 text-red-700' },
-  }
-
   return (
     <div className="flex min-h-screen bg-slate-50">
       <AdminSidebar />
@@ -107,7 +100,7 @@ export default async function AdminDashboard() {
             ) : (
               <div className="divide-y divide-slate-50">
                 {recentOrders.map(order => {
-                  const s = statusLabels[order.status] ?? { label: order.status, cls: 'bg-slate-100 text-slate-600' }
+                  const s = ORDER_STATUS[order.status as keyof typeof ORDER_STATUS] ?? { label: order.status, cls: 'bg-slate-100 text-slate-600' }
                   return (
                     <div key={order.id} className="flex items-center justify-between px-6 py-3.5 hover:bg-slate-50 transition-colors">
                       <div className="flex items-center gap-3">

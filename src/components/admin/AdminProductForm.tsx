@@ -254,7 +254,7 @@ export default function AdminProductForm({ product }: Props) {
         <CardHeader><CardTitle>Görseller</CardTitle></CardHeader>
         <CardContent className="flex flex-col gap-4">
           <div
-            className="border-2 border-dashed border-zinc-200 rounded-lg p-8 text-center cursor-pointer hover:border-indigo-400 transition-colors"
+            className="border-2 border-dashed border-slate-200 rounded-lg p-8 text-center cursor-pointer hover:border-indigo-400 transition-colors"
             onClick={() => fileInputRef.current?.click()}
           >
             <Upload className="h-8 w-8 text-slate-400 mx-auto mb-2" />

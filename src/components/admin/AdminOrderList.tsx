@@ -12,22 +12,7 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { toast } from 'sonner'
 import { MapPin, Phone, Mail, Package, StickyNote } from 'lucide-react'
-
-const statusLabels: Record<OrderStatus, string> = {
-  pending: 'Bekliyor',
-  confirmed: 'Onaylandı',
-  shipped: 'Kargoda',
-  delivered: 'Teslim Edildi',
-  cancelled: 'İptal',
-}
-
-const statusColors: Record<OrderStatus, string> = {
-  pending:   'bg-amber-100 text-amber-700',
-  confirmed: 'bg-blue-100 text-blue-700',
-  shipped:   'bg-purple-100 text-purple-700',
-  delivered: 'bg-green-100 text-green-700',
-  cancelled: 'bg-red-100 text-red-700',
-}
+import { ORDER_STATUS } from '@/lib/order-status'
 
 export default function AdminOrderList({ orders }: { orders: Order[] }) {
   const router = useRouter()
@@ -115,7 +100,7 @@ export default function AdminOrderList({ orders }: { orders: Order[] }) {
                         <SelectValue />
                       </SelectTrigger>
                       <SelectContent>
-                        {Object.entries(statusLabels).map(([val, label]) => (
+                        {Object.entries(ORDER_STATUS).map(([val, { label }]) => (
                           <SelectItem key={val} value={val} className="text-xs">{label}</SelectItem>
                         ))}
                       </SelectContent>
@@ -143,8 +128,8 @@ export default function AdminOrderList({ orders }: { orders: Order[] }) {
             <DialogTitle className="flex items-center gap-2">
               <span className="font-mono text-indigo-600">{selected?.order_number}</span>
               {selected && (
-                <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${statusColors[selected.status]}`}>
-                  {statusLabels[selected.status]}
+                <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${ORDER_STATUS[selected.status].cls}`}>
+                  {ORDER_STATUS[selected.status].label}
                 </span>
               )}
             </DialogTitle>
@@ -241,7 +226,7 @@ export default function AdminOrderList({ orders }: { orders: Order[] }) {
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
-                    {Object.entries(statusLabels).map(([val, label]) => (
+                    {Object.entries(ORDER_STATUS).map(([val, { label }]) => (
                       <SelectItem key={val} value={val}>{label}</SelectItem>
                     ))}
                   </SelectContent>
