@@ -91,7 +91,7 @@ export default async function AdminDashboard() {
           <div className="lg:col-span-2 bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden">
             <div className="flex items-center justify-between px-6 py-4 border-b border-slate-100">
               <h2 className="text-sm font-semibold text-slate-900">Son Siparişler</h2>
-              <Link href="/admin/orders" className="text-xs text-indigo-600 hover:text-indigo-700 font-medium">
+              <Link href="/yonetim-paneli/orders" className="text-xs text-indigo-600 hover:text-indigo-700 font-medium">
                 Tümünü Gör →
               </Link>
             </div>

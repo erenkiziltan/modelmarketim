@@ -9,7 +9,7 @@ export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl
 
   // Admin rotaları için auth kontrolü
-  if (pathname.startsWith('/admin') && !pathname.startsWith('/admin/login')) {
+  if (pathname.startsWith('/yonetim-paneli') && !pathname.startsWith('/yonetim-paneli/login')) {
     const supabase = createServerClient(
       process.env.NEXT_PUBLIC_SUPABASE_URL!,
       process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
@@ -26,14 +26,14 @@ export async function middleware(request: NextRequest) {
     const { data: { session } } = await supabase.auth.getSession()
 
     if (!session) {
-      return NextResponse.redirect(new URL('/admin/login', request.url))
+      return NextResponse.redirect(new URL('/yonetim-paneli/login', request.url))
     }
 
     return NextResponse.next()
   }
 
-  // /admin rotaları için intl middleware'i atla
-  if (pathname.startsWith('/admin')) {
+  // /yonetim-paneli rotaları için intl middleware'i atla
+  if (pathname.startsWith('/yonetim-paneli')) {
     return NextResponse.next()
   }
 
@@ -42,7 +42,7 @@ export async function middleware(request: NextRequest) {
 
 export const config = {
   matcher: [
-    '/admin/:path*',
+    '/yonetim-paneli/:path*',
     '/((?!api|_next/static|_next/image|favicon.ico|.*\\..*).*)',
   ],
 }

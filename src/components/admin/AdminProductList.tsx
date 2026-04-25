@@ -49,7 +49,7 @@ export default function AdminProductList({ products }: { products: (Product & { 
           <h1 className="text-2xl font-bold text-slate-900">Ürünler</h1>
           <p className="text-sm text-slate-500 mt-1">{products.length} ürün</p>
         </div>
-        <Link href="/admin/products/new">
+        <Link href="/yonetim-paneli/products/new">
           <Button className="bg-indigo-600 hover:bg-indigo-700 gap-2 rounded-xl shadow-sm shadow-indigo-200">
             <Plus className="h-4 w-4" />
             Yeni Ürün
@@ -61,7 +61,7 @@ export default function AdminProductList({ products }: { products: (Product & { 
         <div className="text-center py-20 text-slate-400">
           <Package className="h-12 w-12 mx-auto mb-3 opacity-30" />
           <p className="mb-4">Henüz ürün yok.</p>
-          <Link href="/admin/products/new">
+          <Link href="/yonetim-paneli/products/new">
             <Button className="bg-indigo-600 hover:bg-indigo-700">İlk Ürünü Ekle</Button>
           </Link>
         </div>
@@ -134,7 +134,7 @@ export default function AdminProductList({ products }: { products: (Product & { 
                         >
                           {product.is_active ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                         </button>
-                        <Link href={`/admin/products/${product.id}/edit`}>
+                        <Link href={`/yonetim-paneli/products/${product.id}/edit`}>
                           <button className="p-2 text-slate-400 hover:text-indigo-600 hover:bg-indigo-50 rounded-lg transition-colors">
                             <Pencil className="h-4 w-4" />
                           </button>

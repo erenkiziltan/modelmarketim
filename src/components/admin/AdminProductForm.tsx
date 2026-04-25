@@ -189,7 +189,7 @@ export default function AdminProductForm({ product }: Props) {
     }
 
     toast.success(isEdit ? 'Ürün güncellendi.' : 'Ürün eklendi.')
-    router.push('/admin/products')
+    router.push('/yonetim-paneli/products')
     router.refresh()
   }
 

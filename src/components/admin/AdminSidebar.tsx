@@ -7,10 +7,10 @@ import { createClient } from '@/lib/supabase/client'
 import { cn } from '@/lib/utils'
 
 const navItems = [
-  { href: '/admin/dashboard', label: 'Dashboard', icon: LayoutDashboard },
-  { href: '/admin/products', label: 'Ürünler', icon: Package },
-  { href: '/admin/orders', label: 'Siparişler', icon: ShoppingBag },
-  { href: '/admin/settings', label: 'Ayarlar', icon: Settings },
+  { href: '/yonetim-paneli/dashboard', label: 'Dashboard', icon: LayoutDashboard },
+  { href: '/yonetim-paneli/products', label: 'Ürünler', icon: Package },
+  { href: '/yonetim-paneli/orders', label: 'Siparişler', icon: ShoppingBag },
+  { href: '/yonetim-paneli/settings', label: 'Ayarlar', icon: Settings },
 ]
 
 export default function AdminSidebar() {
@@ -20,7 +20,7 @@ export default function AdminSidebar() {
   async function handleLogout() {
     const supabase = createClient()
     await supabase.auth.signOut()
-    router.push('/admin/login')
+    router.push('/yonetim-paneli/login')
     router.refresh()
   }
 

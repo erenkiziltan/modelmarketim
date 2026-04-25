@@ -6,7 +6,7 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: '*',
         allow: '/',
-        disallow: ['/admin/', '/api/', '/checkout', '/cart'],
+        disallow: ['/yonetim-paneli/', '/api/', '/checkout', '/cart'],
       },
     ],
     sitemap: 'https://modelmarketim.com/sitemap.xml',

@@ -25,7 +25,7 @@ export default function AdminLogin() {
       setLoading(false)
       return
     }
-    router.push('/admin/dashboard')
+    router.push('/yonetim-paneli/dashboard')
     router.refresh()
   }
 

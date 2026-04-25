@@ -88,7 +88,7 @@ export async function GET(req: NextRequest) {
               `).join('')}
             </table>
             <div style="margin-top:20px;">
-              <a href="https://modelmarketim.com/admin/products" style="display:inline-block;background:#4f46e5;color:#fff;padding:10px 20px;border-radius:8px;text-decoration:none;font-size:14px;font-weight:600;">
+              <a href="https://modelmarketim.com/yonetim-paneli/products" style="display:inline-block;background:#4f46e5;color:#fff;padding:10px 20px;border-radius:8px;text-decoration:none;font-size:14px;font-weight:600;">
                 Stokları Güncelle →
               </a>
             </div>
