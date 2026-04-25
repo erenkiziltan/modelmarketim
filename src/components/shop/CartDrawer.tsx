@@ -8,8 +8,10 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { Locale } from '@/types'
+import { useTranslations } from 'next-intl'
 
 export default function CartDrawer({ locale }: { locale: Locale }) {
+  const t = useTranslations('cart')
   const { items, total, itemCount, isDrawerOpen, closeDrawer, removeItem, updateQuantity } = useCart()
 
   return (
@@ -41,7 +43,7 @@ export default function CartDrawer({ locale }: { locale: Locale }) {
               <div className="flex items-center gap-2">
                 <ShoppingCart className="h-5 w-5 text-indigo-600" />
                 <h2 className="text-lg font-bold text-slate-900" style={{ fontFamily: 'var(--font-space-grotesk)' }}>
-                  Sepetim
+                  {t('title')}
                 </h2>
                 {itemCount > 0 && (
                   <span className="bg-indigo-600 text-white text-xs font-bold w-5 h-5 rounded-full flex items-center justify-center">
@@ -64,11 +66,11 @@ export default function CartDrawer({ locale }: { locale: Locale }) {
                   <div className="w-24 h-24 rounded-3xl bg-indigo-50 flex items-center justify-center mb-4">
                     <ShoppingCart className="h-10 w-10 text-indigo-200" />
                   </div>
-                  <h3 className="font-bold text-slate-900 mb-1">Sepetiniz boş</h3>
-                  <p className="text-sm text-slate-400 mb-6">Ürün ekleyerek alışverişe başlayın.</p>
+                  <h3 className="font-bold text-slate-900 mb-1">{t('drawer_empty_title')}</h3>
+                  <p className="text-sm text-slate-400 mb-6">{t('drawer_empty_desc')}</p>
                   <Link href={`/${locale}/products`} onClick={closeDrawer}>
                     <Button className="bg-indigo-600 hover:bg-indigo-700 rounded-xl gap-2">
-                      Ürünlere Git <ArrowRight className="h-4 w-4" />
+                      {t('go_to_products')} <ArrowRight className="h-4 w-4" />
                     </Button>
                   </Link>
                 </div>
@@ -147,21 +149,21 @@ export default function CartDrawer({ locale }: { locale: Locale }) {
             {items.length > 0 && (
               <div className="px-6 py-4 border-t border-slate-100 bg-white">
                 <div className="flex justify-between items-center mb-4">
-                  <span className="text-sm text-slate-500">Toplam</span>
+                  <span className="text-sm text-slate-500">{t('total')}</span>
                   <span className="text-2xl font-bold text-slate-900" style={{ fontFamily: 'var(--font-space-grotesk)' }}>
                     {formatPrice(total)}
                   </span>
                 </div>
                 <Link href={`/${locale}/checkout`} onClick={closeDrawer}>
                   <Button className="w-full bg-indigo-600 hover:bg-indigo-700 h-12 rounded-xl text-base font-semibold shadow-lg shadow-indigo-100 gap-2">
-                    Siparişi Tamamla <ArrowRight className="h-4 w-4" />
+                    {t('complete_order')} <ArrowRight className="h-4 w-4" />
                   </Button>
                 </Link>
                 <button
                   onClick={closeDrawer}
                   className="w-full text-center text-sm text-slate-400 hover:text-slate-600 mt-3 transition-colors"
                 >
-                  Alışverişe devam et
+                  {t('continue_shopping')}
                 </button>
               </div>
             )}

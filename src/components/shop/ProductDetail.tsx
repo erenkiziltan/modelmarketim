@@ -32,12 +32,12 @@ export default function ProductDetail({ product, locale }: { product: FullProduc
     for (const v of product.product_variants ?? []) {
       const varName = getLocalizedField(v as unknown as Record<string, unknown>, 'name', locale)
       if (!selectedVariants[varName]) {
-        toast.error(`Lütfen ${varName} seçin.`)
+        toast.error(t('variant_required', { name: varName }))
         return
       }
     }
     addItem(product, quantity, selectedVariants)
-    toast.success(`${name} sepete eklendi.`)
+    toast.success(t('toast_added', { name }))
     setAdded(true)
     setTimeout(() => setAdded(false), 2000)
   }
@@ -50,7 +50,7 @@ export default function ProductDetail({ product, locale }: { product: FullProduc
         className="inline-flex items-center gap-1.5 text-sm text-slate-400 hover:text-indigo-600 mb-8 transition-colors group"
       >
         <ChevronLeft className="h-4 w-4 group-hover:-translate-x-0.5 transition-transform" />
-        Ürünlere Dön
+        {t('back_to_products')}
       </Link>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
@@ -68,12 +68,12 @@ export default function ProductDetail({ product, locale }: { product: FullProduc
               />
             ) : (
               <div className="flex items-center justify-center h-full">
-                <Package className="h-24 w-24 text-zinc-200" />
+                <Package className="h-24 w-24 text-slate-200" />
               </div>
             )}
             {!inStock && (
               <div className="absolute inset-0 bg-white/60 backdrop-blur-sm flex items-center justify-center">
-                <span className="bg-zinc-900 text-white text-sm font-semibold px-4 py-2 rounded-full">
+                <span className="bg-slate-900 text-white text-sm font-semibold px-4 py-2 rounded-full">
                   {t('out_of_stock')}
                 </span>
               </div>
@@ -111,13 +111,13 @@ export default function ProductDetail({ product, locale }: { product: FullProduc
 
           {/* Stock badge */}
           <div className="flex items-center gap-2">
-            <div className={`w-2 h-2 rounded-full ${inStock ? 'bg-green-500' : 'bg-zinc-300'}`} />
-            <span className={`text-sm font-medium ${inStock ? 'text-green-600' : 'text-zinc-400'}`}>
+            <div className={`w-2 h-2 rounded-full ${inStock ? 'bg-green-500' : 'bg-slate-300'}`} />
+            <span className={`text-sm font-medium ${inStock ? 'text-green-600' : 'text-slate-400'}`}>
               {inStock ? t('in_stock') : t('out_of_stock')}
             </span>
             {inStock && product.stock <= 5 && (
               <span className="text-xs bg-amber-50 text-amber-600 font-semibold px-2 py-0.5 rounded-full border border-amber-100">
-                Son {product.stock} adet
+                {t('last_stock_detail', { count: product.stock })}
               </span>
             )}
           </div>
@@ -130,7 +130,7 @@ export default function ProductDetail({ product, locale }: { product: FullProduc
                 <p className="text-sm font-semibold text-slate-700 mb-3">
                   {varName}
                   {selectedVariants[varName] && (
-                    <span className="font-normal text-zinc-400 ml-2">— {selectedVariants[varName]}</span>
+                    <span className="font-normal text-slate-400 ml-2">— {selectedVariants[varName]}</span>
                   )}
                 </p>
                 <div className="flex flex-wrap gap-2">
@@ -155,18 +155,18 @@ export default function ProductDetail({ product, locale }: { product: FullProduc
           {/* Quantity */}
           <div>
             <p className="text-sm font-semibold text-slate-700 mb-3">{t('quantity')}</p>
-            <div className="inline-flex items-center gap-0 border border-zinc-200 rounded-xl overflow-hidden">
+            <div className="inline-flex items-center border border-slate-200 rounded-xl overflow-hidden">
               <button
                 onClick={() => setQuantity(q => Math.max(1, q - 1))}
-                className="w-11 h-11 flex items-center justify-center text-lg text-zinc-700 hover:bg-zinc-50 transition-colors"
+                className="w-11 h-11 flex items-center justify-center text-lg text-slate-700 hover:bg-slate-50 transition-colors"
               >
                 −
               </button>
-              <span className="w-12 text-center text-sm font-bold text-zinc-900">{quantity}</span>
+              <span className="w-12 text-center text-sm font-bold text-slate-900">{quantity}</span>
               <button
                 onClick={() => setQuantity(q => Math.min(product.stock, q + 1))}
                 disabled={!inStock}
-                className="w-11 h-11 flex items-center justify-center text-lg text-zinc-700 hover:bg-zinc-50 transition-colors disabled:opacity-40"
+                className="w-11 h-11 flex items-center justify-center text-lg text-slate-700 hover:bg-slate-50 transition-colors disabled:opacity-40"
               >
                 +
               </button>
@@ -178,26 +178,26 @@ export default function ProductDetail({ product, locale }: { product: FullProduc
             size="lg"
             onClick={handleAddToCart}
             disabled={!inStock}
-            className={`gap-2 h-13 text-base rounded-xl transition-all w-full sm:w-auto shadow-lg ${
+            className={`gap-2 h-12 text-base rounded-xl transition-all w-full sm:w-auto shadow-lg ${
               added
                 ? 'bg-green-500 hover:bg-green-500 shadow-green-200'
                 : 'bg-indigo-600 hover:bg-indigo-700 shadow-indigo-200 hover:shadow-indigo-300 hover:-translate-y-0.5'
             }`}
           >
             <ShoppingCart className="h-5 w-5" />
-            {added ? 'Sepete Eklendi ✓' : inStock ? t('add_to_cart') : t('out_of_stock')}
+            {added ? t('added_to_cart') : inStock ? t('add_to_cart') : t('out_of_stock')}
           </Button>
 
           {/* Trust badges */}
           <div className="grid grid-cols-3 gap-3 pt-2">
             {[
-              { icon: Shield, text: 'Güvenli Alışveriş' },
-              { icon: Truck, text: 'Hızlı Kargo' },
-              { icon: RotateCcw, text: 'Kolay İade' },
+              { icon: Shield, key: 'trust_secure' as const },
+              { icon: Truck, key: 'trust_shipping' as const },
+              { icon: RotateCcw, key: 'trust_returns' as const },
             ].map(b => (
-              <div key={b.text} className="flex flex-col items-center gap-1.5 p-3 bg-slate-50 rounded-xl">
-                <b.icon className="h-4 w-4 text-zinc-400" />
-                <span className="text-xs text-zinc-500 text-center leading-tight">{b.text}</span>
+              <div key={b.key} className="flex flex-col items-center gap-1.5 p-3 bg-slate-50 rounded-xl">
+                <b.icon className="h-4 w-4 text-slate-400" />
+                <span className="text-xs text-slate-500 text-center leading-tight">{t(b.key)}</span>
               </div>
             ))}
           </div>

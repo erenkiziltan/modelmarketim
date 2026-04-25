@@ -3,12 +3,7 @@
 import { useRouter, usePathname } from 'next/navigation'
 import { useState, useTransition } from 'react'
 import { Search, SlidersHorizontal, X } from 'lucide-react'
-
-const sortOptions = [
-  { value: '', label: 'En Yeni' },
-  { value: 'price_asc', label: 'Fiyat: Düşükten Yükseğe' },
-  { value: 'price_desc', label: 'Fiyat: Yüksekten Düşüğe' },
-]
+import { useTranslations } from 'next-intl'
 
 export default function ProductFilters({
   currentSort,
@@ -17,10 +12,17 @@ export default function ProductFilters({
   currentSort?: string
   currentQ?: string
 }) {
+  const t = useTranslations('products')
   const router = useRouter()
   const pathname = usePathname()
   const [isPending, startTransition] = useTransition()
   const [search, setSearch] = useState(currentQ ?? '')
+
+  const sortOptions = [
+    { value: '', label: t('sort_new') },
+    { value: 'price_asc', label: t('sort_price_asc') },
+    { value: 'price_desc', label: t('sort_price_desc') },
+  ]
 
   function updateParams(params: Record<string, string>) {
     const sp = new URLSearchParams()
@@ -49,19 +51,19 @@ export default function ProductFilters({
     <div className="flex flex-col sm:flex-row gap-3 items-start sm:items-center justify-between">
       {/* Search */}
       <form onSubmit={handleSearch} className="relative flex-1 max-w-sm">
-        <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-zinc-400" />
+        <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
         <input
           type="text"
           value={search}
           onChange={e => setSearch(e.target.value)}
-          placeholder="Ürün ara..."
+          placeholder={t('search_placeholder')}
           className="w-full pl-9 pr-9 py-2.5 text-sm bg-white border border-slate-200 rounded-xl focus:outline-none focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100 transition-all"
         />
         {search && (
           <button
             type="button"
             onClick={clearSearch}
-            className="absolute right-3 top-1/2 -translate-y-1/2 text-zinc-400 hover:text-zinc-700"
+            className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-700"
           >
             <X className="h-4 w-4" />
           </button>
@@ -70,12 +72,13 @@ export default function ProductFilters({
 
       {/* Sort */}
       <div className="flex items-center gap-2">
-        <SlidersHorizontal className="h-4 w-4 text-zinc-400" />
+        <SlidersHorizontal className="h-4 w-4 text-slate-400" />
         <div className="flex gap-1.5 flex-wrap">
           {sortOptions.map(opt => (
             <button
               key={opt.value}
               onClick={() => handleSort(opt.value)}
+              disabled={isPending}
               className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
                 (currentSort ?? '') === opt.value
                   ? 'bg-indigo-600 text-white shadow-sm'

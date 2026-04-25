@@ -34,7 +34,7 @@ export default function CheckoutPage() {
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
-    if (items.length === 0) { toast.error('Sepetiniz boş.'); return }
+    if (items.length === 0) { toast.error(t('cart_empty')); return }
     setLoading(true)
 
     const supabase = createClient()
@@ -66,12 +66,11 @@ export default function CheckoutPage() {
     })
 
     if (error) {
-      toast.error('Sipariş oluşturulamadı. Lütfen tekrar deneyin.')
+      toast.error(t('order_error'))
       setLoading(false)
       return
     }
 
-    // Bildirim API'si — müşteri onay maili + sahip bildirimi (e-posta + WP)
     try {
       await fetch('/api/notifications/new-order', {
         method: 'POST',
@@ -94,7 +93,7 @@ export default function CheckoutPage() {
         }),
       })
     } catch {
-      // Bildirim hatası siparişi etkilemesin
+      // notification errors don't affect the order
     }
 
     clearCart()
@@ -106,13 +105,11 @@ export default function CheckoutPage() {
     return (
       <div className="mx-auto max-w-lg px-4 py-20 text-center">
         <CheckCircle className="h-16 w-16 text-green-500 mx-auto mb-4" />
-        <h1 className="text-2xl font-bold text-zinc-900 mb-3">{t('success_title')}</h1>
-        <p className="text-zinc-600 mb-2">
-          {t('success_message', { orderNumber })}
-        </p>
+        <h1 className="text-2xl font-bold text-slate-900 mb-3">{t('success_title')}</h1>
+        <p className="text-slate-600 mb-2">{t('success_message', { orderNumber })}</p>
         <p className="text-2xl font-mono font-bold text-indigo-600 mb-8">{orderNumber}</p>
         <Link href={`/${locale}/products`}>
-          <Button className="bg-indigo-600 hover:bg-indigo-700">Alışverişe Devam Et</Button>
+          <Button className="bg-indigo-600 hover:bg-indigo-700">{t('continue_shopping')}</Button>
         </Link>
       </div>
     )
@@ -120,13 +117,13 @@ export default function CheckoutPage() {
 
   return (
     <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 py-12">
-      <h1 className="text-2xl font-bold text-zinc-900 mb-8">{t('title')}</h1>
+      <h1 className="text-2xl font-bold text-slate-900 mb-8">{t('title')}</h1>
 
       <form onSubmit={handleSubmit} className="flex flex-col lg:flex-row gap-8">
         {/* Form */}
         <div className="flex-1 flex flex-col gap-6">
           <Card>
-            <CardHeader><CardTitle className="text-base">Kişisel Bilgiler</CardTitle></CardHeader>
+            <CardHeader><CardTitle className="text-base">{t('personal_info')}</CardTitle></CardHeader>
             <CardContent className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div className="flex flex-col gap-1.5 sm:col-span-2">
                 <Label>{t('name')} *</Label>
@@ -144,7 +141,7 @@ export default function CheckoutPage() {
           </Card>
 
           <Card>
-            <CardHeader><CardTitle className="text-base">Teslimat Adresi</CardTitle></CardHeader>
+            <CardHeader><CardTitle className="text-base">{t('delivery_address')}</CardTitle></CardHeader>
             <CardContent className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div className="flex flex-col gap-1.5 sm:col-span-2">
                 <Label>{t('address')} *</Label>
@@ -176,24 +173,22 @@ export default function CheckoutPage() {
         {/* Order summary */}
         <div className="lg:w-80">
           <Card className="sticky top-24">
-            <CardHeader><CardTitle className="text-base">Sipariş Özeti</CardTitle></CardHeader>
+            <CardHeader><CardTitle className="text-base">{t('order_summary')}</CardTitle></CardHeader>
             <CardContent className="flex flex-col gap-3">
               {items.map(item => (
                 <div key={`${item.product.id}-${JSON.stringify(item.selectedVariants)}`} className="flex justify-between text-sm">
-                  <span className="text-zinc-600">{item.product.name_tr} × {item.quantity}</span>
+                  <span className="text-slate-600">{item.product.name_tr} × {item.quantity}</span>
                   <span className="font-medium">{formatPrice(item.product.price * item.quantity)}</span>
                 </div>
               ))}
-              <div className="border-t pt-3 flex justify-between font-bold">
-                <span>Toplam</span>
+              <div className="border-t border-slate-100 pt-3 flex justify-between font-bold">
+                <span>{t('total')}</span>
                 <span className="text-indigo-600">{formatPrice(total)}</span>
               </div>
               <Button type="submit" disabled={loading} className="w-full bg-indigo-600 hover:bg-indigo-700 mt-2">
-                {loading ? 'İşleniyor...' : t('submit')}
+                {loading ? t('processing') : t('submit')}
               </Button>
-              <p className="text-xs text-zinc-400 text-center">
-                Ödeme kapıda / havale ile alınacaktır.
-              </p>
+              <p className="text-xs text-slate-400 text-center">{t('payment_info')}</p>
             </CardContent>
           </Card>
         </div>

@@ -9,15 +9,16 @@ import { formatPrice, getLocalizedField } from '@/lib/utils'
 import { useCart } from './CartProvider'
 import { useFavorites } from './FavoritesProvider'
 import { toast } from 'sonner'
+import { useTranslations } from 'next-intl'
 
 type ProductWithImages = Product & { product_images: ProductImage[] }
 
 function isNew(createdAt: string): boolean {
-  const diff = Date.now() - new Date(createdAt).getTime()
-  return diff < 7 * 24 * 60 * 60 * 1000
+  return Date.now() - new Date(createdAt).getTime() < 7 * 24 * 60 * 60 * 1000
 }
 
 export default function ProductCard({ product, locale }: { product: ProductWithImages; locale: Locale }) {
+  const t = useTranslations('products')
   const { addItem } = useCart()
   const { toggleFavorite, isFavorite } = useFavorites()
 
@@ -31,13 +32,13 @@ export default function ProductCard({ product, locale }: { product: ProductWithI
     e.preventDefault()
     if (!product.stock) return
     addItem(product, 1, {})
-    toast.success(`${name} sepete eklendi.`)
+    toast.success(t('toast_added', { name }))
   }
 
   function handleFavorite(e: React.MouseEvent) {
     e.preventDefault()
     toggleFavorite(product.id)
-    toast(favorited ? 'Favorilerden çıkarıldı' : 'Favorilere eklendi', {
+    toast(favorited ? t('toast_unfavorited') : t('toast_favorited'), {
       icon: favorited ? '🤍' : '❤️',
     })
   }
@@ -68,7 +69,7 @@ export default function ProductCard({ product, locale }: { product: ProductWithI
           {product.stock === 0 && (
             <div className="absolute inset-0 bg-white/70 backdrop-blur-sm flex items-center justify-center">
               <span className="bg-slate-900 text-white text-xs font-semibold px-3 py-1.5 rounded-full">
-                Stok Yok
+                {t('out_of_stock_badge')}
               </span>
             </div>
           )}
@@ -77,16 +78,16 @@ export default function ProductCard({ product, locale }: { product: ProductWithI
           <div className="absolute top-3 left-3 flex flex-col gap-1.5">
             {newProduct && (
               <span className="bg-indigo-600 text-white text-xs font-bold px-2.5 py-1 rounded-full shadow-sm">
-                Yeni
+                {t('badge_new')}
               </span>
             )}
             {lowStock && (
               <motion.span
                 animate={{ opacity: [1, 0.5, 1] }}
                 transition={{ duration: 1.5, repeat: Infinity }}
-                className="bg-red-500 text-white text-xs font-bold px-2.5 py-1 rounded-full shadow-sm"
+                className="bg-amber-500 text-white text-xs font-bold px-2.5 py-1 rounded-full shadow-sm"
               >
-                Son {product.stock}!
+                {t('last_stock', { count: product.stock })}
               </motion.span>
             )}
           </div>
@@ -96,8 +97,8 @@ export default function ProductCard({ product, locale }: { product: ProductWithI
             onClick={handleFavorite}
             className={`absolute top-3 right-3 w-8 h-8 rounded-full flex items-center justify-center shadow-sm transition-all
               ${favorited
-                ? 'bg-red-500 text-white scale-110'
-                : 'bg-white/80 text-slate-400 opacity-0 group-hover:opacity-100 hover:text-red-400'
+                ? 'bg-indigo-600 text-white scale-110'
+                : 'bg-white/80 text-slate-400 opacity-0 group-hover:opacity-100 hover:text-indigo-500'
               }`}
           >
             <Heart className={`h-4 w-4 ${favorited ? 'fill-white' : ''}`} />
@@ -112,7 +113,7 @@ export default function ProductCard({ product, locale }: { product: ProductWithI
                 transition-all duration-200 flex items-center justify-center gap-1.5 hover:bg-indigo-700"
             >
               <ShoppingCart className="h-3.5 w-3.5" />
-              Sepete Ekle
+              {t('add_to_cart')}
             </button>
           )}
         </div>
@@ -127,7 +128,7 @@ export default function ProductCard({ product, locale }: { product: ProductWithI
             <span className={`text-xs font-medium px-2 py-0.5 rounded-full ${
               product.stock > 0 ? 'bg-emerald-50 text-emerald-600' : 'bg-slate-100 text-slate-400'
             }`}>
-              {product.stock > 0 ? 'Stokta' : 'Tükendi'}
+              {product.stock > 0 ? t('in_stock') : t('out_of_stock')}
             </span>
           </div>
         </div>
