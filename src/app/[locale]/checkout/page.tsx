@@ -71,6 +71,16 @@ export default function CheckoutPage() {
       return
     }
 
+    // Stok düş — her ürün için stock = stock - quantity
+    await Promise.all(
+      items.map(i =>
+        supabase.rpc('decrement_stock', {
+          p_product_id: i.product.id,
+          p_quantity: i.quantity,
+        })
+      )
+    )
+
     try {
       await fetch('/api/notifications/new-order', {
         method: 'POST',
@@ -127,7 +137,7 @@ export default function CheckoutPage() {
         <p className="text-sm text-green-700 font-medium">{t('trust_ssl')}</p>
       </div>
 
-      <form onSubmit={handleSubmit} className="flex flex-col lg:flex-row gap-8">
+      <form onSubmit={handleSubmit} className="flex flex-col-reverse lg:flex-row gap-8">
         {/* Form */}
         <div className="flex-1 flex flex-col gap-6">
           <Card>
@@ -196,6 +206,13 @@ export default function CheckoutPage() {
               <Button type="submit" disabled={loading} className="w-full bg-indigo-600 hover:bg-indigo-700 active:scale-[0.98] mt-2">
                 {loading ? t('processing') : t('submit')}
               </Button>
+              <div className="flex items-center justify-center gap-2 text-xs text-slate-400 flex-wrap pt-1">
+                <span>🔒 SSL korumalı</span>
+                <span className="text-slate-200">·</span>
+                <span>✓ Güvenli ödeme</span>
+                <span className="text-slate-200">·</span>
+                <span>🚚 Hızlı kargo</span>
+              </div>
               <p className="text-xs text-slate-400 text-center">{t('payment_info')}</p>
             </CardContent>
           </Card>

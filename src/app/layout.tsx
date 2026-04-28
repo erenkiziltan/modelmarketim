@@ -77,7 +77,12 @@ export const metadata: Metadata = {
     },
   },
   icons: {
-    icon: '/favicon.ico',
+    icon: [
+      { url: '/icon.svg', type: 'image/svg+xml' },
+      { url: '/favicon.ico', sizes: '48x48' },
+    ],
+    shortcut: '/icon.svg',
+    apple: '/icon.svg',
   },
   alternates: {
     canonical: 'https://modelmarketim.com',

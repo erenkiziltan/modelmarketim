@@ -61,7 +61,7 @@ export async function GET(req: NextRequest) {
 
   const ownerEmail = process.env.OWNER_EMAIL
 
-  await Promise.allSettled([
+  const [wpResult, emailResult] = await Promise.allSettled([
     sendOwnerWhatsApp(wpMessage),
     ownerEmail ? getResend().emails.send({
       from: 'Modelmarketim Stok <onboarding@resend.dev>',
@@ -98,5 +98,29 @@ export async function GET(req: NextRequest) {
     }) : Promise.resolve(),
   ])
 
-  return NextResponse.json({ ok: true, lowStockCount: lowStock.length, products: lowStock })
+  // Hataları logla — böylece Cloudflare Workers loglarında görünür
+  if (wpResult.status === 'rejected') {
+    console.error('[stock-check] WhatsApp hatası:', wpResult.reason)
+  }
+  if (emailResult.status === 'rejected') {
+    console.error('[stock-check] E-posta hatası:', emailResult.reason)
+  }
+  if (emailResult.status === 'fulfilled') {
+    const emailData = emailResult.value as unknown as { data?: { id?: string }; error?: { message?: string } } | null
+    if (emailData && emailData.error) {
+      console.error('[stock-check] Resend API hatası:', emailData.error)
+    } else {
+      console.log('[stock-check] E-posta gönderildi:', emailData?.data?.id)
+    }
+  }
+
+  return NextResponse.json({
+    ok: true,
+    lowStockCount: lowStock.length,
+    products: lowStock,
+    notifications: {
+      whatsapp: wpResult.status === 'fulfilled' ? 'ok' : 'failed',
+      email: emailResult.status === 'fulfilled' ? 'ok' : 'failed',
+    }
+  })
 }

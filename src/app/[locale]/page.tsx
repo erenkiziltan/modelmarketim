@@ -56,7 +56,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
         />
 
         <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-10 sm:py-16">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-10 items-center">
             <div>
               <div className="inline-flex items-center gap-2 bg-indigo-50 border border-indigo-100 rounded-full px-3.5 py-1 mb-5">
                 <Sparkles className="h-3 w-3 text-indigo-500" />

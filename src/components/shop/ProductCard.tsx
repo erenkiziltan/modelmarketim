@@ -1,9 +1,9 @@
 'use client'
 
+import { useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
-import { motion } from 'framer-motion'
-import { Heart, Package, ShoppingCart } from 'lucide-react'
+import { Heart, Package, ShoppingCart, Check } from 'lucide-react'
 import { Product, ProductImage, Locale } from '@/types'
 import { formatPrice, getLocalizedField } from '@/lib/utils'
 import { useCart } from './CartProvider'
@@ -22,6 +22,7 @@ export default function ProductCard({ product, locale }: { product: ProductWithI
   const { addItem } = useCart()
   const { toggleFavorite, isFavorite } = useFavorites()
 
+  const [justAdded, setJustAdded] = useState(false)
   const cover = product.product_images?.find(i => i.is_cover) ?? product.product_images?.[0]
   const name = getLocalizedField(product as unknown as Record<string, unknown>, 'name', locale)
   const favorited = isFavorite(product.id)
@@ -33,6 +34,8 @@ export default function ProductCard({ product, locale }: { product: ProductWithI
     if (!product.stock) return
     addItem(product, 1, {})
     toast.success(t('toast_added', { name }))
+    setJustAdded(true)
+    setTimeout(() => setJustAdded(false), 1500)
   }
 
   function handleFavorite(e: React.MouseEvent) {
@@ -45,11 +48,8 @@ export default function ProductCard({ product, locale }: { product: ProductWithI
 
   return (
     <Link href={`/${locale}/products/${product.slug}`} className="group block">
-      <motion.div
-        whileHover={{ y: -4 }}
-        transition={{ type: 'spring', stiffness: 400, damping: 25 }}
-        className="bg-white rounded-2xl border border-slate-100 overflow-hidden shadow-sm hover:shadow-xl hover:shadow-indigo-100/60 transition-shadow duration-300"
-      >
+      <div className="bg-white rounded-2xl border border-slate-100 hover:border-indigo-100 overflow-hidden shadow-sm hover:shadow-xl hover:shadow-slate-200 transition-all duration-300 hover:-translate-y-1">
+
         {/* Image */}
         <div className="relative aspect-square bg-slate-50 overflow-hidden">
           {cover ? (
@@ -61,7 +61,7 @@ export default function ProductCard({ product, locale }: { product: ProductWithI
             />
           ) : (
             <div className="flex items-center justify-center h-full">
-              <Package className="h-14 w-14 text-slate-200" />
+              <Package className="h-12 w-12 text-slate-200" />
             </div>
           )}
 
@@ -75,64 +75,54 @@ export default function ProductCard({ product, locale }: { product: ProductWithI
           )}
 
           {/* Badges */}
-          <div className="absolute top-3 left-3 flex flex-col gap-1.5">
+          <div className="absolute top-2.5 left-2.5 flex flex-col gap-1.5">
             {newProduct && (
-              <span className="bg-indigo-600 text-white text-xs font-bold px-2.5 py-1 rounded-full shadow-sm">
+              <span className="bg-indigo-600 text-white text-xs font-bold px-2 py-0.5 rounded-full">
                 {t('badge_new')}
               </span>
             )}
             {lowStock && (
-              <motion.span
-                animate={{ opacity: [1, 0.5, 1] }}
-                transition={{ duration: 1.5, repeat: Infinity }}
-                className="bg-amber-500 text-white text-xs font-bold px-2.5 py-1 rounded-full shadow-sm"
-              >
+              <span className="bg-amber-500 text-white text-xs font-bold px-2 py-0.5 rounded-full">
                 {t('last_stock', { count: product.stock })}
-              </motion.span>
+              </span>
             )}
           </div>
 
           {/* Favorite button */}
           <button
             onClick={handleFavorite}
-            className={`absolute top-3 right-3 w-8 h-8 rounded-full flex items-center justify-center shadow-sm transition-all
+            className={`absolute top-2.5 right-2.5 w-7 h-7 rounded-full flex items-center justify-center shadow-sm transition-all
               ${favorited
-                ? 'bg-indigo-600 text-white scale-110'
-                : 'bg-white/80 text-slate-400 opacity-0 group-hover:opacity-100 hover:text-indigo-500'
+                ? 'bg-indigo-600 text-white'
+                : 'bg-white/90 text-slate-300 opacity-0 group-hover:opacity-100 hover:text-indigo-500'
               }`}
           >
-            <Heart className={`h-4 w-4 ${favorited ? 'fill-white' : ''}`} />
+            <Heart className={`h-3.5 w-3.5 ${favorited ? 'fill-white' : ''}`} />
           </button>
-
-          {/* Quick add button */}
-          {product.stock > 0 && (
-            <button
-              onClick={handleQuickAdd}
-              className="absolute bottom-3 left-3 right-3 bg-indigo-600/95 backdrop-blur-sm text-white text-xs font-semibold py-2 rounded-xl
-                opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0
-                transition-all duration-200 flex items-center justify-center gap-1.5 hover:bg-indigo-700 active:scale-[0.98]"
-            >
-              <ShoppingCart className="h-3.5 w-3.5" />
-              {t('add_to_cart')}
-            </button>
-          )}
         </div>
 
         {/* Info */}
-        <div className="p-3">
-          <h3 className="font-semibold text-slate-900 group-hover:text-indigo-600 transition-colors leading-snug line-clamp-2 mb-1.5 text-sm">
+        <div className="p-3.5">
+          <h3 className="text-sm font-semibold text-slate-800 group-hover:text-indigo-600 transition-colors leading-snug line-clamp-2 mb-2.5">
             {name}
           </h3>
-          <div className="flex items-center justify-between">
-            <p className="text-lg font-bold text-indigo-600">{formatPrice(product.price)}</p>
-            <span className={`text-xs font-medium px-2 py-0.5 rounded-full ${
-              product.stock > 0 ? 'bg-emerald-50 text-emerald-600' : 'bg-slate-100 text-slate-400'
-            }`}>
-              {product.stock > 0 ? t('in_stock') : t('out_of_stock')}
-            </span>
+          <div className="flex items-center justify-between gap-2">
+            <p className="text-base font-bold text-indigo-600">{formatPrice(product.price)}</p>
+            <button
+              onClick={handleQuickAdd}
+              disabled={product.stock === 0}
+              className={`flex items-center gap-1 text-xs font-semibold px-2.5 py-1.5 rounded-lg transition-all active:scale-[0.97] disabled:opacity-40 disabled:cursor-not-allowed
+                ${justAdded
+                  ? 'bg-green-500 text-white'
+                  : 'bg-indigo-50 text-indigo-600 hover:bg-indigo-600 hover:text-white'
+                }`}
+            >
+              {justAdded ? <Check className="h-3 w-3" /> : <ShoppingCart className="h-3 w-3" />}
+              {justAdded ? t('added_to_cart') : t('add_to_cart')}
+            </button>
           </div>
         </div>
-      </motion.div>
+      </div>
     </Link>
   )
 }

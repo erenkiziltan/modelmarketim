@@ -102,24 +102,20 @@ export default function ProductDetail({ product, locale }: { product: FullProduc
         {/* Info */}
         <div className="flex flex-col gap-5 lg:sticky lg:top-8 lg:self-start">
           {/* Name & Price */}
-          <div>
+          <div className="bg-slate-50 rounded-2xl p-5 border border-slate-100">
             <h1 className="text-2xl font-bold text-slate-900 mb-2 leading-tight">{name}</h1>
-            <div className="flex items-baseline gap-3">
-              <span className="text-3xl font-bold text-indigo-600">{formatPrice(product.price)}</span>
-            </div>
-          </div>
-
-          {/* Stock badge */}
-          <div className="flex items-center gap-2">
-            <div className={`w-2 h-2 rounded-full ${inStock ? 'bg-green-500' : 'bg-slate-300'}`} />
-            <span className={`text-sm font-medium ${inStock ? 'text-green-600' : 'text-slate-400'}`}>
-              {inStock ? t('in_stock') : t('out_of_stock')}
-            </span>
-            {inStock && product.stock <= 5 && (
-              <span className="text-xs bg-amber-50 text-amber-600 font-semibold px-2 py-0.5 rounded-full border border-amber-100">
-                {t('last_stock_detail', { count: product.stock })}
+            <span className="text-3xl font-bold text-indigo-600">{formatPrice(product.price)}</span>
+            <div className="flex items-center gap-2 mt-3">
+              <div className={`w-2 h-2 rounded-full ${inStock ? 'bg-green-500' : 'bg-slate-300'}`} />
+              <span className={`text-sm font-medium ${inStock ? 'text-green-600' : 'text-slate-400'}`}>
+                {inStock ? t('in_stock') : t('out_of_stock')}
               </span>
-            )}
+              {inStock && product.stock <= 5 && (
+                <span className="text-xs bg-amber-50 text-amber-600 font-semibold px-2 py-0.5 rounded-full border border-amber-100">
+                  {t('last_stock_detail', { count: product.stock })}
+                </span>
+              )}
+            </div>
           </div>
 
           {/* Variants */}
