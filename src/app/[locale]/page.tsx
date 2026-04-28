@@ -3,7 +3,7 @@ import { getTranslations } from 'next-intl/server'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { Locale, Product, ProductImage } from '@/types'
-import { ArrowRight, Sparkles, Shield, Truck, Star } from 'lucide-react'
+import { ArrowRight, Banknote, Sparkles, Shield, Truck, Star } from 'lucide-react'
 import ProductCard from '@/components/shop/ProductCard'
 import HeroModel from '@/components/shop/HeroModel'
 import type { Metadata } from 'next'
@@ -111,7 +111,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 sm:grid-cols-3 divide-y sm:divide-y-0 sm:divide-x divide-slate-100">
             {([
-              { icon: Sparkles, title: t('feature_1_title'), desc: t('feature_1_desc') },
+              { icon: Banknote, title: t('feature_1_title'), desc: t('feature_1_desc') },
               { icon: Shield, title: t('feature_2_title'), desc: t('feature_2_desc') },
               { icon: Truck, title: t('feature_3_title'), desc: t('feature_3_desc') },
             ] as const).map(f => (
