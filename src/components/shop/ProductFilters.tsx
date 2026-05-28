@@ -8,9 +8,11 @@ import { useTranslations } from 'next-intl'
 export default function ProductFilters({
   currentSort,
   currentQ,
+  currentCategory,
 }: {
   currentSort?: string
   currentQ?: string
+  currentCategory?: string
 }) {
   const t = useTranslations('products')
   const router = useRouter()
@@ -28,6 +30,7 @@ export default function ProductFilters({
     const sp = new URLSearchParams()
     if (params.q) sp.set('q', params.q)
     if (params.sort) sp.set('sort', params.sort)
+    if (params.category) sp.set('category', params.category)
     startTransition(() => {
       router.push(`${pathname}?${sp.toString()}`)
     })
@@ -35,11 +38,11 @@ export default function ProductFilters({
 
   function handleSearch(e: React.FormEvent) {
     e.preventDefault()
-    updateParams({ q: search, sort: currentSort ?? '' })
+    updateParams({ q: search, sort: currentSort ?? '', category: currentCategory ?? '' })
   }
 
   function handleSort(sort: string) {
-    updateParams({ q: currentQ ?? '', sort })
+    updateParams({ q: currentQ ?? '', sort, category: currentCategory ?? '' })
   }
 
   function clearSearch() {

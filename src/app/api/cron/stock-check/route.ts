@@ -17,10 +17,13 @@ function getResend() {
 }
 
 export async function GET(req: NextRequest) {
-  // Basit güvenlik: Cloudflare Cron kendi isteğinde bu header'ı gönderir
-  // Dilerseniz CRON_SECRET env var ile de koruyabilirsiniz
-  const isCloudflare = req.headers.get('cf-worker') !== null
-    || req.headers.get('user-agent')?.includes('cloudflare') === true
+  // CRON_SECRET ayarlanmışsa doğrula, ayarlanmamışsa geç (geriye dönük uyumluluk)
+  if (process.env.CRON_SECRET) {
+    const cronSecret = req.headers.get('x-cron-secret')
+    if (cronSecret !== process.env.CRON_SECRET) {
+      return NextResponse.json({ ok: false }, { status: 401 })
+    }
+  }
 
   // Supabase Service Role ile direkt DB erişimi
   const supabase = createClient(
@@ -64,7 +67,7 @@ export async function GET(req: NextRequest) {
   const [wpResult, emailResult] = await Promise.allSettled([
     sendOwnerWhatsApp(wpMessage),
     ownerEmail ? getResend().emails.send({
-      from: 'Modelmarketim Stok <onboarding@resend.dev>',
+      from: 'Modelmarketim Stok <noreply@modelmarketim.com>',
       to: ownerEmail,
       subject: `📦 Stok Uyarısı — ${lowStock.length} ürün düşük stokta`,
       html: `
@@ -117,7 +120,6 @@ export async function GET(req: NextRequest) {
   return NextResponse.json({
     ok: true,
     lowStockCount: lowStock.length,
-    products: lowStock,
     notifications: {
       whatsapp: wpResult.status === 'fulfilled' ? 'ok' : 'failed',
       email: emailResult.status === 'fulfilled' ? 'ok' : 'failed',

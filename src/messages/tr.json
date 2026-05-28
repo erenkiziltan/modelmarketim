@@ -32,6 +32,7 @@
   "products": {
     "title": "Tüm Ürünler",
     "collection": "Koleksiyon",
+    "all_categories": "Tümü",
     "product_count": "{count} ürün",
     "out_of_stock": "Stok Tükendi",
     "out_of_stock_badge": "Stok Yok",

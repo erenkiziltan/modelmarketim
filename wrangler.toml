@@ -14,4 +14,8 @@ crons = ["0 7 * * *"]
 OWNER_EMAIL = "ekzltn111@gmail.com"
 CALLMEBOT_PHONE = "905374826673"
 CALLMEBOT_APIKEY = "1620233"
-# RESEND_API_KEY dashboard'dan Secret olarak eklenmeli (şifreli tutulur)
+NEXT_PUBLIC_SUPABASE_URL = "https://tqobzccyxpodzbuxukpd.supabase.co"
+# Aşağıdakiler Cloudflare Dashboard > Workers > Settings > Variables > Secrets altına eklenmeli:
+# RESEND_API_KEY           — Resend API anahtarı
+# SUPABASE_SERVICE_ROLE_KEY — Supabase service role
+# CRON_SECRET              — Rastgele uzun string (örn: openssl rand -hex 32)

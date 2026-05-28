@@ -1,6 +1,6 @@
 import { createClient } from '@/lib/supabase/server'
 import { getTranslations } from 'next-intl/server'
-import { Product, ProductImage, Locale } from '@/types'
+import { Product, ProductImage, Locale, Category } from '@/types'
 import { Package } from 'lucide-react'
 import ProductCard from '@/components/shop/ProductCard'
 import ProductFilters from '@/components/shop/ProductFilters'
@@ -32,16 +32,33 @@ export default async function ProductsPage({
   searchParams,
 }: {
   params: Promise<{ locale: string }>
-  searchParams: Promise<{ sort?: string; q?: string }>
+  searchParams: Promise<{ sort?: string; q?: string; category?: string }>
 }) {
   const { locale } = await params
-  const { sort, q } = await searchParams
+  const { sort, q, category } = await searchParams
   const t = await getTranslations('products')
   const supabase = await createClient()
 
-  let query = supabase.from('products').select('*, product_images(*)').eq('is_active', true)
+  // Kategorileri çek
+  const { data: categoriesData } = await supabase
+    .from('categories')
+    .select('*')
+    .order('sort_order', { ascending: true })
+  const categories = (categoriesData ?? []) as Category[]
+
+  // Ürünleri çek
+  let query = supabase
+    .from('products')
+    .select('*, product_images(*)')
+    .eq('is_active', true)
 
   if (q) query = query.ilike('name_tr', `%${q}%`)
+
+  if (category) {
+    const cat = categories.find(c => c.slug === category)
+    if (cat) query = query.eq('category_id', cat.id)
+  }
+
   if (sort === 'price_asc') query = query.order('price', { ascending: true })
   else if (sort === 'price_desc') query = query.order('price', { ascending: false })
   else query = query.order('created_at', { ascending: false })
@@ -49,18 +66,52 @@ export default async function ProductsPage({
   const { data } = await query
   const products = (data ?? []) as ProductWithImages[]
 
+  const activeCategory = categories.find(c => c.slug === category)
+  const activeCategoryName = activeCategory
+    ? (locale === 'tr' ? activeCategory.name_tr : activeCategory.name_en)
+    : null
+
   return (
     <div>
       <div className="bg-white border-b border-slate-100">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-7">
           <p className="text-xs font-semibold uppercase tracking-widest text-indigo-500 mb-1">{t('collection')}</p>
-          <h1 className="text-2xl font-bold text-slate-900">{t('title')}</h1>
+          <h1 className="text-2xl font-bold text-slate-900">
+            {activeCategoryName ?? t('title')}
+          </h1>
           <p className="text-slate-500 text-sm mt-0.5">{t('product_count', { count: products.length })}</p>
         </div>
       </div>
 
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-6">
-        <ProductFilters currentSort={sort} currentQ={q} />
+        {/* Kategori sekmeleri */}
+        <div className="flex gap-2 flex-wrap mb-5">
+          <a
+            href="?"
+            className={`px-4 py-2 rounded-xl text-sm font-medium transition-all border ${
+              !category
+                ? 'bg-indigo-600 text-white border-indigo-600 shadow-sm'
+                : 'bg-white text-slate-600 border-slate-200 hover:border-indigo-300 hover:text-indigo-600'
+            }`}
+          >
+            {t('all_categories')}
+          </a>
+          {categories.map(cat => (
+            <a
+              key={cat.id}
+              href={`?category=${cat.slug}`}
+              className={`px-4 py-2 rounded-xl text-sm font-medium transition-all border ${
+                category === cat.slug
+                  ? 'bg-indigo-600 text-white border-indigo-600 shadow-sm'
+                  : 'bg-white text-slate-600 border-slate-200 hover:border-indigo-300 hover:text-indigo-600'
+              }`}
+            >
+              {locale === 'tr' ? cat.name_tr : cat.name_en}
+            </a>
+          ))}
+        </div>
+
+        <ProductFilters currentSort={sort} currentQ={q} currentCategory={category} />
 
         {products.length === 0 ? (
           <div className="text-center py-24">

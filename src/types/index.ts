@@ -1,5 +1,13 @@
 export type Locale = 'tr' | 'en'
 
+export interface Category {
+  id: string
+  slug: string
+  name_tr: string
+  name_en: string
+  sort_order: number
+}
+
 export interface Product {
   id: string
   slug: string
@@ -11,6 +19,8 @@ export interface Product {
   stock: number
   is_active: boolean
   created_at: string
+  category_id?: string | null
+  category?: Category
   images?: ProductImage[]
   variants?: ProductVariant[]
 }

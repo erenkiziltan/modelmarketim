@@ -3,9 +3,7 @@
 import { useState } from 'react'
 import { useTranslations } from 'next-intl'
 import { useParams } from 'next/navigation'
-import { createClient } from '@/lib/supabase/client'
 import { useCart } from '@/components/shop/CartProvider'
-import { generateOrderNumber } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -37,49 +35,21 @@ export default function CheckoutPage() {
     if (items.length === 0) { toast.error(t('cart_empty')); return }
     setLoading(true)
 
-    const supabase = createClient()
-    const number = generateOrderNumber()
-
-    const { error } = await supabase.from('orders').insert({
-      order_number: number,
-      customer_name: form.name,
-      customer_email: form.email,
-      customer_phone: form.phone,
-      shipping_address: {
-        street: form.street,
-        city: form.city,
-        district: form.district,
-        zip_code: form.zip,
-        country: 'TR',
-      },
-      items: items.map(i => ({
-        product_id: i.product.id,
-        product_name: i.product.name_tr,
-        variant: Object.entries(i.selectedVariants).map(([k, v]) => `${k}: ${v}`).join(', ') || null,
-        quantity: i.quantity,
-        unit_price: i.product.price,
-      })),
-      total_price: total,
-      status: 'pending',
-      payment_status: 'pending',
-      notes: form.notes,
+    // Stok kontrolü + sipariş oluşturma + stok düşürme sunucu tarafında yapılır
+    const res = await fetch('/api/orders/create', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ form, items, total }),
     })
+    const result = await res.json()
 
-    if (error) {
-      toast.error(t('order_error'))
+    if (!res.ok || !result.ok) {
+      toast.error(result.error ?? t('order_error'))
       setLoading(false)
       return
     }
 
-    // Stok düş — her ürün için stock = stock - quantity
-    await Promise.all(
-      items.map(i =>
-        supabase.rpc('decrement_stock', {
-          p_product_id: i.product.id,
-          p_quantity: i.quantity,
-        })
-      )
-    )
+    const number: string = result.order_number
 
     try {
       await fetch('/api/notifications/new-order', {
@@ -103,7 +73,7 @@ export default function CheckoutPage() {
         }),
       })
     } catch {
-      // notification errors don't affect the order
+      // Bildirim hataları siparişi etkilemez
     }
 
     clearCart()

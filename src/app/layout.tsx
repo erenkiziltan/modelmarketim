@@ -85,8 +85,9 @@ export const metadata: Metadata = {
     apple: '/icon.svg',
   },
   alternates: {
-    canonical: 'https://modelmarketim.com',
+    canonical: 'https://modelmarketim.com/tr',
     languages: {
+      'x-default': 'https://modelmarketim.com/tr',
       'tr': 'https://modelmarketim.com/tr',
       'en': 'https://modelmarketim.com/en',
     },

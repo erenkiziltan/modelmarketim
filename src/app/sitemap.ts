@@ -17,6 +17,20 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 1,
       alternates: {
         languages: {
+          'x-default': 'https://modelmarketim.com/tr',
+          tr: 'https://modelmarketim.com/tr',
+          en: 'https://modelmarketim.com/en',
+        },
+      },
+    },
+    {
+      url: 'https://modelmarketim.com/en',
+      lastModified: new Date(),
+      changeFrequency: 'daily',
+      priority: 0.8,
+      alternates: {
+        languages: {
+          'x-default': 'https://modelmarketim.com/tr',
           tr: 'https://modelmarketim.com/tr',
           en: 'https://modelmarketim.com/en',
         },
@@ -29,31 +43,55 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.9,
       alternates: {
         languages: {
+          'x-default': 'https://modelmarketim.com/tr/products',
           tr: 'https://modelmarketim.com/tr/products',
           en: 'https://modelmarketim.com/en/products',
         },
       },
     },
     {
-      url: 'https://modelmarketim.com/tr/track',
+      url: 'https://modelmarketim.com/en/products',
       lastModified: new Date(),
-      changeFrequency: 'monthly',
-      priority: 0.4,
+      changeFrequency: 'daily',
+      priority: 0.7,
+      alternates: {
+        languages: {
+          'x-default': 'https://modelmarketim.com/tr/products',
+          tr: 'https://modelmarketim.com/tr/products',
+          en: 'https://modelmarketim.com/en/products',
+        },
+      },
     },
   ]
 
-  const productPages: MetadataRoute.Sitemap = (products ?? []).map(product => ({
-    url: `https://modelmarketim.com/tr/products/${product.slug}`,
-    lastModified: new Date(product.updated_at),
-    changeFrequency: 'weekly' as const,
-    priority: 0.8,
-    alternates: {
-      languages: {
-        tr: `https://modelmarketim.com/tr/products/${product.slug}`,
-        en: `https://modelmarketim.com/en/products/${product.slug}`,
+  const productPages: MetadataRoute.Sitemap = (products ?? []).flatMap(product => ([
+    {
+      url: `https://modelmarketim.com/tr/products/${product.slug}`,
+      lastModified: new Date(product.updated_at),
+      changeFrequency: 'weekly' as const,
+      priority: 0.8,
+      alternates: {
+        languages: {
+          'x-default': `https://modelmarketim.com/tr/products/${product.slug}`,
+          tr: `https://modelmarketim.com/tr/products/${product.slug}`,
+          en: `https://modelmarketim.com/en/products/${product.slug}`,
+        },
       },
     },
-  }))
+    {
+      url: `https://modelmarketim.com/en/products/${product.slug}`,
+      lastModified: new Date(product.updated_at),
+      changeFrequency: 'weekly' as const,
+      priority: 0.6,
+      alternates: {
+        languages: {
+          'x-default': `https://modelmarketim.com/tr/products/${product.slug}`,
+          tr: `https://modelmarketim.com/tr/products/${product.slug}`,
+          en: `https://modelmarketim.com/en/products/${product.slug}`,
+        },
+      },
+    },
+  ]))
 
   return [...staticPages, ...productPages]
 }

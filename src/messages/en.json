@@ -32,6 +32,7 @@
   "products": {
     "title": "All Products",
     "collection": "Collection",
+    "all_categories": "All",
     "product_count": "{count} products",
     "out_of_stock": "Out of Stock",
     "out_of_stock_badge": "Sold Out",

@@ -1,10 +1,10 @@
 'use client'
 
-import { useState, useRef } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import Image from 'next/image'
 import { createClient } from '@/lib/supabase/client'
-import { Product, ProductImage, ProductVariant } from '@/types'
+import { Product, ProductImage, ProductVariant, Category } from '@/types'
 import { slugify } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -26,6 +26,7 @@ export default function AdminProductForm({ product }: Props) {
 
   const [loading, setLoading] = useState(false)
   const [uploadingImages, setUploadingImages] = useState(false)
+  const [categories, setCategories] = useState<Category[]>([])
 
   // Form state
   const [nameTr, setNameTr] = useState(product?.name_tr ?? '')
@@ -36,6 +37,7 @@ export default function AdminProductForm({ product }: Props) {
   const [stock, setStock] = useState(product?.stock?.toString() ?? '')
   const [isActive, setIsActive] = useState(product?.is_active ?? true)
   const [slug, setSlug] = useState(product?.slug ?? '')
+  const [categoryId, setCategoryId] = useState<string>(product?.category_id ?? '')
 
   // Images state
   const [images, setImages] = useState<ProductImage[]>(product?.product_images ?? [])
@@ -49,6 +51,12 @@ export default function AdminProductForm({ product }: Props) {
       price_modifier: v.price_modifier,
     })) ?? []
   )
+
+  useEffect(() => {
+    createClient().from('categories').select('*').order('sort_order').then(({ data }) => {
+      if (data) setCategories(data)
+    })
+  }, [])
 
   function handleNameTrChange(val: string) {
     setNameTr(val)
@@ -146,6 +154,7 @@ export default function AdminProductForm({ product }: Props) {
       price: parseFloat(price),
       stock: parseInt(stock),
       is_active: isActive,
+      category_id: categoryId || null,
     }
 
     let productId = product?.id
@@ -245,6 +254,19 @@ export default function AdminProductForm({ product }: Props) {
                 <label htmlFor="isActive" className="text-sm text-slate-700">Yayında</label>
               </div>
             </div>
+          </div>
+          <div className="flex flex-col gap-1.5">
+            <Label>Kategori</Label>
+            <select
+              value={categoryId}
+              onChange={e => setCategoryId(e.target.value)}
+              className="h-10 rounded-md border border-slate-200 bg-white px-3 text-sm text-slate-800 focus:outline-none focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100"
+            >
+              <option value="">— Kategori seç —</option>
+              {categories.map(cat => (
+                <option key={cat.id} value={cat.id}>{cat.name_tr}</option>
+              ))}
+            </select>
           </div>
         </CardContent>
       </Card>

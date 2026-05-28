@@ -6,7 +6,16 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: '*',
         allow: '/',
-        disallow: ['/yonetim-paneli/', '/api/', '/checkout', '/cart'],
+        disallow: [
+        '/yonetim-paneli/',
+        '/api/',
+        '/*/checkout',
+        '/*/cart',
+        '/*/favorites',
+        '/checkout',
+        '/cart',
+        '/favorites',
+      ],
       },
     ],
     sitemap: 'https://modelmarketim.com/sitemap.xml',

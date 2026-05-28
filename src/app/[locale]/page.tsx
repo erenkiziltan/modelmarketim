@@ -23,6 +23,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
     alternates: {
       canonical: `https://modelmarketim.com/${locale}`,
       languages: {
+        'x-default': 'https://modelmarketim.com/tr',
         tr: 'https://modelmarketim.com/tr',
         en: 'https://modelmarketim.com/en',
       },

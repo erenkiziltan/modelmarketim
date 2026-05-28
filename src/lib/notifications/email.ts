@@ -2,7 +2,19 @@ import { Resend } from 'resend'
 
 // Lazy init — build sırasında env var olmadığında hata vermez
 function getResend() {
-  return new Resend(process.env.RESEND_API_KEY ?? 'placeholder')
+  const key = process.env.RESEND_API_KEY
+  if (!key) throw new Error('RESEND_API_KEY env var is not set')
+  return new Resend(key)
+}
+
+/** Kullanıcı girdilerini HTML'e güvenli enjekte etmek için escape */
+function escapeHtml(str: string): string {
+  return str
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;')
 }
 
 export interface OrderItem {
@@ -57,7 +69,7 @@ export async function sendCustomerConfirmationEmail(order: OrderEmailData) {
           <!-- Body -->
           <div style="padding:32px 40px;">
             <h2 style="color:#1e293b;font-size:18px;margin:0 0 8px;">Siparişiniz alındı 🎉</h2>
-            <p style="color:#64748b;font-size:14px;margin:0 0 24px;">Merhaba <strong>${order.customer_name}</strong>, siparişiniz başarıyla oluşturuldu. En kısa sürede hazırlanıp kargoya verilecektir.</p>
+            <p style="color:#64748b;font-size:14px;margin:0 0 24px;">Merhaba <strong>${escapeHtml(order.customer_name)}</strong>, siparişiniz başarıyla oluşturuldu. En kısa sürede hazırlanıp kargoya verilecektir.</p>
 
             <!-- Order number -->
             <div style="background:#f1f5f9;border-radius:10px;padding:16px 20px;margin-bottom:24px;text-align:center;">
@@ -86,10 +98,10 @@ export async function sendCustomerConfirmationEmail(order: OrderEmailData) {
             <!-- Delivery -->
             <div style="border:1px solid #e2e8f0;border-radius:10px;padding:16px 20px;margin-bottom:24px;">
               <p style="margin:0 0 8px;font-size:13px;font-weight:600;color:#1e293b;">Teslimat Adresi</p>
-              <p style="margin:0;font-size:13px;color:#64748b;line-height:1.6;">${order.address}<br>${order.district} / ${order.city}</p>
+              <p style="margin:0;font-size:13px;color:#64748b;line-height:1.6;">${escapeHtml(order.address)}<br>${escapeHtml(order.district)} / ${escapeHtml(order.city)}</p>
             </div>
 
-            ${order.notes ? `<div style="background:#fffbeb;border:1px solid #fde68a;border-radius:10px;padding:14px 18px;margin-bottom:24px;"><p style="margin:0;font-size:12px;font-weight:600;color:#92400e;margin-bottom:4px;">Sipariş Notunuz</p><p style="margin:0;font-size:13px;color:#78350f;">${order.notes}</p></div>` : ''}
+            ${order.notes ? `<div style="background:#fffbeb;border:1px solid #fde68a;border-radius:10px;padding:14px 18px;margin-bottom:24px;"><p style="margin:0;font-size:12px;font-weight:600;color:#92400e;margin-bottom:4px;">Sipariş Notunuz</p><p style="margin:0;font-size:13px;color:#78350f;">${escapeHtml(order.notes)}</p></div>` : ''}
 
             <p style="color:#64748b;font-size:13px;margin:0;">Sipariş durumunuzu <a href="https://modelmarketim.com/tr/track" style="color:#4f46e5;text-decoration:none;font-weight:600;">${order.order_number}</a> numarasıyla takip edebilirsiniz.</p>
           </div>
@@ -132,7 +144,55 @@ export async function sendOwnerNewOrderEmail(order: OrderEmailData) {
             <tr><td style="padding:6px 0;color:#6b7280;vertical-align:top;">Ürünler</td><td><pre style="margin:0;font-family:inherit;white-space:pre-wrap;">${itemsList}</pre></td></tr>
             <tr><td style="padding:10px 0 0;color:#6b7280;font-weight:700;">TOPLAM</td><td style="padding-top:10px;font-size:18px;font-weight:700;color:#4f46e5;">${formatPrice(order.total_price)}</td></tr>
           </table>
-          ${order.notes ? `<div style="margin-top:16px;padding:12px 16px;background:#fffbeb;border-radius:8px;font-size:13px;color:#78350f;"><strong>Not:</strong> ${order.notes}</div>` : ''}
+          ${order.notes ? `<div style="margin-top:16px;padding:12px 16px;background:#fffbeb;border-radius:8px;font-size:13px;color:#78350f;"><strong>Not:</strong> ${escapeHtml(order.notes)}</div>` : ''}
+        </div>
+      </div>
+    `,
+  })
+}
+
+/** Durum güncellendiğinde sahibine bildirim maili */
+export async function sendOwnerStatusUpdateEmail(params: {
+  customer_name: string
+  customer_email: string
+  order_number: string
+  new_status: string
+  tracking_number?: string
+}) {
+  const ownerEmail = process.env.OWNER_EMAIL
+  if (!ownerEmail) return
+
+  const statusLabels: Record<string, string> = {
+    pending: 'Onay Bekleniyor',
+    processing: 'Hazırlanıyor',
+    shipped: 'Kargoya Verildi',
+    delivered: 'Teslim Edildi',
+    cancelled: 'İptal Edildi',
+  }
+  const statusLabel = statusLabels[params.new_status] ?? params.new_status
+
+  await getResend().emails.send({
+    from: 'Modelmarketim Bildirim <noreply@modelmarketim.com>',
+    to: ownerEmail,
+    subject: `🔄 Sipariş Güncellendi: ${params.order_number} → ${statusLabel}`,
+    html: `
+      <div style="font-family:'Segoe UI',sans-serif;max-width:480px;margin:0 auto;">
+        <div style="background:#4f46e5;padding:20px 28px;border-radius:12px 12px 0 0;">
+          <h2 style="color:#fff;margin:0;font-size:18px;">🔄 Sipariş Durumu Güncellendi</h2>
+        </div>
+        <div style="background:#fff;padding:24px 28px;border:1px solid #e2e8f0;border-top:none;border-radius:0 0 12px 12px;">
+          <table width="100%" style="font-size:14px;color:#374151;border-collapse:collapse;">
+            <tr><td style="padding:6px 0;color:#6b7280;width:140px;">Sipariş No</td><td style="font-weight:700;color:#4f46e5;font-family:monospace;">${escapeHtml(params.order_number)}</td></tr>
+            <tr><td style="padding:6px 0;color:#6b7280;">Müşteri</td><td>${escapeHtml(params.customer_name)}</td></tr>
+            <tr><td style="padding:6px 0;color:#6b7280;">E-posta</td><td>${escapeHtml(params.customer_email)}</td></tr>
+            <tr><td style="padding:6px 0;color:#6b7280;">Yeni Durum</td><td><strong style="color:#4f46e5;">${statusLabel}</strong></td></tr>
+            ${params.tracking_number ? `<tr><td style="padding:6px 0;color:#6b7280;">Kargo Takip No</td><td style="font-family:monospace;font-weight:700;">${escapeHtml(params.tracking_number)}</td></tr>` : ''}
+          </table>
+          <div style="margin-top:16px;">
+            <a href="https://modelmarketim.com/yonetim-paneli/orders" style="display:inline-block;background:#4f46e5;color:#fff;padding:10px 20px;border-radius:8px;text-decoration:none;font-size:14px;font-weight:600;">
+              Siparişlere Git →
+            </a>
+          </div>
         </div>
       </div>
     `,
@@ -169,9 +229,9 @@ export async function sendStatusUpdateEmail(params: {
         </div>
         <div style="background:#fff;padding:28px 32px;border:1px solid #e2e8f0;border-top:none;border-radius:0 0 12px 12px;">
           <h2 style="color:#1e293b;font-size:17px;margin:0 0 16px;">Sipariş Durumu: <span style="color:#4f46e5;">${statusLabel}</span></h2>
-          <p style="color:#64748b;font-size:14px;">Merhaba <strong>${params.customer_name}</strong>,</p>
-          <p style="color:#64748b;font-size:14px;"><strong>${params.order_number}</strong> numaralı siparişinizin durumu güncellendi.</p>
-          ${isShipped && params.tracking_number ? `<div style="background:#f0fdf4;border:1px solid #bbf7d0;border-radius:10px;padding:16px 20px;margin-top:20px;"><p style="margin:0;font-size:13px;color:#166534;font-weight:600;">Kargo Takip No</p><p style="margin:6px 0 0;font-size:20px;font-weight:700;color:#16a34a;font-family:monospace;">${params.tracking_number}</p></div>` : ''}
+          <p style="color:#64748b;font-size:14px;">Merhaba <strong>${escapeHtml(params.customer_name)}</strong>,</p>
+          <p style="color:#64748b;font-size:14px;"><strong>${escapeHtml(params.order_number)}</strong> numaralı siparişinizin durumu güncellendi.</p>
+          ${isShipped && params.tracking_number ? `<div style="background:#f0fdf4;border:1px solid #bbf7d0;border-radius:10px;padding:16px 20px;margin-top:20px;"><p style="margin:0;font-size:13px;color:#166534;font-weight:600;">Kargo Takip No</p><p style="margin:6px 0 0;font-size:20px;font-weight:700;color:#16a34a;font-family:monospace;">${escapeHtml(params.tracking_number)}</p></div>` : ''}
         </div>
       </div>
     `,
