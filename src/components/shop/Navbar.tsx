@@ -3,21 +3,22 @@
 import Link from 'next/link'
 import { useTranslations } from 'next-intl'
 import { useRouter, usePathname } from '@/i18n/navigation'
-import { ShoppingCart, Menu, X, Heart } from 'lucide-react'
+import { Menu, X, Heart } from 'lucide-react'
+/* CART_DISABLED: import { ShoppingCart } from 'lucide-react' */
 import { useState, useEffect } from 'react'
-import { useCart } from '@/components/shop/CartProvider'
+/* CART_DISABLED: import { useCart } from '@/components/shop/CartProvider' */
 import { Locale } from '@/types'
 import { cn } from '@/lib/utils'
 import { useFavorites } from '@/components/shop/FavoritesProvider'
 
 export default function Navbar({ locale }: { locale: Locale }) {
   const t = useTranslations('nav')
-  const { itemCount, openDrawer } = useCart()
+  /* CART_DISABLED: const { itemCount, openDrawer } = useCart() */
   const { favorites } = useFavorites()
   const [mobileOpen, setMobileOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
   const router = useRouter()
-  const pathname = usePathname() // next-intl: locale prefix olmadan ("/", "/products" vb.)
+  const pathname = usePathname()
   const otherLocale: Locale = locale === 'tr' ? 'en' : 'tr'
 
   useEffect(() => {
@@ -52,22 +53,13 @@ export default function Navbar({ locale }: { locale: Locale }) {
 
           {/* Desktop Nav */}
           <nav className="hidden md:flex items-center gap-1">
-            <Link
-              href={`/${locale}`}
-              className="px-4 py-2 text-sm font-medium text-slate-600 hover:text-slate-900 hover:bg-indigo-50 rounded-lg transition-all"
-            >
+            <Link href={`/${locale}`} className="px-4 py-2 text-sm font-medium text-slate-600 hover:text-slate-900 hover:bg-indigo-50 rounded-lg transition-all">
               {t('home')}
             </Link>
-            <Link
-              href={`/${locale}/products`}
-              className="px-4 py-2 text-sm font-medium text-slate-600 hover:text-slate-900 hover:bg-indigo-50 rounded-lg transition-all"
-            >
+            <Link href={`/${locale}/products`} className="px-4 py-2 text-sm font-medium text-slate-600 hover:text-slate-900 hover:bg-indigo-50 rounded-lg transition-all">
               {t('products')}
             </Link>
-            <Link
-              href={`/${locale}/track`}
-              className="px-4 py-2 text-sm font-medium text-slate-600 hover:text-slate-900 hover:bg-indigo-50 rounded-lg transition-all"
-            >
+            <Link href={`/${locale}/track`} className="px-4 py-2 text-sm font-medium text-slate-600 hover:text-slate-900 hover:bg-indigo-50 rounded-lg transition-all">
               {t('track')}
             </Link>
           </nav>
@@ -95,7 +87,7 @@ export default function Navbar({ locale }: { locale: Locale }) {
               )}
             </Link>
 
-            {/* Cart */}
+            {/* CART_DISABLED: Sepet ikonu - online ödeme entegrasyonu tamamlandığında aç
             <button
               onClick={openDrawer}
               className="relative w-9 h-9 flex items-center justify-center rounded-lg text-slate-500 hover:text-indigo-600 hover:bg-indigo-50 transition-all"
@@ -107,6 +99,7 @@ export default function Navbar({ locale }: { locale: Locale }) {
                 </span>
               )}
             </button>
+            */}
 
             {/* Mobile menu toggle */}
             <button

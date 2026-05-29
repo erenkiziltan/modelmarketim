@@ -5,23 +5,24 @@ import Image from 'next/image'
 import { useTranslations } from 'next-intl'
 import { Product, ProductImage, ProductVariant, Locale } from '@/types'
 import { formatPrice, getLocalizedField } from '@/lib/utils'
-import { useCart } from './CartProvider'
+/* CART_DISABLED: import { useCart } from './CartProvider' */
 import { Button } from '@/components/ui/button'
-import { toast } from 'sonner'
-import { ShoppingCart, Package, ChevronLeft, Shield, RotateCcw, Truck } from 'lucide-react'
+/* CART_DISABLED: import { toast } from 'sonner' */
+import { Package, ChevronLeft, Shield, RotateCcw, Truck } from 'lucide-react'
+/* CART_DISABLED: import { ShoppingCart } from 'lucide-react' */
 import Link from 'next/link'
 
 type FullProduct = Product & { product_images: ProductImage[]; product_variants: ProductVariant[] }
 
 export default function ProductDetail({ product, locale }: { product: FullProduct; locale: Locale }) {
   const t = useTranslations('products')
-  const { addItem } = useCart()
+  /* CART_DISABLED: const { addItem } = useCart() */
   const [selectedImage, setSelectedImage] = useState(
     product.product_images?.find(i => i.is_cover) ?? product.product_images?.[0]
   )
   const [selectedVariants, setSelectedVariants] = useState<Record<string, string>>({})
   const [quantity, setQuantity] = useState(1)
-  const [added, setAdded] = useState(false)
+  /* CART_DISABLED: const [added, setAdded] = useState(false) */
 
   const name = getLocalizedField(product as unknown as Record<string, unknown>, 'name', locale)
   const description = getLocalizedField(product as unknown as Record<string, unknown>, 'description', locale)

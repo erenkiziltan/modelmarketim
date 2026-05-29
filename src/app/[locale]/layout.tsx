@@ -5,10 +5,10 @@ import { routing } from '@/i18n/routing'
 import { Toaster } from '@/components/ui/sonner'
 import Navbar from '@/components/shop/Navbar'
 import Footer from '@/components/shop/Footer'
-import { CartProvider } from '@/components/shop/CartProvider'
+/* CART_DISABLED: import { CartProvider } from '@/components/shop/CartProvider' */
 import { FavoritesProvider } from '@/components/shop/FavoritesProvider'
 import PageTransition from '@/components/shared/PageTransition'
-import CartDrawer from '@/components/shop/CartDrawer'
+/* CART_DISABLED: import CartDrawer from '@/components/shop/CartDrawer' */
 import WhatsAppButton from '@/components/shop/WhatsAppButton'
 import DolapButton from '@/components/shop/DolapButton'
 
@@ -29,21 +29,21 @@ export default async function LocaleLayout({
 
   return (
     <NextIntlClientProvider messages={messages}>
-      <CartProvider>
-        <FavoritesProvider>
-          <Navbar locale={locale as 'tr' | 'en'} />
-          <CartDrawer locale={locale as 'tr' | 'en'} />
-          <main className="flex-1">
-            <PageTransition>
-              {children}
-            </PageTransition>
-          </main>
-          <Footer locale={locale} />
-          <DolapButton />
-          <WhatsAppButton />
-          <Toaster richColors position="bottom-right" />
-        </FavoritesProvider>
-      </CartProvider>
+      {/* CART_DISABLED: <CartProvider> */}
+      <FavoritesProvider>
+        <Navbar locale={locale as 'tr' | 'en'} />
+        {/* CART_DISABLED: <CartDrawer locale={locale as 'tr' | 'en'} /> */}
+        <main className="flex-1">
+          <PageTransition>
+            {children}
+          </PageTransition>
+        </main>
+        <Footer locale={locale} />
+        <DolapButton />
+        <WhatsAppButton />
+        <Toaster richColors position="bottom-right" />
+      </FavoritesProvider>
+      {/* CART_DISABLED: </CartProvider> */}
     </NextIntlClientProvider>
   )
 }

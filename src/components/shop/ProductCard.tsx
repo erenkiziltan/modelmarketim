@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import Image from 'next/image'
-import { Heart, Package, ShoppingCart } from 'lucide-react'
+import { Heart, Package } from 'lucide-react'
 import { Product, ProductImage, Locale } from '@/types'
 import { formatPrice, getLocalizedField } from '@/lib/utils'
 import { useFavorites } from './FavoritesProvider'
@@ -104,10 +104,10 @@ export default function ProductCard({ product, locale }: { product: ProductWithI
             <button
               onClick={handleQuickAdd}
               disabled={product.stock === 0}
-              className="flex items-center gap-1 text-xs font-semibold px-2.5 py-1.5 rounded-lg transition-all active:scale-[0.97] disabled:opacity-40 disabled:cursor-not-allowed bg-indigo-50 text-indigo-600 hover:bg-indigo-600 hover:text-white"
+              className="flex items-center gap-1.5 text-xs font-semibold px-2.5 py-1.5 rounded-lg transition-all active:scale-[0.97] disabled:opacity-40 disabled:cursor-not-allowed bg-[#25D6A2] hover:bg-[#1fc090] text-white"
             >
-              <ShoppingCart className="h-3 w-3" />
-              {t('add_to_cart')}
+              <img src="/dolap-logo.svg" alt="Dolap" className="h-3.5 w-3.5 brightness-0 invert" />
+              Dolap&apos;tan Al
             </button>
           </div>
         </div>
