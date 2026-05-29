@@ -164,7 +164,7 @@ export default function ProductDetail({ product, locale }: { product: FullProduc
             size="lg"
             onClick={handleAddToCart}
             disabled={!inStock}
-            className="gap-2 h-11 text-sm rounded-xl transition-all w-full shadow-lg active:scale-[0.98] bg-[#F26522] hover:bg-[#d9561a] shadow-orange-200 hover:shadow-orange-300 hover:-translate-y-0.5"
+            className="gap-2 h-11 text-sm rounded-xl transition-all w-full shadow-lg active:scale-[0.98] bg-[#25D6A2] hover:bg-[#1fc090] shadow-[#25D6A2]/30 hover:shadow-[#25D6A2]/40 hover:-translate-y-0.5"
           >
             <img src="/dolap-logo.svg" alt="Dolap" className="h-5 w-5 brightness-0 invert" />
             {inStock ? "Dolap'tan Satın Al" : t('out_of_stock')}
