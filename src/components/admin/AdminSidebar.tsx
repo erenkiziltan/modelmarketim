@@ -2,13 +2,14 @@
 
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
-import { LayoutDashboard, Package, ShoppingBag, Settings, LogOut } from 'lucide-react'
+import { LayoutDashboard, Package, ShoppingBag, Settings, LogOut, FolderOpen } from 'lucide-react'
 import { createClient } from '@/lib/supabase/client'
 import { cn } from '@/lib/utils'
 
 const navItems = [
   { href: '/yonetim-paneli/dashboard', label: 'Dashboard', icon: LayoutDashboard },
   { href: '/yonetim-paneli/products', label: 'Ürünler', icon: Package },
+  { href: '/yonetim-paneli/categories', label: 'Kategoriler', icon: FolderOpen },
   { href: '/yonetim-paneli/orders', label: 'Siparişler', icon: ShoppingBag },
   { href: '/yonetim-paneli/settings', label: 'Ayarlar', icon: Settings },
 ]
