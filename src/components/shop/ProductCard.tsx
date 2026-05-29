@@ -1,12 +1,10 @@
 'use client'
 
-import { useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
-import { Heart, Package, ShoppingCart, Check } from 'lucide-react'
+import { Heart, Package, ShoppingCart } from 'lucide-react'
 import { Product, ProductImage, Locale } from '@/types'
 import { formatPrice, getLocalizedField } from '@/lib/utils'
-import { useCart } from './CartProvider'
 import { useFavorites } from './FavoritesProvider'
 import { toast } from 'sonner'
 import { useTranslations } from 'next-intl'
@@ -19,10 +17,8 @@ function isNew(createdAt: string): boolean {
 
 export default function ProductCard({ product, locale }: { product: ProductWithImages; locale: Locale }) {
   const t = useTranslations('products')
-  const { addItem } = useCart()
   const { toggleFavorite, isFavorite } = useFavorites()
 
-  const [justAdded, setJustAdded] = useState(false)
   const cover = product.product_images?.find(i => i.is_cover) ?? product.product_images?.[0]
   const name = getLocalizedField(product as unknown as Record<string, unknown>, 'name', locale)
   const favorited = isFavorite(product.id)
@@ -32,10 +28,7 @@ export default function ProductCard({ product, locale }: { product: ProductWithI
   function handleQuickAdd(e: React.MouseEvent) {
     e.preventDefault()
     if (!product.stock) return
-    addItem(product, 1, {})
-    toast.success(t('toast_added', { name }))
-    setJustAdded(true)
-    setTimeout(() => setJustAdded(false), 1500)
+    window.open('https://link.dolap.com/7lp4ce', '_blank')
   }
 
   function handleFavorite(e: React.MouseEvent) {
@@ -111,14 +104,10 @@ export default function ProductCard({ product, locale }: { product: ProductWithI
             <button
               onClick={handleQuickAdd}
               disabled={product.stock === 0}
-              className={`flex items-center gap-1 text-xs font-semibold px-2.5 py-1.5 rounded-lg transition-all active:scale-[0.97] disabled:opacity-40 disabled:cursor-not-allowed
-                ${justAdded
-                  ? 'bg-green-500 text-white'
-                  : 'bg-indigo-50 text-indigo-600 hover:bg-indigo-600 hover:text-white'
-                }`}
+              className="flex items-center gap-1 text-xs font-semibold px-2.5 py-1.5 rounded-lg transition-all active:scale-[0.97] disabled:opacity-40 disabled:cursor-not-allowed bg-indigo-50 text-indigo-600 hover:bg-indigo-600 hover:text-white"
             >
-              {justAdded ? <Check className="h-3 w-3" /> : <ShoppingCart className="h-3 w-3" />}
-              {justAdded ? t('added_to_cart') : t('add_to_cart')}
+              <ShoppingCart className="h-3 w-3" />
+              {t('add_to_cart')}
             </button>
           </div>
         </div>

@@ -29,17 +29,7 @@ export default function ProductDetail({ product, locale }: { product: FullProduc
 
   function handleAddToCart() {
     if (!inStock) return
-    for (const v of product.product_variants ?? []) {
-      const varName = getLocalizedField(v as unknown as Record<string, unknown>, 'name', locale)
-      if (!selectedVariants[varName]) {
-        toast.error(t('variant_required', { name: varName }))
-        return
-      }
-    }
-    addItem(product, quantity, selectedVariants)
-    toast.success(t('toast_added', { name }))
-    setAdded(true)
-    setTimeout(() => setAdded(false), 2000)
+    window.open('https://link.dolap.com/7lp4ce', '_blank')
   }
 
   return (
@@ -169,19 +159,15 @@ export default function ProductDetail({ product, locale }: { product: FullProduc
             </div>
           </div>
 
-          {/* Add to cart */}
+          {/* Dolap'ta satın al */}
           <Button
             size="lg"
             onClick={handleAddToCart}
             disabled={!inStock}
-            className={`gap-2 h-11 text-sm rounded-xl transition-all w-full shadow-lg active:scale-[0.98] ${
-              added
-                ? 'bg-green-500 hover:bg-green-500 shadow-green-200'
-                : 'bg-indigo-600 hover:bg-indigo-700 shadow-indigo-200 hover:shadow-indigo-300 hover:-translate-y-0.5'
-            }`}
+            className="gap-2 h-11 text-sm rounded-xl transition-all w-full shadow-lg active:scale-[0.98] bg-[#F26522] hover:bg-[#d9561a] shadow-orange-200 hover:shadow-orange-300 hover:-translate-y-0.5"
           >
-            <ShoppingCart className="h-5 w-5" />
-            {added ? t('added_to_cart') : inStock ? t('add_to_cart') : t('out_of_stock')}
+            <img src="/dolap-logo.svg" alt="Dolap" className="h-5 w-5 brightness-0 invert" />
+            {inStock ? "Dolap'tan Satın Al" : t('out_of_stock')}
           </Button>
 
           {/* Trust badges */}
