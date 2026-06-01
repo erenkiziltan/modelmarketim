@@ -27,7 +27,7 @@ export default function TrackPage() {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
 
-  const statusSteps: { key: OrderStatus; label: string; icon: React.ElementType }[] = [
+  const statusSteps: { key: OrderStatus; label: string; icon: React.ComponentType<{ className?: string }> }[] = [
     { key: 'pending', label: t('status_pending'), icon: Clock },
     { key: 'confirmed', label: t('status_confirmed'), icon: CheckCircle },
     { key: 'shipped', label: t('status_shipped'), icon: Truck },
