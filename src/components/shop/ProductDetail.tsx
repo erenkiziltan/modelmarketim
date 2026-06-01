@@ -8,7 +8,7 @@ import { formatPrice, getLocalizedField } from '@/lib/utils'
 /* CART_DISABLED: import { useCart } from './CartProvider' */
 import { Button } from '@/components/ui/button'
 /* CART_DISABLED: import { toast } from 'sonner' */
-import { Package, ChevronLeft, Shield, RotateCcw, Truck } from 'lucide-react'
+import { Package, ChevronLeft, Shield, Truck } from 'lucide-react'
 /* CART_DISABLED: import { ShoppingCart } from 'lucide-react' */
 import Link from 'next/link'
 
@@ -172,11 +172,10 @@ export default function ProductDetail({ product, locale }: { product: FullProduc
           </Button>
 
           {/* Trust badges */}
-          <div className="grid grid-cols-3 gap-2">
+          <div className="grid grid-cols-2 gap-2">
             {[
               { icon: Shield, key: 'trust_secure' as const },
               { icon: Truck, key: 'trust_shipping' as const },
-              { icon: RotateCcw, key: 'trust_returns' as const },
             ].map(b => (
               <div key={b.key} className="flex flex-col items-center gap-1 p-2.5 bg-slate-50 rounded-xl border border-slate-100">
                 <b.icon className="h-3.5 w-3.5 text-[#C7A06F]/70" />
