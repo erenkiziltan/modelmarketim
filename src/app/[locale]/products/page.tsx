@@ -75,7 +75,7 @@ export default async function ProductsPage({
     <div>
       <div className="bg-white border-b border-slate-100">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-7">
-          <p className="text-xs font-semibold uppercase tracking-widest text-indigo-500 mb-1">{t('collection')}</p>
+          <p className="text-xs font-semibold uppercase tracking-widest text-[#C7A06F] mb-1">{t('collection')}</p>
           <h1 className="text-2xl font-bold text-slate-900">
             {activeCategoryName ?? t('title')}
           </h1>
@@ -90,8 +90,8 @@ export default async function ProductsPage({
             href="?"
             className={`px-4 py-2 rounded-xl text-sm font-medium transition-all border ${
               !category
-                ? 'bg-indigo-600 text-white border-indigo-600 shadow-sm'
-                : 'bg-white text-slate-600 border-slate-200 hover:border-indigo-300 hover:text-indigo-600'
+                ? 'bg-[#102A43] text-white border-[#102A43] shadow-sm'
+                : 'bg-white text-slate-600 border-slate-200 hover:border-[#D9E2EC] hover:text-[#C7A06F]'
             }`}
           >
             {t('all_categories')}
@@ -102,8 +102,8 @@ export default async function ProductsPage({
               href={`?category=${cat.slug}`}
               className={`px-4 py-2 rounded-xl text-sm font-medium transition-all border ${
                 category === cat.slug
-                  ? 'bg-indigo-600 text-white border-indigo-600 shadow-sm'
-                  : 'bg-white text-slate-600 border-slate-200 hover:border-indigo-300 hover:text-indigo-600'
+                  ? 'bg-[#102A43] text-white border-[#102A43] shadow-sm'
+                  : 'bg-white text-slate-600 border-slate-200 hover:border-[#D9E2EC] hover:text-[#C7A06F]'
               }`}
             >
               {locale === 'tr' ? cat.name_tr : cat.name_en}

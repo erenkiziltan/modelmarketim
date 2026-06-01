@@ -38,7 +38,7 @@ export default function ProductDetail({ product, locale }: { product: FullProduc
       {/* Breadcrumb */}
       <Link
         href={`/${locale}/products`}
-        className="inline-flex items-center gap-1.5 text-sm text-slate-400 hover:text-indigo-600 mb-6 transition-colors group"
+        className="inline-flex items-center gap-1.5 text-sm text-slate-400 hover:text-[#C7A06F] mb-6 transition-colors group"
       >
         <ChevronLeft className="h-4 w-4 group-hover:-translate-x-0.5 transition-transform" />
         {t('back_to_products')}
@@ -79,7 +79,7 @@ export default function ProductDetail({ product, locale }: { product: FullProduc
                   onClick={() => setSelectedImage(img)}
                   className={`relative w-16 h-16 rounded-xl overflow-hidden border-2 transition-all ${
                     selectedImage?.id === img.id
-                      ? 'border-indigo-500 shadow-sm shadow-indigo-100'
+                      ? 'border-[#C7A06F] shadow-sm shadow-[#102A43]/20'
                       : 'border-slate-100 hover:border-slate-300'
                   }`}
                 >
@@ -95,7 +95,7 @@ export default function ProductDetail({ product, locale }: { product: FullProduc
           {/* Name & Price */}
           <div className="bg-slate-50 rounded-2xl p-5 border border-slate-100">
             <h1 className="text-2xl font-bold text-slate-900 mb-2 leading-tight">{name}</h1>
-            <span className="text-3xl font-bold text-indigo-600">{formatPrice(product.price)}</span>
+            <span className="text-3xl font-bold text-[#C7A06F]">{formatPrice(product.price)}</span>
             <div className="flex items-center gap-2 mt-3">
               <div className={`w-2 h-2 rounded-full ${inStock ? 'bg-green-500' : 'bg-slate-300'}`} />
               <span className={`text-sm font-medium ${inStock ? 'text-green-600' : 'text-slate-400'}`}>
@@ -127,7 +127,7 @@ export default function ProductDetail({ product, locale }: { product: FullProduc
                       onClick={() => setSelectedVariants(prev => ({ ...prev, [varName]: opt }))}
                       className={`px-4 py-2 rounded-xl border text-sm font-medium transition-all ${
                         selectedVariants[varName] === opt
-                          ? 'border-indigo-500 bg-indigo-50 text-indigo-700 shadow-sm'
+                          ? 'border-[#C7A06F] bg-[#D9E2EC]/40 text-indigo-700 shadow-sm'
                           : 'border-slate-200 text-slate-700 hover:border-slate-300 hover:bg-slate-50'
                       }`}
                     >
@@ -179,7 +179,7 @@ export default function ProductDetail({ product, locale }: { product: FullProduc
               { icon: RotateCcw, key: 'trust_returns' as const },
             ].map(b => (
               <div key={b.key} className="flex flex-col items-center gap-1 p-2.5 bg-slate-50 rounded-xl border border-slate-100">
-                <b.icon className="h-3.5 w-3.5 text-indigo-400" />
+                <b.icon className="h-3.5 w-3.5 text-[#C7A06F]/70" />
                 <span className="text-xs text-slate-500 text-center leading-tight">{t(b.key)}</span>
               </div>
             ))}

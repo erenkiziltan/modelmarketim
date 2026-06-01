@@ -63,7 +63,7 @@ export default function TrackPage() {
     <div className="mx-auto max-w-2xl px-4 py-16">
       {/* Header */}
       <div className="text-center mb-10">
-        <p className="text-xs font-semibold uppercase tracking-widest text-indigo-600 mb-2">{t('title')}</p>
+        <p className="text-xs font-semibold uppercase tracking-widest text-[#C7A06F] mb-2">{t('title')}</p>
         <h1 className="text-3xl font-bold text-slate-900 mb-3">{t('heading')}</h1>
         <p className="text-slate-500 text-sm">{t('subtitle')}</p>
       </div>
@@ -82,7 +82,7 @@ export default function TrackPage() {
         <Button
           type="submit"
           disabled={loading}
-          className="h-12 px-6 bg-indigo-600 hover:bg-indigo-700 rounded-xl"
+          className="h-12 px-6 bg-[#102A43] hover:bg-[#0d2236] rounded-xl"
         >
           {loading ? t('searching') : t('search_btn')}
         </Button>
@@ -124,7 +124,7 @@ export default function TrackPage() {
               <div className="relative">
                 <div className="absolute top-5 left-0 right-0 h-0.5 bg-slate-100 mx-10" />
                 <div
-                  className="absolute top-5 left-0 h-0.5 bg-indigo-600 mx-10 transition-all duration-700"
+                  className="absolute top-5 left-0 h-0.5 bg-[#102A43] mx-10 transition-all duration-700"
                   style={{ width: `${(currentStep / 3) * 100}%` }}
                 />
                 <div className="relative flex justify-between">
@@ -137,8 +137,8 @@ export default function TrackPage() {
                         <div className={`w-10 h-10 rounded-full flex items-center justify-center z-10 transition-all ${
                           done
                             ? active
-                              ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-200'
-                              : 'bg-indigo-100 text-indigo-600'
+                              ? 'bg-[#102A43] text-white shadow-lg shadow-[#102A43]/20'
+                              : 'bg-[#D9E2EC]/60 text-[#C7A06F]'
                             : 'bg-slate-100 text-slate-300'
                         }`}>
                           <Icon className="h-4 w-4" />
@@ -162,7 +162,7 @@ export default function TrackPage() {
             </div>
             <div>
               <p className="text-xs text-slate-400 mb-0.5">{t('label_total')}</p>
-              <p className="text-sm font-bold text-indigo-600">{formatPrice(order.total_price)}</p>
+              <p className="text-sm font-bold text-[#C7A06F]">{formatPrice(order.total_price)}</p>
             </div>
             <div className="col-span-2">
               <p className="text-xs text-slate-400 mb-0.5">{t('label_address')}</p>

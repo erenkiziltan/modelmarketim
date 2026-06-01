@@ -87,9 +87,9 @@ export default function CheckoutPage() {
         <CheckCircle className="h-16 w-16 text-green-500 mx-auto mb-4" />
         <h1 className="text-2xl font-bold text-slate-900 mb-3">{t('success_title')}</h1>
         <p className="text-slate-600 mb-2">{t('success_message', { orderNumber })}</p>
-        <p className="text-2xl font-mono font-bold text-indigo-600 mb-8">{orderNumber}</p>
+        <p className="text-2xl font-mono font-bold text-[#C7A06F] mb-8">{orderNumber}</p>
         <Link href={`/${locale}/products`}>
-          <Button className="bg-indigo-600 hover:bg-indigo-700">{t('continue_shopping')}</Button>
+          <Button className="bg-[#102A43] hover:bg-[#0d2236]">{t('continue_shopping')}</Button>
         </Link>
       </div>
     )
@@ -171,9 +171,9 @@ export default function CheckoutPage() {
               ))}
               <div className="border-t border-slate-100 pt-3 flex justify-between font-bold">
                 <span>{t('total')}</span>
-                <span className="text-indigo-600">{formatPrice(total)}</span>
+                <span className="text-[#C7A06F]">{formatPrice(total)}</span>
               </div>
-              <Button type="submit" disabled={loading} className="w-full bg-indigo-600 hover:bg-indigo-700 active:scale-[0.98] mt-2">
+              <Button type="submit" disabled={loading} className="w-full bg-[#102A43] hover:bg-[#0d2236] active:scale-[0.98] mt-2">
                 {loading ? t('processing') : t('submit')}
               </Button>
               <div className="flex items-center justify-center gap-2 text-xs text-slate-400 flex-wrap pt-1">

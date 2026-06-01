@@ -36,24 +36,30 @@
 }
 
 :root {
-  --background: #fafafa;
-  --foreground: #0f0a1e;
+  /* Model Marketim Marka Renkleri */
+  --brand-dark:  #102A43;   /* Koyu Mavi - Ana */
+  --brand-gold:  #C7A06F;   /* Altın-Bronz - Vurgu / CTA */
+  --brand-blue:  #334E68;   /* Mavi Geçiş - İkincil */
+  --brand-gray:  #D9E2EC;   /* Açık Gri - Zemin */
+
+  --background: #f8f9fb;
+  --foreground: #102A43;
   --card: #ffffff;
-  --card-foreground: #0f0a1e;
+  --card-foreground: #102A43;
   --popover: #ffffff;
-  --popover-foreground: #0f0a1e;
-  --primary: #4f46e5;
+  --popover-foreground: #102A43;
+  --primary: #102A43;
   --primary-foreground: #ffffff;
-  --secondary: #f5f3ff;
-  --secondary-foreground: #4f46e5;
-  --muted: #f5f3ff;
-  --muted-foreground: #6b7280;
-  --accent: #ede9fe;
-  --accent-foreground: #4f46e5;
+  --secondary: #D9E2EC;
+  --secondary-foreground: #102A43;
+  --muted: #eef1f5;
+  --muted-foreground: #334E68;
+  --accent: #C7A06F;
+  --accent-foreground: #ffffff;
   --destructive: #dc2626;
-  --border: #e5e2f8;
-  --input: #e5e2f8;
-  --ring: #4f46e5;
+  --border: #D9E2EC;
+  --input: #D9E2EC;
+  --ring: #C7A06F;
   --radius: 0.75rem;
 }
 
@@ -85,11 +91,11 @@ html {
   background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: #c4c2e8;
+  background: #C7A06F;
   border-radius: 99px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #a5a2d4;
+  background: #102A43;
 }
 
 :focus-visible {
@@ -99,6 +105,6 @@ html {
 }
 
 ::selection {
-  background: #c7d2fe;
-  color: #1e1b4b;
+  background: #C7A06F40;
+  color: #102A43;
 }

@@ -28,7 +28,7 @@ export default async function RelatedProducts({
   return (
     <div className="mt-20 border-t border-slate-100 pt-16">
       <div className="mb-8">
-        <p className="text-xs font-semibold uppercase tracking-widest text-indigo-500 mb-1">{t('related_badge')}</p>
+        <p className="text-xs font-semibold uppercase tracking-widest text-[#C7A06F] mb-1">{t('related_badge')}</p>
         <h2 className="text-2xl font-bold text-slate-900">{t('related_title')}</h2>
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">

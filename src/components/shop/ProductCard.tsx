@@ -41,7 +41,7 @@ export default function ProductCard({ product, locale }: { product: ProductWithI
 
   return (
     <Link href={`/${locale}/products/${product.slug}`} className="group block">
-      <div className="bg-white rounded-2xl border border-slate-100 hover:border-indigo-100 overflow-hidden shadow-sm hover:shadow-xl hover:shadow-slate-200 transition-all duration-300 hover:-translate-y-1">
+      <div className="bg-white rounded-2xl border border-slate-100 hover:border-[#D9E2EC] overflow-hidden shadow-sm hover:shadow-xl hover:shadow-slate-200 transition-all duration-300 hover:-translate-y-1">
 
         {/* Image */}
         <div className="relative aspect-square bg-slate-50 overflow-hidden">
@@ -70,7 +70,7 @@ export default function ProductCard({ product, locale }: { product: ProductWithI
           {/* Badges */}
           <div className="absolute top-2.5 left-2.5 flex flex-col gap-1.5">
             {newProduct && (
-              <span className="bg-indigo-600 text-white text-xs font-bold px-2 py-0.5 rounded-full">
+              <span className="bg-[#102A43] text-white text-xs font-bold px-2 py-0.5 rounded-full">
                 {t('badge_new')}
               </span>
             )}
@@ -86,8 +86,8 @@ export default function ProductCard({ product, locale }: { product: ProductWithI
             onClick={handleFavorite}
             className={`absolute top-2.5 right-2.5 w-7 h-7 rounded-full flex items-center justify-center shadow-sm transition-all
               ${favorited
-                ? 'bg-indigo-600 text-white'
-                : 'bg-white/90 text-slate-300 opacity-0 group-hover:opacity-100 hover:text-indigo-500'
+                ? 'bg-[#102A43] text-white'
+                : 'bg-white/90 text-slate-300 opacity-0 group-hover:opacity-100 hover:text-[#C7A06F]'
               }`}
           >
             <Heart className={`h-3.5 w-3.5 ${favorited ? 'fill-white' : ''}`} />
@@ -96,11 +96,11 @@ export default function ProductCard({ product, locale }: { product: ProductWithI
 
         {/* Info */}
         <div className="p-3.5">
-          <h3 className="text-sm font-semibold text-slate-800 group-hover:text-indigo-600 transition-colors leading-snug line-clamp-2 mb-2.5">
+          <h3 className="text-sm font-semibold text-slate-800 group-hover:text-[#C7A06F] transition-colors leading-snug line-clamp-2 mb-2.5">
             {name}
           </h3>
           <div className="flex items-center justify-between gap-2">
-            <p className="text-base font-bold text-indigo-600">{formatPrice(product.price)}</p>
+            <p className="text-base font-bold text-[#C7A06F]">{formatPrice(product.price)}</p>
             <button
               onClick={handleQuickAdd}
               disabled={product.stock === 0}

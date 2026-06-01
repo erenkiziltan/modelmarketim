@@ -60,7 +60,7 @@ export default function ProductFilters({
           value={search}
           onChange={e => setSearch(e.target.value)}
           placeholder={t('search_placeholder')}
-          className="w-full pl-9 pr-9 py-2.5 text-sm bg-white border border-slate-200 rounded-xl focus:outline-none focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100 transition-all"
+          className="w-full pl-9 pr-9 py-2.5 text-sm bg-white border border-slate-200 rounded-xl focus:outline-none focus:border-[#C7A06F]/60 focus:ring-2 focus:ring-[#C7A06F] transition-all"
         />
         {search && (
           <button
@@ -84,7 +84,7 @@ export default function ProductFilters({
               disabled={isPending}
               className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
                 (currentSort ?? '') === opt.value
-                  ? 'bg-indigo-600 text-white shadow-sm'
+                  ? 'bg-[#102A43] text-white shadow-sm'
                   : 'bg-white border border-slate-200 text-slate-600 hover:border-slate-300'
               }`}
             >

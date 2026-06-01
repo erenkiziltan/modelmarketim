@@ -46,8 +46,8 @@ export default function FavoritesPage() {
       <div className="bg-white border-b border-slate-100">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-7">
           <div className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-xl bg-indigo-50 flex items-center justify-center">
-              <Heart className="h-4 w-4 text-indigo-600 fill-indigo-600" />
+            <div className="w-9 h-9 rounded-xl bg-[#D9E2EC]/40 flex items-center justify-center">
+              <Heart className="h-4 w-4 text-[#C7A06F] fill-indigo-600" />
             </div>
             <div>
               <h1 className="text-2xl font-bold text-slate-900">{t('title')}</h1>
@@ -66,7 +66,7 @@ export default function FavoritesPage() {
             <h3 className="font-bold text-slate-900 mb-1 text-lg">{t('empty_title')}</h3>
             <p className="text-sm text-slate-400 mb-6">{t('empty_desc')}</p>
             <Link href={`/${locale}/products`}>
-              <Button className="bg-indigo-600 hover:bg-indigo-700 rounded-xl gap-2">
+              <Button className="bg-[#102A43] hover:bg-[#0d2236] rounded-xl gap-2">
                 {t('go_to_products')} <ArrowRight className="h-4 w-4" />
               </Button>
             </Link>

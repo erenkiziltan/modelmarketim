@@ -12,11 +12,11 @@ export default function Footer({ locale }: { locale: string }) {
           {/* Brand */}
           <div>
             <div className="flex items-center gap-2 mb-3">
-              <div className="w-8 h-8 rounded-lg bg-indigo-600 flex items-center justify-center">
+              <div className="w-8 h-8 rounded-lg bg-[#102A43] flex items-center justify-center">
                 <span className="text-white font-bold text-sm">M</span>
               </div>
               <span className="text-lg font-bold text-white" style={{ fontFamily: 'var(--font-space-grotesk)' }}>
-                Model<span className="text-indigo-400">marketim</span>
+                Model<span className="text-[#C7A06F]/70">marketim</span>
               </span>
             </div>
             <p className="text-sm text-slate-500 max-w-xs leading-relaxed">
@@ -27,17 +27,17 @@ export default function Footer({ locale }: { locale: string }) {
           {/* Links */}
           <div className="flex flex-col gap-2">
             <p className="text-xs font-semibold uppercase tracking-widest text-slate-600 mb-1">{t('links')}</p>
-            <Link href={`/${locale}/products`} className="text-sm text-slate-400 hover:text-indigo-400 transition-colors">
+            <Link href={`/${locale}/products`} className="text-sm text-slate-400 hover:text-[#C7A06F]/70 transition-colors">
               {t('products')}
             </Link>
-            <Link href={`/${locale}/track`} className="text-sm text-slate-400 hover:text-indigo-400 transition-colors">
+            <Link href={`/${locale}/track`} className="text-sm text-slate-400 hover:text-[#C7A06F]/70 transition-colors">
               {t('track')}
             </Link>
             <a
               href="https://wa.me/905374826673"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-sm text-slate-400 hover:text-indigo-400 transition-colors"
+              className="text-sm text-slate-400 hover:text-[#C7A06F]/70 transition-colors"
             >
               {t('contact')}
             </a>
