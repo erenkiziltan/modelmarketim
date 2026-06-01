@@ -189,13 +189,11 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
             <h3 className="text-xl sm:text-2xl font-bold mb-2">{t('cta_title')}</h3>
             <p className="mb-6 text-sm max-w-md mx-auto" style={{ color: '#D9E2EC' }}>{t('cta_desc')}</p>
             <Link href={`/${locale}/products`}>
-              <Button className="active:scale-[0.98] shadow-lg gap-2 px-7 h-10 rounded-xl font-semibold transition-all hover:-translate-y-0.5"
+              <button className="active:scale-[0.98] shadow-lg gap-2 px-7 h-10 rounded-xl font-semibold transition-all hover:-translate-y-0.5 inline-flex items-center text-sm"
                 style={{ background: '#C7A06F', color: '#102A43' }}
-                onMouseEnter={e => (e.currentTarget.style.background = '#b8905f')}
-                onMouseLeave={e => (e.currentTarget.style.background = '#C7A06F')}
               >
-                {t('cta_btn')} <ArrowRight className="h-4 w-4" />
-              </Button>
+                {t('cta_btn')} <ArrowRight className="h-4 w-4 ml-2" />
+              </button>
             </Link>
           </div>
         </div>
