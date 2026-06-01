@@ -29,13 +29,17 @@ export default function AdminSidebar() {
     <aside className="w-56 min-h-screen flex flex-col" style={{ background: '#102A43' }}>
       {/* Logo */}
       <div className="px-5 py-4 border-b" style={{ borderColor: '#1e3d5c' }}>
-        {/* Logo ikon kısmı */}
-        <div style={{ position: 'relative', overflow: 'hidden', width: '120px', height: '45px' }}>
-          <img
-            src="/logo.png"
-            alt="Model Marketim"
-            style={{ position: 'absolute', top: 0, left: 0, height: '69px', width: 'auto' }}
-          />
+        <div className="flex items-center gap-2.5">
+          <div className="bg-white rounded-lg p-1 flex items-center justify-center shadow-sm">
+            <img
+              src="/logo-icon.png"
+              alt="Model Marketim"
+              className="h-7 w-auto object-contain"
+            />
+          </div>
+          <span className="text-base font-bold text-white">
+            Model<span style={{ color: '#C7A06F' }}>marketim</span>
+          </span>
         </div>
         <p className="text-xs mt-1" style={{ color: '#C7A06F80' }}>Yönetim Paneli</p>
       </div>
