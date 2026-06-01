@@ -31,7 +31,7 @@ export const metadata: Metadata = {
     '3d baskı türkiye',
     'figür satın al',
     'koleksiyon figür',
-    'el yapımı figür',
+    'el boyaması figür',
     '3d tarayıcı',
     '3d baskı araç gereç',
     'pla figür',

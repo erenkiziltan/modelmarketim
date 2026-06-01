@@ -3,7 +3,7 @@ import { getTranslations } from 'next-intl/server'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { Locale, Product, ProductImage } from '@/types'
-import { ArrowRight, Banknote, Sparkles, Shield, Truck, Star } from 'lucide-react'
+import { ArrowRight, Sparkles, Shield, Truck, Star } from 'lucide-react'
 import ProductCard from '@/components/shop/ProductCard'
 import HeroModel from '@/components/shop/HeroModel'
 import type { Metadata } from 'next'
@@ -63,9 +63,9 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
                 <Sparkles className="h-3 w-3 text-[#C7A06F]" />
                 <span className="text-[#C7A06F] text-xs font-semibold tracking-wide uppercase">{t('hero_badge')}</span>
               </div>
-              <h1 className="text-4xl sm:text-5xl font-bold leading-[1.1] mb-4 text-slate-900">
+              <h1 className="text-4xl sm:text-5xl font-bold leading-[1.1] mb-4" style={{ color: '#102A43' }}>
                 {t('hero_title_1')}
-                <span className="block text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-violet-600">
+                <span className="block text-transparent bg-clip-text bg-gradient-to-r from-[#102A43] via-[#334E68] to-[#C7A06F]">
                   {t('hero_title_2')}
                 </span>
               </h1>
@@ -110,9 +110,8 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
       {/* Features strip */}
       <section className="border-y border-slate-100 bg-white">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 sm:grid-cols-3 divide-y sm:divide-y-0 sm:divide-x divide-slate-100">
+          <div className="grid grid-cols-1 sm:grid-cols-2 divide-y sm:divide-y-0 sm:divide-x divide-slate-100">
             {([
-              { icon: Banknote, title: t('feature_1_title'), desc: t('feature_1_desc') },
               { icon: Shield, title: t('feature_2_title'), desc: t('feature_2_desc') },
               { icon: Truck, title: t('feature_3_title'), desc: t('feature_3_desc') },
             ] as const).map(f => (
