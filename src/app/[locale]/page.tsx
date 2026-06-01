@@ -3,7 +3,7 @@ import { getTranslations } from 'next-intl/server'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { Locale, Product, ProductImage } from '@/types'
-import { ArrowRight, Sparkles, Shield, Truck, Star } from 'lucide-react'
+import { ArrowRight, Sparkles, Shield, Truck } from 'lucide-react'
 import ProductCard from '@/components/shop/ProductCard'
 import HeroModel from '@/components/shop/HeroModel'
 import type { Metadata } from 'next'
@@ -85,19 +85,6 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
                 </Link>
               </div>
 
-              <div className="flex items-center gap-3 mt-8">
-                <div className="flex -space-x-2">
-                  {['bg-indigo-300', 'bg-[#334E68]', 'bg-purple-300', 'bg-indigo-400'].map((c, i) => (
-                    <div key={i} className={`w-8 h-8 rounded-full ${c} border-2 border-white`} />
-                  ))}
-                </div>
-                <div className="flex items-center gap-1">
-                  {[...Array(5)].map((_, i) => (
-                    <Star key={i} className="h-3.5 w-3.5 fill-amber-400 text-amber-400" />
-                  ))}
-                </div>
-                <p className="text-sm text-slate-500">{t('social_proof')}</p>
-              </div>
             </div>
 
             <div className="hidden lg:flex items-center justify-center">
