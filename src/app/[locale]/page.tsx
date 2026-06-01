@@ -174,18 +174,26 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
 
       {/* CTA */}
       <section className="mx-4 sm:mx-8 lg:mx-auto lg:max-w-7xl my-10">
-        <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-indigo-600 via-indigo-600 to-violet-700 px-8 py-12 text-center text-white">
-          <div className="absolute -top-16 -right-16 w-64 h-64 bg-white/5 rounded-full" />
-          <div className="absolute -bottom-12 -left-12 w-48 h-48 bg-white/5 rounded-full" />
+        <div className="relative overflow-hidden rounded-3xl px-8 py-12 text-center text-white"
+          style={{ background: 'linear-gradient(135deg, #102A43 0%, #1e3d5c 50%, #334E68 100%)' }}>
+          <div className="absolute -top-16 -right-16 w-64 h-64 rounded-full" style={{ background: '#C7A06F08' }} />
+          <div className="absolute -bottom-12 -left-12 w-48 h-48 rounded-full" style={{ background: '#C7A06F06' }} />
+          {/* Dekoratif altın çizgi */}
+          <div className="absolute top-0 left-0 right-0 h-0.5" style={{ background: 'linear-gradient(90deg, transparent, #C7A06F60, transparent)' }} />
           <div className="relative">
-            <div className="inline-flex items-center gap-2 bg-white/10 border border-white/20 rounded-full px-4 py-1.5 mb-6">
-              <Sparkles className="h-3.5 w-3.5 text-[#D9E2EC]" />
-              <span className="text-indigo-100 text-xs font-semibold tracking-wide uppercase">{t('cta_badge')}</span>
+            <div className="inline-flex items-center gap-2 rounded-full px-4 py-1.5 mb-6"
+              style={{ background: '#C7A06F20', border: '1px solid #C7A06F40' }}>
+              <Sparkles className="h-3.5 w-3.5" style={{ color: '#C7A06F' }} />
+              <span className="text-xs font-semibold tracking-wide uppercase" style={{ color: '#C7A06F' }}>{t('cta_badge')}</span>
             </div>
             <h3 className="text-xl sm:text-2xl font-bold mb-2">{t('cta_title')}</h3>
-            <p className="text-[#D9E2EC] mb-6 text-sm max-w-md mx-auto">{t('cta_desc')}</p>
+            <p className="mb-6 text-sm max-w-md mx-auto" style={{ color: '#D9E2EC' }}>{t('cta_desc')}</p>
             <Link href={`/${locale}/products`}>
-              <Button className="bg-white text-indigo-700 hover:bg-[#D9E2EC]/40 active:scale-[0.98] shadow-lg gap-2 px-7 h-10 rounded-xl font-semibold transition-all hover:-translate-y-0.5">
+              <Button className="active:scale-[0.98] shadow-lg gap-2 px-7 h-10 rounded-xl font-semibold transition-all hover:-translate-y-0.5"
+                style={{ background: '#C7A06F', color: '#102A43' }}
+                onMouseEnter={e => (e.currentTarget.style.background = '#b8905f')}
+                onMouseLeave={e => (e.currentTarget.style.background = '#C7A06F')}
+              >
                 {t('cta_btn')} <ArrowRight className="h-4 w-4" />
               </Button>
             </Link>

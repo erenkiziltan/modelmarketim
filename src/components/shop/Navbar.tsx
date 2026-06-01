@@ -41,13 +41,16 @@ export default function Navbar({ locale }: { locale: Locale }) {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 items-center justify-between">
 
-          {/* Logo */}
+          {/* Logo — sadece ikon kısmı (alt yazı kırpılmış) */}
           <Link href={`/${locale}`} className="flex items-center group">
-            <img
-              src="/logo.png"
-              alt="Model Marketim"
-              className="h-10 w-auto object-contain group-hover:opacity-90 transition-opacity"
-            />
+            <div style={{ position: 'relative', overflow: 'hidden', width: '140px', height: '52px' }}>
+              <img
+                src="/logo.png"
+                alt="Model Marketim"
+                style={{ position: 'absolute', top: 0, left: 0, height: '80px', width: 'auto' }}
+                className="group-hover:opacity-90 transition-opacity"
+              />
+            </div>
           </Link>
 
           {/* Desktop Nav */}

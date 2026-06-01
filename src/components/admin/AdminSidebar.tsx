@@ -26,13 +26,18 @@ export default function AdminSidebar() {
   }
 
   return (
-    <aside className="w-56 min-h-screen bg-slate-900 flex flex-col">
+    <aside className="w-56 min-h-screen flex flex-col" style={{ background: '#102A43' }}>
       {/* Logo */}
-      <div className="px-6 py-5 border-b border-slate-800">
-        <span className="text-lg font-bold text-white">
-          Model<span className="text-indigo-400">marketim</span>
-        </span>
-        <p className="text-xs text-slate-500 mt-0.5">Yönetim Paneli</p>
+      <div className="px-5 py-4 border-b" style={{ borderColor: '#1e3d5c' }}>
+        {/* Logo ikon kısmı */}
+        <div style={{ position: 'relative', overflow: 'hidden', width: '120px', height: '45px' }}>
+          <img
+            src="/logo.png"
+            alt="Model Marketim"
+            style={{ position: 'absolute', top: 0, left: 0, height: '69px', width: 'auto' }}
+          />
+        </div>
+        <p className="text-xs mt-1" style={{ color: '#C7A06F80' }}>Yönetim Paneli</p>
       </div>
 
       {/* Nav */}
@@ -47,9 +52,13 @@ export default function AdminSidebar() {
               className={cn(
                 'flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors',
                 active
-                  ? 'bg-indigo-600 text-white'
-                  : 'text-slate-400 hover:text-white hover:bg-slate-800'
+                  ? 'text-white'
+                  : 'hover:text-white'
               )}
+              style={active
+                ? { background: '#C7A06F', color: '#fff' }
+                : { color: '#7a9bb8' }
+              }
             >
               <Icon className="h-4 w-4" />
               {item.label}
@@ -59,10 +68,13 @@ export default function AdminSidebar() {
       </nav>
 
       {/* Logout */}
-      <div className="px-3 py-4 border-t border-slate-800">
+      <div className="px-3 py-4" style={{ borderTop: '1px solid #1e3d5c' }}>
         <button
           onClick={handleLogout}
-          className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-slate-400 hover:text-white hover:bg-slate-800 transition-colors w-full"
+          className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors w-full hover:text-white"
+          style={{ color: '#7a9bb8' }}
+          onMouseEnter={e => (e.currentTarget.style.background = '#1e3d5c')}
+          onMouseLeave={e => (e.currentTarget.style.background = 'transparent')}
         >
           <LogOut className="h-4 w-4" />
           Çıkış Yap
