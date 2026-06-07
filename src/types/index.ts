@@ -81,3 +81,29 @@ export interface CartItem {
   quantity: number
   selectedVariants: Record<string, string>
 }
+
+export interface Profile {
+  id: string
+  email: string
+  full_name: string
+  avatar_url: string
+  created_at: string
+}
+
+export interface Review {
+  id: string
+  product_id: string
+  user_id: string
+  rating: number
+  comment: string | null
+  created_at: string
+  updated_at: string
+}
+
+export interface ReviewImage {
+  id: string
+  review_id: string
+  url: string
+  sort_order: number
+  created_at: string
+}

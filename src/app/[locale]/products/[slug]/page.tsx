@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation'
 import { Locale, Product, ProductImage, ProductVariant } from '@/types'
 import ProductDetail from '@/components/shop/ProductDetail'
 import RelatedProducts from '@/components/shop/RelatedProducts'
+import ReviewSection from '@/components/shop/ReviewSection'
 import type { Metadata } from 'next'
 
 type FullProduct = Product & { product_images: ProductImage[]; product_variants: ProductVariant[] }
@@ -123,6 +124,7 @@ export default async function ProductPage({ params }: Props) {
       />
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12">
         <ProductDetail product={product} locale={locale as Locale} />
+        <ReviewSection productId={product.id} locale={locale as Locale} />
         <RelatedProducts currentSlug={slug} locale={locale as Locale} />
       </div>
     </>

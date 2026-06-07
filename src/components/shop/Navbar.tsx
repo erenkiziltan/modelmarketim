@@ -3,13 +3,15 @@
 import Link from 'next/link'
 import { useTranslations } from 'next-intl'
 import { useRouter, usePathname } from '@/i18n/navigation'
-import { Menu, X, Heart } from 'lucide-react'
+import { Menu, X, Heart, LogIn } from 'lucide-react'
 /* CART_DISABLED: import { ShoppingCart } from 'lucide-react' */
 import { useState, useEffect } from 'react'
 /* CART_DISABLED: import { useCart } from '@/components/shop/CartProvider' */
 import { Locale } from '@/types'
 import { cn } from '@/lib/utils'
 import { useFavorites } from '@/components/shop/FavoritesProvider'
+import { createClient } from '@/lib/supabase/client'
+import type { User } from '@supabase/supabase-js'
 
 export default function Navbar({ locale }: { locale: Locale }) {
   const t = useTranslations('nav')
@@ -17,6 +19,8 @@ export default function Navbar({ locale }: { locale: Locale }) {
   const { favorites } = useFavorites()
   const [mobileOpen, setMobileOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
+  const [user, setUser] = useState<User | null>(null)
+  const [userMenuOpen, setUserMenuOpen] = useState(false)
   const router = useRouter()
   const pathname = usePathname()
   const otherLocale: Locale = locale === 'tr' ? 'en' : 'tr'
@@ -27,8 +31,35 @@ export default function Navbar({ locale }: { locale: Locale }) {
     return () => window.removeEventListener('scroll', handler)
   }, [])
 
+  useEffect(() => {
+    const supabase = createClient()
+    supabase.auth.getUser().then(({ data }) => setUser(data.user))
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_, session) => {
+      setUser(session?.user ?? null)
+    })
+    return () => subscription.unsubscribe()
+  }, [])
+
   const switchLocale = () => {
     router.replace(pathname, { locale: otherLocale })
+  }
+
+  async function handleLogout() {
+    const supabase = createClient()
+    await supabase.auth.signOut()
+    setUser(null)
+    setUserMenuOpen(false)
+    router.refresh()
+  }
+
+  function handleSignIn() {
+    const supabase = createClient()
+    supabase.auth.signInWithOAuth({
+      provider: 'google',
+      options: {
+        redirectTo: `${window.location.origin}/api/auth/callback?next=${encodeURIComponent(window.location.pathname)}`,
+      },
+    })
   }
 
   return (
@@ -88,6 +119,45 @@ export default function Navbar({ locale }: { locale: Locale }) {
                 </span>
               )}
             </Link>
+
+            {/* Kullanıcı */}
+            {user ? (
+              <div className="relative">
+                <button
+                  onClick={() => setUserMenuOpen(o => !o)}
+                  className="w-9 h-9 rounded-full overflow-hidden border-2 border-[#C7A06F]/40 hover:border-[#C7A06F] transition-colors flex-shrink-0"
+                >
+                  {user.user_metadata?.avatar_url ? (
+                    <img src={user.user_metadata.avatar_url} alt="" className="w-full h-full object-cover" />
+                  ) : (
+                    <div className="w-full h-full bg-[#102A43] text-white text-xs font-bold flex items-center justify-center">
+                      {user.email?.[0]?.toUpperCase() ?? 'U'}
+                    </div>
+                  )}
+                </button>
+                {userMenuOpen && (
+                  <div className="absolute right-0 top-full mt-2 bg-white border border-slate-100 rounded-xl shadow-lg p-1.5 w-48 z-50">
+                    <p className="text-xs text-slate-400 px-3 py-1.5 truncate border-b border-slate-100 mb-1">
+                      {user.user_metadata?.full_name ?? user.email}
+                    </p>
+                    <button
+                      onClick={handleLogout}
+                      className="w-full text-left px-3 py-2 text-sm text-slate-600 hover:bg-slate-50 rounded-lg transition-colors"
+                    >
+                      Çıkış Yap
+                    </button>
+                  </div>
+                )}
+              </div>
+            ) : (
+              <button
+                onClick={handleSignIn}
+                className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-slate-500 hover:text-[#C7A06F] hover:bg-[#D9E2EC]/40 rounded-lg transition-all"
+              >
+                <LogIn className="h-3.5 w-3.5" />
+                Giriş
+              </button>
+            )}
 
             {/* CART_DISABLED: Sepet ikonu - online ödeme entegrasyonu tamamlandığında aç
             <button
