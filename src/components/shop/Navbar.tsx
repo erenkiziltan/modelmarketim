@@ -140,6 +140,13 @@ export default function Navbar({ locale }: { locale: Locale }) {
                     <p className="text-xs text-slate-400 px-3 py-1.5 truncate border-b border-slate-100 mb-1">
                       {user.user_metadata?.full_name ?? user.email}
                     </p>
+                    <Link
+                      href={`/${locale}/hesabim`}
+                      onClick={() => setUserMenuOpen(false)}
+                      className="w-full text-left px-3 py-2 text-sm text-slate-600 hover:bg-slate-50 rounded-lg transition-colors flex items-center gap-2"
+                    >
+                      Hesabım
+                    </Link>
                     <button
                       onClick={handleLogout}
                       className="w-full text-left px-3 py-2 text-sm text-slate-600 hover:bg-slate-50 rounded-lg transition-colors"
